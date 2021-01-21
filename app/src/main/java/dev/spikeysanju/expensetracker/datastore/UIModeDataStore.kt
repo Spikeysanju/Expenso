@@ -9,16 +9,16 @@ import androidx.datastore.preferences.createDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 
-
 abstract class PrefsDataStore(context: Context, fileName: String) {
     internal val dataStore: DataStore<Preferences> = context.createDataStore(fileName)
 }
 
-class UIModeDataStore(context: Context) : PrefsDataStore(
+class UIModeDataStore(context: Context) :
+    PrefsDataStore(
         context,
         PREF_FILE_UI_MODE
-), UIModeImpl {
-
+    ),
+    UIModeImpl {
 
     // used to get the data from datastore
     override val uiMode: Flow<Boolean>
@@ -38,7 +38,6 @@ class UIModeDataStore(context: Context) : PrefsDataStore(
         private const val PREF_FILE_UI_MODE = "ui_mode_preference"
         private val UI_MODE_KEY = preferencesKey<Boolean>("ui_mode")
     }
-
 }
 
 interface UIModeImpl {

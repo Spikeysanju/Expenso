@@ -13,11 +13,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 
-class TransactionViewModel(application: Application, private val transactionRepo: TransactionRepo) : AndroidViewModel(application) {
+class TransactionViewModel(
+    application: Application,
+    private val transactionRepo: TransactionRepo
+) :
+    AndroidViewModel(application) {
 
     val transactionFilter = MutableStateFlow<String>("Overall")
     val filterState = transactionFilter.asStateFlow()
-
 
     private val _uiState = MutableStateFlow<ViewState>(ViewState.Loading)
 
@@ -61,9 +64,7 @@ class TransactionViewModel(application: Application, private val transactionRepo
                 } else {
                     _uiState.value = ViewState.Success(result)
                 }
-
             }
         }
     }
-
 }

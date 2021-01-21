@@ -15,11 +15,16 @@ buildscript {
     }
 }
 
+plugins {
+    id "org.jlleitschuh.gradle.ktlint" version "9.4.1"
+}
+
 allprojects {
     repositories {
         google()
         jcenter()
     }
+    apply plugin: "org.jlleitschuh.gradle.ktlint"
 }
 
 task clean(type: Delete) {
