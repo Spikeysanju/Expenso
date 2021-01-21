@@ -7,17 +7,17 @@ class TransactionRepo(private val db: AppDatabase) {
 
     // insert transaction
     suspend fun insert(transaction: Transaction) = db.getTransactionDao().insertTransaction(
-            transaction
+        transaction
     )
 
     // update transaction
     suspend fun update(transaction: Transaction) = db.getTransactionDao().updateTransaction(
-            transaction
+        transaction
     )
 
     // delete transaction
     suspend fun delete(transaction: Transaction) = db.getTransactionDao().deleteTransaction(
-            transaction
+        transaction
     )
 
     // get all transaction
