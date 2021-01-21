@@ -16,8 +16,7 @@ import kotlinx.coroutines.launch
 class TransactionViewModel(
         application: Application,
         private val transactionRepo: TransactionRepo
-) :
-        AndroidViewModel(application) {
+) : AndroidViewModel(application) {
 
     val transactionFilter = MutableStateFlow<String>("Overall")
     val filterState = transactionFilter.asStateFlow()
