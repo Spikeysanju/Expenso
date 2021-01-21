@@ -6,16 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import dev.spikeysanju.expensetracker.model.Transaction
 
-
 @Database(
-        entities = [Transaction::class],
-        version = 1,
-        exportSchema = false
+    entities = [Transaction::class],
+    version = 1,
+    exportSchema = false
 )
 abstract class AppDatabase : RoomDatabase() {
 
     abstract fun getTransactionDao(): TransactionDao
-
 
     companion object {
         @Volatile
@@ -28,11 +26,10 @@ abstract class AppDatabase : RoomDatabase() {
             instance ?: createDatabase(context).also { instance = it }
         }
 
-
         private fun createDatabase(context: Context) = Room.databaseBuilder(
-                context.applicationContext,
-                AppDatabase::class.java,
-                "transaction.db"
+            context.applicationContext,
+            AppDatabase::class.java,
+            "transaction.db"
         ).build()
     }
 }

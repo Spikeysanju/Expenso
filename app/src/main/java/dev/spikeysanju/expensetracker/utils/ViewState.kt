@@ -2,7 +2,6 @@ package dev.spikeysanju.expensetracker.utils
 
 import dev.spikeysanju.expensetracker.model.Transaction
 
-
 sealed class ViewState {
     object Loading : ViewState()
     object Empty : ViewState()

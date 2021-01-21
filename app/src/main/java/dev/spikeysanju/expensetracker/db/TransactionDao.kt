@@ -26,5 +26,4 @@ interface TransactionDao {
     // get all income or expense list by transaction type param
     @Query("SELECT * FROM all_transactions WHERE transactionType == :transactionType")
     fun getAllSingleTransaction(transactionType: String): Flow<List<Transaction>>
-
 }
