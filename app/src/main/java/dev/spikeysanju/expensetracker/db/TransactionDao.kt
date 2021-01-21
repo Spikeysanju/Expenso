@@ -23,8 +23,8 @@ interface TransactionDao {
     @Query("SELECT * FROM all_transactions")
     fun getAllTransactions(): Flow<List<Transaction>>
 
-    // get all income or expense list
+    // get all income or expense list by transaction type param
     @Query("SELECT * FROM all_transactions WHERE transactionType == :transactionType")
-    fun getTransaction(transactionType: String): Flow<List<Transaction>>
+    fun getAllSingleTransaction(transactionType: String): Flow<List<Transaction>>
 
 }
