@@ -2,6 +2,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.view.View
 import com.google.android.material.textfield.TextInputEditText
+import java.text.NumberFormat
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -45,4 +46,14 @@ fun TextInputEditText.transformIntoDatePicker(
             show()
         }
     }
+}
+
+// indian rupee converter
+fun indianRupee(amount: Double): String {
+
+    val format: NumberFormat = NumberFormat.getCurrencyInstance()
+    format.maximumFractionDigits = 0
+    format.currency = Currency.getInstance("INR")
+
+    return format.format(amount)
 }

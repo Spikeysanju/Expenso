@@ -5,4 +5,6 @@
     <color name="black">#FFFFFFFF</color>
     <color name="surface">#1A191E</color>
     <color name="background">#121212</color>
+    <color name="income">#6FCF97</color>
+    <color name="expense">#EB5757</color>
 </resources>
