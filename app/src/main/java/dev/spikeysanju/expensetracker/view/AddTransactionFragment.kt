@@ -6,7 +6,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import dev.spikeysanju.expensetracker.R
@@ -26,9 +25,6 @@ class AddTransactionFragment : BaseFragment<FragmentAddTransactionBinding, Trans
     override val viewModel: TransactionViewModel by viewModels {
         viewModelFactory { TransactionViewModel(requireActivity().application, transactionRepo) }
     }
-
-    private val viewModelsss: TransactionViewModel by activityViewModels()
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -85,7 +81,7 @@ class AddTransactionFragment : BaseFragment<FragmentAddTransactionBinding, Trans
                             this.etNote.error = "Note must note be empty"
                         }
                         else -> {
-                            viewModelsss.insertTransaction(getTransactionContent()).also {
+                            viewModel.insertTransaction(getTransactionContent()).also {
                                 toast(getString(R.string.success_expense_saved)).also {
                                     findNavController().navigate(
                                         R.id.action_addTransactionFragment_to_dashboardFragment
