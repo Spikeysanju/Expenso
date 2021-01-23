@@ -17,9 +17,12 @@ import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
 import kotlinx.coroutines.flow.collect
 
-class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionViewModel>() {
+class DashboardFragment :
+    BaseFragment<FragmentDashboardBinding, TransactionViewModel>() {
 
-    private val transactionRepo by lazy { TransactionRepo(AppDatabase.invoke(applicationContext())) }
+    private val transactionRepo by lazy {
+        TransactionRepo(AppDatabase.invoke(applicationContext()))
+    }
     override val viewModel: TransactionViewModel by viewModels {
         viewModelFactory { TransactionViewModel(requireActivity().application, transactionRepo) }
     }
@@ -61,5 +64,4 @@ class DashboardFragment : BaseFragment<FragmentDashboardBinding, TransactionView
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentDashboardBinding.inflate(inflater, container, false)
-
 }

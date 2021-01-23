@@ -1,6 +1,5 @@
 package dev.spikeysanju.expensetracker.view
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -20,8 +19,11 @@ import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
 import transformIntoDatePicker
 import java.util.*
 
-class AddTransactionFragment : BaseFragment<FragmentAddTransactionBinding, TransactionViewModel>() {
-    private val transactionRepo by lazy { TransactionRepo(AppDatabase.invoke(applicationContext())) }
+class AddTransactionFragment :
+    BaseFragment<FragmentAddTransactionBinding, TransactionViewModel>() {
+    private val transactionRepo by lazy {
+        TransactionRepo(AppDatabase.invoke(applicationContext()))
+    }
     override val viewModel: TransactionViewModel by viewModels {
         viewModelFactory { TransactionViewModel(requireActivity().application, transactionRepo) }
     }
@@ -32,7 +34,6 @@ class AddTransactionFragment : BaseFragment<FragmentAddTransactionBinding, Trans
     }
 
     private fun initViews() {
-
 
         val transactionTypeAdapter =
             ArrayAdapter(
@@ -95,7 +96,6 @@ class AddTransactionFragment : BaseFragment<FragmentAddTransactionBinding, Trans
         }
     }
 
-
     private fun getTransactionContent(): Transaction = binding.addTransactionLayout.let {
         val title = it.etTitle.text.toString()
         val amount = it.etAmount.text.toString().toDouble()
@@ -107,10 +107,8 @@ class AddTransactionFragment : BaseFragment<FragmentAddTransactionBinding, Trans
         return Transaction(title, amount, transactionType, tag, date, note)
     }
 
-
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentAddTransactionBinding.inflate(inflater, container, false)
-
 }

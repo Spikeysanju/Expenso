@@ -58,7 +58,6 @@ class MainActivity : AppCompatActivity() {
                         }
                     }
                 }
-
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -66,9 +65,7 @@ class MainActivity : AppCompatActivity() {
                     viewModel.transactionFilter.value = "Overall"
                 }
             }
-
         }
-
     }
 
     private fun observeNavElements(
@@ -91,9 +88,7 @@ class MainActivity : AppCompatActivity() {
                     binding.spinner.show()
                     supportActionBar!!.setDisplayShowTitleEnabled(false)
                 }
-
             }
-
         }
     }
 
@@ -112,13 +107,14 @@ class MainActivity : AppCompatActivity() {
 
         // setup filters
         val adapter = ArrayAdapter(
-            applicationContext, R.layout.item_filter_dropdown, resources.getStringArray(
+            applicationContext,
+            R.layout.item_filter_dropdown,
+            resources.getStringArray(
                 R.array.allFilters
             )
         )
         spinner.adapter = adapter
     }
-
 
     override fun onSupportNavigateUp(): Boolean {
         navHostFragment.navController.navigateUp()
