@@ -5,9 +5,10 @@
     <!-- Base application theme. -->
     <style name="Theme.ExpenseTracker" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <!-- Primary brand color. -->
-        <item name="colorPrimary">@color/white</item>
+        <item name="colorPrimary">@color/blue_500</item>
         <item name="colorPrimaryVariant">@color/white</item>
         <item name="colorOnPrimary">@color/black</item>
+        <item name="colorAccent">@color/blue_500</item>
         <!-- Status bar color. -->
         <item name="android:statusBarColor" tools:targetApi="l">?colorSurface</item>
         <item name="android:windowLightStatusBar" tools:targetApi="m">@bool/lightNavEnabled</item>

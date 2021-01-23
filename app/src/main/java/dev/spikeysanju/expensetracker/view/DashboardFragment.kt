@@ -41,7 +41,7 @@ class DashboardFragment :
                     is ViewState.Loading -> {
                     }
                     is ViewState.Success -> {
-                        toast("Transaction is ${uiState.transaction.first().title}")
+                        toast("Transaction is ${uiState.transaction.last().title}")
                     }
                     is ViewState.Error -> {
                         toast("Error")
@@ -64,4 +64,5 @@ class DashboardFragment :
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentDashboardBinding.inflate(inflater, container, false)
+
 }
