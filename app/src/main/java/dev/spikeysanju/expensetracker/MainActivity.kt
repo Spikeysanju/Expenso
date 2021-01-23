@@ -12,6 +12,9 @@ import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import dev.spikeysanju.expensetracker.databinding.ActivityMainBinding
+import dev.spikeysanju.expensetracker.db.AppDatabase
+import dev.spikeysanju.expensetracker.repo.TransactionRepo
+import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
 import hide
 import kotlinx.android.synthetic.main.activity_main.*
@@ -20,18 +23,21 @@ import show
 class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
-    private val binding = ActivityMainBinding.inflate(layoutInflater)
-    private val viewModel: TransactionViewModel by viewModels()
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        initViews()
-        observeFilter()
-        observeNavElements(binding, navHostFragment.navController)
-
+    private val transactionRepo by lazy { TransactionRepo(AppDatabase.invoke(this)) }
+    val viewModel: TransactionViewModel by viewModels {
+        viewModelFactory { TransactionViewModel(application, transactionRepo) }
     }
 
-    private fun observeFilter() = with(binding) {
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        val binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
+        initViews(binding)
+        observeFilter(binding)
+        observeNavElements(binding, navHostFragment.navController)
+    }
+
+    private fun observeFilter(binding: ActivityMainBinding) = with(binding) {
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onItemSelected(
                 parent: AdapterView<*>?,
@@ -91,7 +97,7 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun initViews() {
+    private fun initViews(binding: ActivityMainBinding) {
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 

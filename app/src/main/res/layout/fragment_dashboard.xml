@@ -15,7 +15,7 @@
         android:layout_margin="@dimen/dimen_32"
         android:backgroundTint="@color/blue_500"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/ic_launcher_background"
+        android:src="@drawable/ic_baseline_add"
         app:tint="@color/white"
         tools:ignore="UnusedAttribute" />
 
