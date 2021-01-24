@@ -81,4 +81,3 @@ class TransactionViewModel(
         _transactionFilter.value = "Overall"
     }
 }
-

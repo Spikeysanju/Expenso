@@ -7,7 +7,6 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -30,7 +29,6 @@ import indianRupee
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import show
-
 
 class DashboardFragment :
     BaseFragment<FragmentDashboardBinding, TransactionViewModel>() {
@@ -62,13 +60,11 @@ class DashboardFragment :
                         incomeCardView.totalTitle.text = getString(R.string.text_total_income)
                         expenseCardView.totalTitle.text = getString(R.string.text_total_expense)
                         expenseCardView.totalIcon.setImageResource(R.drawable.ic_expense)
-
                     }
                     "Income" -> {
                         totalBalanceView.totalBalanceTitle.text =
                             getString(R.string.text_total_income)
                         totalIncomeExpenseView.hide()
-
                     }
                     "Expense" -> {
                         totalBalanceView.totalBalanceTitle.text =
@@ -147,7 +143,6 @@ class DashboardFragment :
         incomeCardView.total.text = indianRupee(income)
         expenseCardView.total.text = indianRupee(expense)
         totalBalanceView.totalBalance.text = indianRupee(income - expense)
-
     }
 
     private fun observeTransaction() = lifecycleScope.launchWhenStarted {
@@ -172,7 +167,6 @@ class DashboardFragment :
     private fun onTransactionLoaded(list: List<Transaction>) =
         transactionAdapter.differ.submitList(list)
 
-
     private fun initViews() = with(binding) {
         setHasOptionsMenu(true)
         btnAddTransaction.setOnClickListener {
@@ -193,7 +187,8 @@ class DashboardFragment :
 
         val adapter = ArrayAdapter.createFromResource(
             applicationContext(),
-            R.array.allFilters, R.layout.item_filter_dropdown
+            R.array.allFilters,
+            R.layout.item_filter_dropdown
         )
         adapter.setDropDownViewResource(R.layout.item_filter_dropdown)
         spinner.adapter = adapter
@@ -209,31 +204,15 @@ class DashboardFragment :
                     when (position) {
                         0 -> {
                             viewModel.overall()
-                            (view as TextView).setTextColor(
-                                ContextCompat.getColor(
-                                    applicationContext(),
-                                    R.color.black
-                                )
-                            )
-
+                            (view as TextView).setTextColor(resources.getColor(R.color.black))
                         }
                         1 -> {
                             viewModel.allIncome()
-                            (view as TextView).setTextColor(
-                                ContextCompat.getColor(
-                                    applicationContext(),
-                                    R.color.black
-                                )
-                            )
+                            (view as TextView).setTextColor(resources.getColor(R.color.black))
                         }
                         2 -> {
                             viewModel.allExpense()
-                            (view as TextView).setTextColor(
-                                ContextCompat.getColor(
-                                    applicationContext(),
-                                    R.color.black
-                                )
-                            )
+                            (view as TextView).setTextColor(resources.getColor(R.color.black))
                         }
                     }
                 }
