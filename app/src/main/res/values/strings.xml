@@ -20,4 +20,5 @@
     <string name="text_title">Title</string>
     <string name="text_about">About</string>
     <string name="text_filter">Filter</string>
+    <string name="text_edit">Edit</string>
 </resources>

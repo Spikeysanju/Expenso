@@ -42,8 +42,8 @@ class DashboardFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initViews()
         setupRV()
+        initViews()
         observeFilter()
         observeTransaction()
         swipeToDelete()
@@ -171,6 +171,16 @@ class DashboardFragment :
         setHasOptionsMenu(true)
         btnAddTransaction.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_addTransactionFragment)
+        }
+
+        transactionAdapter.setOnItemClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("transaction", it)
+            }
+            findNavController().navigate(
+                R.id.action_dashboardFragment_to_transactionDetailsFragment,
+                bundle
+            )
         }
     }
 
