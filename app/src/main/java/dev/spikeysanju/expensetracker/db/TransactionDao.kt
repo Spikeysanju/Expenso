@@ -20,10 +20,10 @@ interface TransactionDao {
     suspend fun deleteTransaction(transaction: Transaction)
 
     // get all saved transaction list
-    @Query("SELECT * FROM all_transactions")
+    @Query("SELECT * FROM all_transactions ORDER by createdAt DESC")
     fun getAllTransactions(): Flow<List<Transaction>>
 
     // get all income or expense list by transaction type param
-    @Query("SELECT * FROM all_transactions WHERE transactionType == :transactionType")
+    @Query("SELECT * FROM all_transactions WHERE transactionType == :transactionType ORDER by createdAt DESC")
     fun getAllSingleTransaction(transactionType: String): Flow<List<Transaction>>
 }

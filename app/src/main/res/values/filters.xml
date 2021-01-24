@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="allFilters">
+        <item>Overall</item>
+        <item>All Income</item>
+        <item>All Expense</item>
+    </string-array>
+</resources>

@@ -8,9 +8,7 @@ import java.text.DateFormat
 
 @Entity(tableName = "all_transactions")
 data class Transaction(
-    @PrimaryKey(autoGenerate = true)
-    @ColumnInfo(name = "id")
-    var id: Int = 0,
+
     @ColumnInfo(name = "title")
     var title: String,
     @ColumnInfo(name = "amount")
@@ -25,7 +23,10 @@ data class Transaction(
     var note: String,
     @ColumnInfo(name = "createdAt")
     var createdAt: Long =
-        System.currentTimeMillis()
+        System.currentTimeMillis(),
+    @PrimaryKey(autoGenerate = true)
+    @ColumnInfo(name = "id")
+    var id: Int = 0,
 ) : Serializable {
     val createdAtDateFormat: String
         get() = DateFormat.getDateTimeInstance()

@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="PrimaryButton" parent="Widget.MaterialComponents.Button">
+        <item name="textAllCaps">true</item>
+        <item name="fontFamily">@font/open_sans_semibold</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="rippleColor">@color/blue_500</item>
+        <item name="backgroundTint">@color/blue_500</item>
+        <item name="android:padding">10dp</item>
+    </style>
+
+    <style name="PrimaryEditText" parent="Widget.MaterialComponents.TextInputLayout.FilledBox">
+        <item name="fontFamily">@font/open_sans_regular</item>
+        <item name="boxBackgroundColor">@color/background</item>
+        <item name="hintAnimationEnabled">true</item>
+        <item name="android:textSize">14sp</item>
+        <item name="android:textColor">@color/black</item>
+        <item name="backgroundTint">@color/blue_500</item>
+    </style>
+
+</resources>
