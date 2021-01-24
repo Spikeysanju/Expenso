@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -208,16 +209,31 @@ class DashboardFragment :
                     when (position) {
                         0 -> {
                             viewModel.overall()
-                            (view as TextView).setTextColor(resources.getColor(R.color.black))
+                            (view as TextView).setTextColor(
+                                ContextCompat.getColor(
+                                    applicationContext(),
+                                    R.color.black
+                                )
+                            )
 
                         }
                         1 -> {
                             viewModel.allIncome()
-                            (view as TextView).setTextColor(resources.getColor(R.color.black))
+                            (view as TextView).setTextColor(
+                                ContextCompat.getColor(
+                                    applicationContext(),
+                                    R.color.black
+                                )
+                            )
                         }
                         2 -> {
                             viewModel.allExpense()
-                            (view as TextView).setTextColor(resources.getColor(R.color.black))
+                            (view as TextView).setTextColor(
+                                ContextCompat.getColor(
+                                    applicationContext(),
+                                    R.color.black
+                                )
+                            )
                         }
                     }
                 }
