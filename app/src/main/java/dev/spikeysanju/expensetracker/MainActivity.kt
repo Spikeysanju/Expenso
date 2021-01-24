@@ -44,10 +44,9 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
-        navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
-                    as NavHostFragment?
-                ?: return
+        navHostFragment = supportFragmentManager
+            .findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
+            ?: return
 
         with(navHostFragment.navController) {
             appBarConfiguration = AppBarConfiguration(graph)
