@@ -45,7 +45,8 @@ class MainActivity : AppCompatActivity() {
         supportActionBar!!.setDisplayShowTitleEnabled(false)
 
         navHostFragment =
-            supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment?
+            supportFragmentManager.findFragmentById(R.id.nav_host_fragment)
+                    as NavHostFragment?
                 ?: return
 
         with(navHostFragment.navController) {

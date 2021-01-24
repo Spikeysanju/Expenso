@@ -24,6 +24,9 @@ interface TransactionDao {
     fun getAllTransactions(): Flow<List<Transaction>>
 
     // get all income or expense list by transaction type param
-    @Query("SELECT * FROM all_transactions WHERE transactionType == :transactionType ORDER by createdAt DESC")
+    @Query(
+        "SELECT * FROM all_transactions " +
+                "WHERE transactionType == :transactionType ORDER by createdAt DESC"
+    )
     fun getAllSingleTransaction(transactionType: String): Flow<List<Transaction>>
 }
