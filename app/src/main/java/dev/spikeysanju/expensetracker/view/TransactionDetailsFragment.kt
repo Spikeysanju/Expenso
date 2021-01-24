@@ -34,7 +34,7 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
             val bundle = Bundle().apply {
                 putSerializable("Transaction", transaction)
             }
-            //TODO: (Add Navigation here to Edit Transaction)
+            // TODO: (Add Navigation here to Edit Transaction)
         }
     }
 
@@ -42,5 +42,4 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentTransactionDetailsBinding.inflate(inflater, container, false)
-
 }
