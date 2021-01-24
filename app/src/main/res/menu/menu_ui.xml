@@ -1,0 +1,24 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/spinner"
+        android:iconTint="@color/black"
+        android:title="@string/text_filter"
+        app:actionViewClass="androidx.appcompat.widget.AppCompatSpinner"
+        app:showAsAction="always" />
+
+    <item
+        android:id="@+id/action_night_mode"
+        android:checkable="true"
+        android:icon="@drawable/ic_others"
+        android:title="@string/text_ui_mode"
+        app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_about"
+        android:enabled="true"
+        android:title="@string/text_about"
+        app:showAsAction="never" />
+
+</menu>

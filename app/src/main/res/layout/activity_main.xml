@@ -17,22 +17,7 @@
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?actionBarSize">
-
-
-            <Spinner
-                android:id="@+id/spinner"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="4dp"
-                android:layout_marginLeft="4dp"
-                android:backgroundTint="@color/black"
-                android:dropDownWidth="200dp"
-                android:popupBackground="@color/white"
-                tools:listitem="@layout/item_filter_dropdown" />
-
-        </androidx.appcompat.widget.Toolbar>
-
+            android:layout_height="?actionBarSize" />
     </com.google.android.material.appbar.AppBarLayout>
 
     <androidx.fragment.app.FragmentContainerView
@@ -40,7 +25,7 @@
         android:name="androidx.navigation.fragment.NavHostFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/dimen_64"
+        android:layout_marginTop="?actionBarSize"
         app:defaultNavHost="true"
         app:navGraph="@navigation/nav_graph" />
 

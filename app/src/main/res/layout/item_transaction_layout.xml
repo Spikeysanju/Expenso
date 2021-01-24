@@ -4,7 +4,7 @@
     android:id="@+id/transactionCardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="@dimen/dimen_8"
+    android:layout_margin="@dimen/dimen_4"
     app:cardBackgroundColor="@color/surface"
     app:cardElevation="@dimen/dimen_0">
 
@@ -30,7 +30,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
-            android:layout_marginLeft="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_24"
             android:fontFamily="@font/open_sans_semibold"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
@@ -43,7 +42,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
-            android:layout_marginLeft="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_16"
             android:fontFamily="@font/open_sans_regular"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
@@ -57,7 +55,6 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/dimen_16"
             android:layout_marginEnd="@dimen/dimen_24"
-            android:layout_marginRight="@dimen/dimen_24"
             android:fontFamily="@font/open_sans_semibold"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
             android:textColor="@android:color/holo_red_light"

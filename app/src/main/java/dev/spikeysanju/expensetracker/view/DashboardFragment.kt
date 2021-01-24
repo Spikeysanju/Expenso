@@ -1,9 +1,12 @@
 package dev.spikeysanju.expensetracker.view
 
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
+import android.widget.Spinner
+import android.widget.TextView
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -21,8 +24,12 @@ import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.adapter.TransactionAdapter
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
+import hide
 import indianRupee
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
+import show
+
 
 class DashboardFragment :
     BaseFragment<FragmentDashboardBinding, TransactionViewModel>() {
@@ -37,10 +44,40 @@ class DashboardFragment :
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()
-        observeData()
         setupRV()
-        observeDashboardTotal()
+        observeFilter()
+        observeTransaction()
         swipeToDelete()
+    }
+
+    private fun observeFilter() = with(binding) {
+        lifecycleScope.launchWhenCreated {
+            viewModel.transactionFilter.collect { filter ->
+                when (filter) {
+                    "Overall" -> {
+                        totalBalanceView.totalBalanceTitle.text =
+                            getString(R.string.text_total_balance)
+                        totalIncomeExpenseView.show()
+                        incomeCardView.totalTitle.text = getString(R.string.text_total_income)
+                        expenseCardView.totalTitle.text = getString(R.string.text_total_expense)
+                        expenseCardView.totalIcon.setImageResource(R.drawable.ic_expense)
+
+                    }
+                    "Income" -> {
+                        totalBalanceView.totalBalanceTitle.text =
+                            getString(R.string.text_total_income)
+                        totalIncomeExpenseView.hide()
+
+                    }
+                    "Expense" -> {
+                        totalBalanceView.totalBalanceTitle.text =
+                            getString(R.string.text_total_expense)
+                        totalIncomeExpenseView.hide()
+                    }
+                }
+                viewModel.getAllTransaction(filter)
+            }
+        }
     }
 
     private fun setupRV() = with(binding) {
@@ -102,19 +139,6 @@ class DashboardFragment :
         }
     }
 
-    private fun observeDashboardTotal() = lifecycleScope.launchWhenStarted {
-        viewModel.uiState.collect { uiState ->
-            when (uiState) {
-                ViewState.Loading -> TODO()
-                ViewState.Empty -> TODO()
-                is ViewState.Success -> {
-                    onTotalTransactionLoaded(uiState.transaction)
-                }
-                is ViewState.Error -> TODO()
-            }
-        }
-    }
-
     private fun onTotalTransactionLoaded(transaction: List<Transaction>) = with(binding) {
         val (totalIncome, totalExpense) = transaction.partition { it.transactionType == "Income" }
         val income = totalIncome.sumByDouble { it.amount }
@@ -125,32 +149,31 @@ class DashboardFragment :
 
     }
 
-    private fun observeData() {
-
-        lifecycleScope.launchWhenStarted {
-            viewModel.uiState.collect { uiState ->
-                when (uiState) {
-                    is ViewState.Loading -> {
-                    }
-                    is ViewState.Success -> {
-                        onTransactionLoaded(uiState.transaction)
-                    }
-                    is ViewState.Error -> {
-                        toast("Error")
-                    }
-                    is ViewState.Empty -> {
-                        toast("Empty")
-                    }
+    private fun observeTransaction() = lifecycleScope.launchWhenStarted {
+        viewModel.uiState.collect { uiState ->
+            when (uiState) {
+                is ViewState.Loading -> {
+                }
+                is ViewState.Success -> {
+                    onTransactionLoaded(uiState.transaction)
+                    onTotalTransactionLoaded(uiState.transaction)
+                }
+                is ViewState.Error -> {
+                    toast("Error")
+                }
+                is ViewState.Empty -> {
+                    toast("Empty")
                 }
             }
         }
     }
 
-    private fun onTransactionLoaded(list: List<Transaction>) {
+    private fun onTransactionLoaded(list: List<Transaction>) =
         transactionAdapter.differ.submitList(list)
-    }
+
 
     private fun initViews() = with(binding) {
+        setHasOptionsMenu(true)
         btnAddTransaction.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_addTransactionFragment)
         }
@@ -161,4 +184,87 @@ class DashboardFragment :
         container: ViewGroup?
     ) = FragmentDashboardBinding.inflate(inflater, container, false)
 
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_ui, menu)
+
+        val item = menu.findItem(R.id.spinner)
+        val spinner = item.actionView as Spinner
+
+        val adapter = ArrayAdapter.createFromResource(
+            applicationContext(),
+            R.array.allFilters, R.layout.item_filter_dropdown
+        )
+        adapter.setDropDownViewResource(R.layout.item_filter_dropdown)
+        spinner.adapter = adapter
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                lifecycleScope.launchWhenStarted {
+                    when (position) {
+                        0 -> {
+                            viewModel.overall()
+                            (view as TextView).setTextColor(resources.getColor(R.color.black))
+
+                        }
+                        1 -> {
+                            viewModel.allIncome()
+                            (view as TextView).setTextColor(resources.getColor(R.color.black))
+                        }
+                        2 -> {
+                            viewModel.allExpense()
+                            (view as TextView).setTextColor(resources.getColor(R.color.black))
+                        }
+                    }
+                }
+            }
+
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+                lifecycleScope.launchWhenStarted {
+                    viewModel.overall()
+                }
+            }
+        }
+
+        // Set the item state
+        lifecycleScope.launchWhenStarted {
+            val isChecked = viewModel.getUIMode.first()
+            val uiMode = menu.findItem(R.id.action_night_mode)
+            uiMode.isChecked = isChecked
+            setUIMode(uiMode, isChecked)
+        }
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        // Handle action bar item clicks here.
+        return when (item.itemId) {
+            R.id.action_night_mode -> {
+                item.isChecked = !item.isChecked
+                setUIMode(item, item.isChecked)
+                true
+            }
+
+            R.id.action_about -> {
+                toast("About")
+                true
+            }
+            else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    private fun setUIMode(item: MenuItem, isChecked: Boolean) {
+        if (isChecked) {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            viewModel.saveToDataStore(true)
+            item.setIcon(R.drawable.ic_night)
+        } else {
+            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            viewModel.saveToDataStore(false)
+            item.setIcon(R.drawable.ic_day)
+        }
+    }
 }
