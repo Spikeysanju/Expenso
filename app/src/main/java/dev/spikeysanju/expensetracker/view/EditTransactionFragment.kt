@@ -129,10 +129,8 @@ class EditTransactionFragment : BaseFragment<FragmentEditTransactionBinding, Tra
         )
     }
 
-
     override fun getViewBinding(
         inflater: LayoutInflater,
         container: ViewGroup?
     ) = FragmentEditTransactionBinding.inflate(inflater, container, false)
-
 }
