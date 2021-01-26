@@ -21,4 +21,5 @@
     <string name="text_about">About</string>
     <string name="text_filter">Filter</string>
     <string name="text_edit">Edit</string>
+    <string name="text_createdAt">Created At</string>
 </resources>
