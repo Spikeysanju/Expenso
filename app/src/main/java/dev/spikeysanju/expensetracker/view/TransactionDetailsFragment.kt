@@ -31,6 +31,7 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
         tag.text = transaction.tag
         date.text = transaction.date
         note.text = transaction.note
+        createdAt.text = transaction.createdAtDateFormat
 
         binding.editTransaction.setOnClickListener {
             val bundle = Bundle().apply {

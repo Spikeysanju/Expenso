@@ -148,6 +148,28 @@
             app:layout_constraintTop_toBottomOf="@id/caption_note"
             tools:text="Note" />
 
+        <TextView
+            android:id="@+id/caption_createdAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_24"
+            android:text="@string/text_expense_note"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/note" />
+
+        <TextView
+            android:id="@+id/createdAt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:layout_marginTop="@dimen/dimen_8"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/caption_createdAt"
+            tools:text="Sunday, 18 Dec 2021" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>

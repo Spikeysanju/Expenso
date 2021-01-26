@@ -40,7 +40,6 @@ class EditTransactionFragment : BaseFragment<FragmentEditTransactionBinding, Tra
     }
 
     private fun initViews() = with(binding) {
-
         val transactionTypeAdapter =
             ArrayAdapter(
                 requireContext(),
