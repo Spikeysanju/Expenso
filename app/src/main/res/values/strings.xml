@@ -13,7 +13,7 @@
     <string name="text_expense_transaction_type">Transaction type</string>
     <string name="text_expense_tag">Tag</string>
     <string name="text_expense_note">Note</string>
-    <string name="text_expense_add_transaction">Add Transaction</string>
+    <string name="text_expense_add_transaction">Save Transaction</string>
     <string name="text_expense_rupees">₹</string>
     <string name="success_expense_saved">Transaction saved successfully</string>
     <string name="success_transaction_delete">Transaction deleted successfully!</string>
