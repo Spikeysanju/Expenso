@@ -4,27 +4,59 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentTransactionDetailsBinding
+import dev.spikeysanju.expensetracker.db.AppDatabase
 import dev.spikeysanju.expensetracker.model.Transaction
+import dev.spikeysanju.expensetracker.repo.TransactionRepo
+import dev.spikeysanju.expensetracker.utils.DetailState
+import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
 import indianRupee
+import kotlinx.coroutines.flow.collect
 
 class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBinding, TransactionViewModel>() {
     private val args: EditTransactionFragmentArgs by navArgs()
-    override val viewModel: TransactionViewModel
-        get() = TODO("Not yet implemented")
+    private val transactionRepo by lazy {
+        TransactionRepo(AppDatabase.invoke(applicationContext()))
+    }
+    override val viewModel: TransactionViewModel by viewModels {
+        viewModelFactory { TransactionViewModel(requireActivity().application, transactionRepo) }
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val transaction = args.transaction
-        initViews(transaction)
+        getTransaction(transaction.id)
+        observeTransaction()
     }
 
-    private fun initViews(transaction: Transaction) = with(binding.transactionDetails) {
+    private fun getTransaction(id: Int) {
+        viewModel.getByID(id)
+    }
+
+    private fun observeTransaction() = lifecycleScope.launchWhenCreated {
+
+        viewModel.detailState.collect { detailState ->
+
+            when (detailState) {
+                DetailState.Loading -> {
+                }
+                is DetailState.Success -> {
+                    onDetailsLoaded(detailState.transaction)
+                }
+                is DetailState.Error -> {
+                }
+            }
+        }
+    }
+
+    private fun onDetailsLoaded(transaction: Transaction) = with(binding.transactionDetails) {
         title.text = transaction.title
         amount.text = indianRupee(transaction.amount)
         type.text = transaction.transactionType
@@ -42,6 +74,7 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
                 bundle
             )
         }
+
     }
 
     override fun getViewBinding(

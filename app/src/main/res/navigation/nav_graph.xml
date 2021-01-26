@@ -48,5 +48,8 @@
         <argument
             android:name="transaction"
             app:argType="dev.spikeysanju.expensetracker.model.Transaction" />
+        <action
+            android:id="@+id/edit_to_details"
+            app:destination="@id/transactionDetailsFragment" />
     </fragment>
 </navigation>
