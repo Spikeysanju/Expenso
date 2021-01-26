@@ -29,4 +29,7 @@ class TransactionRepo(private val db: AppDatabase) {
     } else {
         db.getTransactionDao().getAllSingleTransaction(transactionType)
     }
+
+    // get transaction by ID
+    fun getByID(id: Int) = db.getTransactionDao().getTransactionByID(id)
 }

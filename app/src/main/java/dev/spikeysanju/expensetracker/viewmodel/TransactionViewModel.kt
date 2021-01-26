@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import dev.spikeysanju.expensetracker.datastore.UIModeDataStore
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
+import dev.spikeysanju.expensetracker.utils.DetailState
 import dev.spikeysanju.expensetracker.utils.ViewState
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -25,9 +26,11 @@ class TransactionViewModel(
     val transactionFilter = _transactionFilter.asStateFlow()
 
     private val _uiState = MutableStateFlow<ViewState>(ViewState.Loading)
+    private val _detailState = MutableStateFlow<DetailState>(DetailState.Loading)
 
     // UI collect from this stateFlow to get the state updates
     val uiState: StateFlow<ViewState> = _uiState
+    val detailState: StateFlow<DetailState> = _detailState
 
     // init datastore
     private val uiModeDataStore = UIModeDataStore(application)
@@ -66,6 +69,13 @@ class TransactionViewModel(
                 _uiState.value = ViewState.Success(result)
                 Log.i("Filter", "Transaction filter is ${transactionFilter.value}")
             }
+        }
+    }
+
+    // get transaction by id
+    fun getByID(id: Int) = viewModelScope.launch {
+        transactionRepo.getByID(id).collect { result ->
+            _detailState.value = DetailState.Success(result)
         }
     }
 
