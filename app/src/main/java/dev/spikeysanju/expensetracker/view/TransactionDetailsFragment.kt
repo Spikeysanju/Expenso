@@ -74,7 +74,6 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
                 bundle
             )
         }
-
     }
 
     override fun getViewBinding(
