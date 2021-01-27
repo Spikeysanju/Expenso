@@ -22,4 +22,11 @@
     <string name="text_filter">Filter</string>
     <string name="text_edit">Edit</string>
     <string name="text_createdAt">Created At</string>
+
+    <!--  About -->
+    <string name="text_about_license_title"><![CDATA[Attributions & License]]></string>
+    <string name="text_about_license">Licensed Under MIT License</string>
+    <string name="text_about_visit_title">Visit</string>
+    <string name="text_about_visit_url"><u>https://github.com/Spikeysanju/ExpenseTracker</u></string>
+    <string name="text_app_version">v%s (%d)</string>
 </resources>
