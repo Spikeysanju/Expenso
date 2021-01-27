@@ -41,8 +41,8 @@ class EditTransactionFragment : BaseFragment<FragmentEditTransactionBinding, Tra
     private fun loadData(transaction: Transaction) = with(binding) {
         addTransactionLayout.etTitle.setText(transaction.title)
         addTransactionLayout.etAmount.setText(transaction.amount.toString())
-        addTransactionLayout.etTransactionType.setText(transaction.transactionType)
-        addTransactionLayout.etTag.setText(transaction.tag)
+        addTransactionLayout.etTransactionType.setText(transaction.transactionType, false)
+        addTransactionLayout.etTag.setText(transaction.tag, false)
         addTransactionLayout.etWhen.setText(transaction.date)
         addTransactionLayout.etNote.setText(transaction.note)
     }
@@ -63,14 +63,6 @@ class EditTransactionFragment : BaseFragment<FragmentEditTransactionBinding, Tra
         // Set list to TextInputEditText adapter
         addTransactionLayout.etTransactionType.setAdapter(transactionTypeAdapter)
         addTransactionLayout.etTag.setAdapter(tagsAdapter)
-        addTransactionLayout.etTag.setOnFocusChangeListener { v, hasFocus ->
-            if (hasFocus) {
-                addTransactionLayout.etTag.text.clear()
-                addTransactionLayout.etTag.showDropDown()
-            } else {
-                addTransactionLayout.etTag.setText(args.transaction.tag)
-            }
-        }
 
         // Transform TextInputEditText to DatePicker using Ext function
         addTransactionLayout.etWhen.transformIntoDatePicker(
