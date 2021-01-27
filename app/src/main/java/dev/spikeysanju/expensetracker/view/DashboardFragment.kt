@@ -254,7 +254,7 @@ class DashboardFragment :
             }
 
             R.id.action_about -> {
-                toast("About")
+                findNavController().navigate(R.id.action_dashboardFragment_to_aboutFragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)
