@@ -16,6 +16,9 @@
         <action
             android:id="@+id/action_dashboardFragment_to_transactionDetailsFragment"
             app:destination="@id/transactionDetailsFragment" />
+        <action
+            android:id="@+id/action_dashboardFragment_to_aboutFragment"
+            app:destination="@id/aboutFragment" />
     </fragment>
     <fragment
         android:id="@+id/addTransactionFragment"
@@ -52,4 +55,9 @@
             android:id="@+id/edit_to_details"
             app:destination="@id/transactionDetailsFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/aboutFragment"
+        android:name="dev.spikeysanju.expensetracker.view.AboutFragment"
+        android:label="About"
+        tools:layout="@layout/fragment_about" />
 </navigation>
