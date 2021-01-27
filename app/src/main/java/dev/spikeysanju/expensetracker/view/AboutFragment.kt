@@ -13,7 +13,6 @@ import dev.spikeysanju.expensetracker.databinding.FragmentAboutBinding
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.viewmodel.AboutViewModel
 
-
 class AboutFragment : BaseFragment<FragmentAboutBinding, AboutViewModel>() {
     override val viewModel: AboutViewModel by viewModels()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
