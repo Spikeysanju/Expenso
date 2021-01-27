@@ -86,6 +86,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="@dimen/dimen_16"
         android:layout_marginTop="@dimen/dimen_12"
+        android:layout_marginEnd="@dimen/dimen_16"
         android:fontFamily="@font/open_sans_regular"
         android:text="@string/text_about_visit_url"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
