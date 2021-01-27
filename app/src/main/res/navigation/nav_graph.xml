@@ -58,6 +58,6 @@
     <fragment
         android:id="@+id/aboutFragment"
         android:name="dev.spikeysanju.expensetracker.view.AboutFragment"
-        android:label="fragment_about"
+        android:label="About"
         tools:layout="@layout/fragment_about" />
 </navigation>
