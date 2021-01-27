@@ -54,7 +54,8 @@ class TextInputDropDownMenu : AppCompatAutoCompleteTextView {
         }
 
         companion object {
-            private val CREATOR: Parcelable.Creator<CustomSavedState?> =
+            @JvmField
+            val CREATOR: Parcelable.Creator<CustomSavedState?> =
                 object : Parcelable.Creator<CustomSavedState?> {
                     override fun createFromParcel(source: Parcel): CustomSavedState {
                         return CustomSavedState(source)
