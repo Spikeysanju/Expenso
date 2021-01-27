@@ -50,12 +50,11 @@
         android:hint="@string/text_expense_transaction_type"
         app:boxBackgroundColor="@color/background">
 
-        <AutoCompleteTextView
+        <dev.spikeysanju.expensetracker.utils.TextInputDropDownMenu
             android:id="@+id/et_transactionType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:fontFamily="@font/open_sans_regular"
-            android:inputType="none"
             android:labelFor="@id/et_transactionType" />
 
     </com.google.android.material.textfield.TextInputLayout>
@@ -70,7 +69,7 @@
         android:hint="@string/text_expense_tag"
         app:boxBackgroundColor="@color/background">
 
-        <AutoCompleteTextView
+        <dev.spikeysanju.expensetracker.utils.TextInputDropDownMenu
             android:id="@+id/et_tag"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
