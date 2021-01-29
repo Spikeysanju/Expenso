@@ -9,7 +9,6 @@ class TransactionRepo(private val db: AppDatabase) {
     suspend fun insert(transaction: Transaction) = db.getTransactionDao().insertTransaction(
         transaction
     )
-
     // update transaction
     suspend fun update(transaction: Transaction) = db.getTransactionDao().updateTransaction(
         transaction
