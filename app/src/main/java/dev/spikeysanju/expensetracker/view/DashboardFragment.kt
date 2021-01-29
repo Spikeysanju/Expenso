@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
+import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentDashboardBinding
 import dev.spikeysanju.expensetracker.db.AppDatabase
@@ -30,6 +31,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import show
 
+@AndroidEntryPoint
 class DashboardFragment :
     BaseFragment<FragmentDashboardBinding, TransactionViewModel>() {
     private lateinit var transactionAdapter: TransactionAdapter
