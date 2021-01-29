@@ -8,6 +8,7 @@ import android.widget.ArrayAdapter
 import androidx.fragment.app.viewModels
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentEditTransactionBinding
 import dev.spikeysanju.expensetracker.db.AppDatabase
@@ -20,6 +21,7 @@ import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
 import transformIntoDatePicker
 import java.util.*
 
+@AndroidEntryPoint
 class EditTransactionFragment : BaseFragment<FragmentEditTransactionBinding, TransactionViewModel>() {
     private val args: EditTransactionFragmentArgs by navArgs()
     private val transactionRepo by lazy {

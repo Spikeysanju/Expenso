@@ -8,6 +8,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentTransactionDetailsBinding
 import dev.spikeysanju.expensetracker.db.AppDatabase
@@ -20,6 +21,7 @@ import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
 import indianRupee
 import kotlinx.coroutines.flow.collect
 
+@AndroidEntryPoint
 class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBinding, TransactionViewModel>() {
     private val args: EditTransactionFragmentArgs by navArgs()
     private val transactionRepo by lazy {
