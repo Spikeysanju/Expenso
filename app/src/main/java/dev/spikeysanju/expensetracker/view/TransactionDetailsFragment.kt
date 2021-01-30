@@ -135,7 +135,7 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
             return
         }
 
-        val intent = ShareCompat.IntentBuilder.from(requireActivity())
+        val intent = ShareCompat.IntentBuilder(requireActivity())
             .setType("image/jpeg")
             .setStream(imageURI)
             .intent
@@ -151,18 +151,15 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
 
     @SuppressLint("StringFormatMatches")
     private fun shareText() = with(binding) {
-
-        val transaction = getTransactionContent()
-
         val shareMsg = getString(
             R.string.share_message,
-            transaction.title,
-            indianRupee(transaction.amount),
-            transaction.transactionType,
-            transaction.tag,
-            transaction.date,
-            transaction.note,
-            binding.transactionDetails.createdAt.text.toString()
+            transactionDetails.title.text.toString(),
+            transactionDetails.amount.text.toString(),
+            transactionDetails.type.text.toString(),
+            transactionDetails.tag.text.toString(),
+            transactionDetails.date.text.toString(),
+            transactionDetails.note.text.toString(),
+            transactionDetails.createdAt.text.toString()
         )
 
         val intent = ShareCompat.IntentBuilder(requireActivity())
@@ -171,17 +168,6 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
             .intent
 
         startActivity(Intent.createChooser(intent, null))
-    }
-
-    private fun getTransactionContent(): Transaction = with(binding) {
-
-        val title = transactionDetails.title.text.toString()
-        val amount = transactionDetails.amount.text.toString().toDouble()
-        val transactionType = transactionDetails.type.text.toString()
-        val tag = transactionDetails.tag.text.toString()
-        val date = transactionDetails.date.text.toString()
-        val note = transactionDetails.note.text.toString()
-        return Transaction(title, amount, transactionType, tag, date, note)
     }
 
     override fun getViewBinding(
