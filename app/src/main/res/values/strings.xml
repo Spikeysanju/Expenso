@@ -29,4 +29,9 @@
     <string name="text_about_visit_title">Visit</string>
     <string name="text_about_visit_url"><u>https://github.com/Spikeysanju/Expenso</u></string>
     <string name="text_app_version">v%s (%d)</string>
+    <string name="text_share_as_text">Share as Text</string>
+    <string name="text_share_as_pdf">Share as PDF</string>
+    <string name="text_share_as_image">Share as Image</string>
+    <string name="text_delete">Delete</string>
+    <string name="text_share">Share</string>
 </resources>
