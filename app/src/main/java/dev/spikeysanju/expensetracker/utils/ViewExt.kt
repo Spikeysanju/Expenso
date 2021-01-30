@@ -54,6 +54,20 @@ fun indianRupee(amount: Double): String {
     val format: NumberFormat = NumberFormat.getCurrencyInstance()
     format.maximumFractionDigits = 0
     format.currency = Currency.getInstance("INR")
-
     return format.format(amount)
 }
+
+val String.cleanTextContent: String
+    get() {
+        // strips off all non-ASCII characters
+        var text = this
+        text = text.replace("[^\\x00-\\x7F]".toRegex(), "")
+
+        // erases all the ASCII control characters
+        text = text.replace("[\\p{Cntrl}&&[^\r\n\t]]".toRegex(), "")
+
+        // removes non-printable characters from Unicode
+        text = text.replace("\\p{C}".toRegex(), "")
+        text = text.replace(",".toRegex(), "")
+        return text.trim()
+    }

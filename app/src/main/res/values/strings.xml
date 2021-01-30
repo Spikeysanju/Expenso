@@ -34,4 +34,8 @@
     <string name="text_share_as_image">Share as Image</string>
     <string name="text_delete">Delete</string>
     <string name="text_share">Share</string>
+
+    <!-- share transaction -->
+    <string name="share_message">\%s \nAmount: %s, \nTransaction-Type: %s, \nTag: %s, \nDate: %s, \nNote: %s, \nCreatedAt: %s \n\nVisit: https://github.com/Spikeysanju/Expenso</string>
+
 </resources>

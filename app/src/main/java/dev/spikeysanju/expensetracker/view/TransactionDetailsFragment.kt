@@ -1,13 +1,15 @@
 package dev.spikeysanju.expensetracker.view
 
+import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.core.app.ShareCompat
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import cleanTextContent
 import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentTransactionDetailsBinding
@@ -33,6 +35,7 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         val transaction = args.transaction
         getTransaction(transaction.id)
         observeTransaction()
@@ -60,12 +63,13 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
 
     private fun onDetailsLoaded(transaction: Transaction) = with(binding.transactionDetails) {
         title.text = transaction.title
-        amount.text = indianRupee(transaction.amount)
+//        amount.text = indianRupee(transaction.amount)
+        amount.text = indianRupee(transaction.amount).cleanTextContent
         type.text = transaction.transactionType
         tag.text = transaction.tag
         date.text = transaction.date
         note.text = transaction.note
-        createdAt.text = transaction.createdAtDateFormat
+        createdAt.text = transaction.createdAt.toString()
 
         binding.editTransaction.setOnClickListener {
             val bundle = Bundle().apply {
@@ -76,6 +80,69 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
                 bundle
             )
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_share, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_delete -> {
+            }
+            R.id.action_share_text -> shareText()
+            R.id.action_share_image -> shareImage()
+            R.id.action_share_pdf -> sharePDF()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun sharePDF() {
+
+
+    }
+
+    private fun shareImage() {
+
+
+    }
+
+    @SuppressLint("StringFormatMatches")
+    private fun shareText() = with(binding) {
+
+        val transaction = getTransactionContent()
+
+        val shareMsg = getString(
+            R.string.share_message,
+            transaction.title,
+            indianRupee(transaction.amount),
+            transaction.transactionType,
+            transaction.tag,
+            transaction.date,
+            transaction.note,
+            transaction.createdAtDateFormat
+        )
+
+        val intent = ShareCompat.IntentBuilder.from(requireActivity())
+            .setType("text/plain")
+            .setText(shareMsg)
+            .intent
+
+        startActivity(Intent.createChooser(intent, null))
+    }
+
+    private fun getTransactionContent(): Transaction = with(binding) {
+
+        val title = transactionDetails.title.text.toString()
+        val amount = transactionDetails.amount.text.toString().toDouble()
+        val transactionType = transactionDetails.type.text.toString()
+        val tag = transactionDetails.tag.text.toString()
+        val date = transactionDetails.date.text.toString()
+        val note = transactionDetails.note.text.toString()
+        val createdAt = transactionDetails.createdAt.text.toString().toLong()
+
+        return Transaction(title, amount, transactionType, tag, date, note, createdAt)
     }
 
     override fun getViewBinding(

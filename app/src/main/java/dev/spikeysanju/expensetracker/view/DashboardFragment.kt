@@ -44,6 +44,7 @@ class DashboardFragment :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        setHasOptionsMenu(true)
         setupRV()
         initViews()
         observeFilter()
@@ -170,7 +171,6 @@ class DashboardFragment :
         transactionAdapter.differ.submitList(list)
 
     private fun initViews() = with(binding) {
-        setHasOptionsMenu(true)
         btnAddTransaction.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_addTransactionFragment)
         }
