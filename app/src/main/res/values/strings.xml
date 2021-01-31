@@ -37,5 +37,6 @@
 
     <!-- share transaction -->
     <string name="share_message">\%s \nAmount: %s, \nTransaction-Type: %s, \nTag: %s, \nDate: %s, \nNote: %s, \nCreatedAt: %s \n\nVisit: https://github.com/Spikeysanju/Expenso</string>
+    <string name="text_ok">Ok</string>
 
 </resources>

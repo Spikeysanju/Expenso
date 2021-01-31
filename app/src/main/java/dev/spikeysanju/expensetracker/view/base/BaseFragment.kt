@@ -14,7 +14,6 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
 
     private var _binding: VB? = null
     protected val binding get() = _binding!!
-
     protected abstract val viewModel: VM
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -36,5 +35,9 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
     override fun onDestroy() {
         super.onDestroy()
         _binding = null
+    }
+
+    companion object {
+        private const val TAG_ERROR_DIALOG = "error_dialog"
     }
 }

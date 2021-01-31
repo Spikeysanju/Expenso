@@ -41,15 +41,17 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
 
     private val requestLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) shareImage() else showErrorDialog(
-                "Image share failed",
-                "You don't enable the permission to share the image."
-            )
+            if (isGranted) shareImage() else showErrorDialog()
+
         }
 
-    private fun showErrorDialog(title: String, message: String) {
-        toast("$title  $message")
-    }
+    private fun showErrorDialog() =
+        findNavController().navigate(
+            TransactionDetailsFragmentDirections.actionTransactionDetailsFragmentToErrorDialog(
+                "Image share failed!",
+                "You have to enable storage permission to share transaction as Image"
+            )
+        )
 
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -117,8 +119,6 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
     }
 
     private fun sharePDF() {
-
-
     }
 
     private fun shareImage() {
@@ -126,7 +126,6 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
             requestLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
             return
         }
-
 
         val imageURI = binding.transactionDetails.detailView.drawToBitmap().let { bitmap ->
             saveBitmap(requireActivity(), bitmap)
@@ -141,7 +140,6 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
             .intent
 
         startActivity(Intent.createChooser(intent, null))
-
     }
 
     private fun isStoragePermissionGranted(): Boolean = ContextCompat.checkSelfPermission(

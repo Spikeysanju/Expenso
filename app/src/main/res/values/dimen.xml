@@ -9,5 +9,6 @@
     <dimen name="dimen_32">32dp</dimen>
     <dimen name="dimen_48">48dp</dimen>
     <dimen name="dimen_64">64dp</dimen>
+    <dimen name="dimen_150">150dp</dimen>
     <dimen name="dimen_250">250dp</dimen>
 </resources>

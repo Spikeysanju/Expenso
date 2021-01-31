@@ -58,6 +58,9 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        <action
+            android:id="@+id/action_transactionDetailsFragment_to_errorDialog"
+            app:destination="@id/errorDialog" />
     </fragment>
     <fragment
         android:id="@+id/editTransactionFragment"
@@ -76,4 +79,16 @@
         android:name="dev.spikeysanju.expensetracker.view.AboutFragment"
         android:label="About"
         tools:layout="@layout/fragment_about" />
+    <dialog
+        android:id="@+id/errorDialog"
+        android:name="dev.spikeysanju.expensetracker.view.ErrorDialog"
+        android:label="ErrorDialog"
+        tools:layout="@layout/error_dialog_layout">
+        <argument
+            android:name="title"
+            app:argType="string" />
+        <argument
+            android:name="message"
+            app:argType="string" />
+    </dialog>
 </navigation>
