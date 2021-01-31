@@ -31,7 +31,7 @@ import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBinding, TransactionViewModel>() {
-    private val args: EditTransactionFragmentArgs by navArgs()
+    private val args: TransactionDetailsFragmentArgs by navArgs()
     private val transactionRepo by lazy {
         TransactionRepo(AppDatabase.invoke(applicationContext()))
     }
@@ -53,9 +53,13 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
             )
         )
 
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        setHasOptionsMenu(true)
         val transaction = args.transaction
         getTransaction(transaction.id)
         observeTransaction()
@@ -76,6 +80,10 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
                     onDetailsLoaded(detailState.transaction)
                 }
                 is DetailState.Error -> {
+                    toast("Error forever")
+                }
+                DetailState.Empty -> {
+                    findNavController().navigateUp()
                 }
             }
         }
@@ -109,6 +117,7 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             R.id.action_delete -> {
+                viewModel.deleteByID(args.transaction.id)
             }
             R.id.action_share_text -> shareText()
             R.id.action_share_image -> shareImage()
