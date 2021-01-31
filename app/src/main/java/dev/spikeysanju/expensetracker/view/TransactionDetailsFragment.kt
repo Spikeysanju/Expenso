@@ -118,6 +118,9 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
         when (item.itemId) {
             R.id.action_delete -> {
                 viewModel.deleteByID(args.transaction.id)
+                    .run {
+                        findNavController().navigateUp()
+                    }
             }
             R.id.action_share_text -> shareText()
             R.id.action_share_image -> shareImage()
