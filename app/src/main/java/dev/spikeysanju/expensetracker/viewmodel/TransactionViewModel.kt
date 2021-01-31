@@ -77,9 +77,15 @@ class TransactionViewModel @Inject constructor(
 
     // get transaction by id
     fun getByID(id: Int) = viewModelScope.launch {
+        _detailState.value = DetailState.Loading
         transactionRepo.getByID(id).collect { result ->
             _detailState.value = DetailState.Success(result)
         }
+    }
+
+    // delete transaction
+    fun deleteByID(id: Int) = viewModelScope.launch {
+        transactionRepo.deleteByID(id)
     }
 
     fun allIncome() {

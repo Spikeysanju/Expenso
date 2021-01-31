@@ -30,4 +30,8 @@ interface TransactionDao {
     // get single transaction by id
     @Query("SELECT * FROM all_transactions WHERE id = :id")
     fun getTransactionByID(id: Int): Flow<Transaction>
+
+    // delete transaction by id
+    @Query("DELETE FROM all_transactions WHERE id = :id")
+    suspend fun deleteTransactionByID(id: Int)
 }

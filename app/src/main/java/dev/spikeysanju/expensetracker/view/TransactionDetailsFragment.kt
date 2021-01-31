@@ -1,13 +1,20 @@
 package dev.spikeysanju.expensetracker.view
 
+import android.Manifest
+import android.annotation.SuppressLint
+import android.content.Intent
+import android.content.pm.PackageManager
 import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import android.view.*
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.app.ShareCompat
+import androidx.core.content.ContextCompat
+import androidx.core.view.drawToBitmap
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
+import cleanTextContent
 import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentTransactionDetailsBinding
@@ -15,6 +22,7 @@ import dev.spikeysanju.expensetracker.db.AppDatabase
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
 import dev.spikeysanju.expensetracker.utils.DetailState
+import dev.spikeysanju.expensetracker.utils.saveBitmap
 import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
@@ -23,12 +31,31 @@ import kotlinx.coroutines.flow.collect
 
 @AndroidEntryPoint
 class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBinding, TransactionViewModel>() {
-    private val args: EditTransactionFragmentArgs by navArgs()
+    private val args: TransactionDetailsFragmentArgs by navArgs()
     private val transactionRepo by lazy {
         TransactionRepo(AppDatabase.invoke(applicationContext()))
     }
     override val viewModel: TransactionViewModel by viewModels {
         viewModelFactory { TransactionViewModel(requireActivity().application, transactionRepo) }
+    }
+
+    // handle permission dialog
+    private val requestLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) shareImage() else showErrorDialog()
+        }
+
+    private fun showErrorDialog() =
+        findNavController().navigate(
+            TransactionDetailsFragmentDirections.actionTransactionDetailsFragmentToErrorDialog(
+                "Image share failed!",
+                "You have to enable storage permission to share transaction as Image"
+            )
+        )
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,6 +80,10 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
                     onDetailsLoaded(detailState.transaction)
                 }
                 is DetailState.Error -> {
+                    toast("Error forever")
+                }
+                DetailState.Empty -> {
+                    findNavController().navigateUp()
                 }
             }
         }
@@ -60,7 +91,7 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
 
     private fun onDetailsLoaded(transaction: Transaction) = with(binding.transactionDetails) {
         title.text = transaction.title
-        amount.text = indianRupee(transaction.amount)
+        amount.text = indianRupee(transaction.amount).cleanTextContent
         type.text = transaction.transactionType
         tag.text = transaction.tag
         date.text = transaction.date
@@ -76,6 +107,69 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
                 bundle
             )
         }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+        inflater.inflate(R.menu.menu_share, menu)
+        super.onCreateOptionsMenu(menu, inflater)
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_delete -> {
+                viewModel.deleteByID(args.transaction.id)
+            }
+            R.id.action_share_text -> shareText()
+            R.id.action_share_image -> shareImage()
+        }
+        return super.onOptionsItemSelected(item)
+    }
+
+    private fun shareImage() {
+        if (!isStoragePermissionGranted()) {
+            requestLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+            return
+        }
+
+        val imageURI = binding.transactionDetails.detailView.drawToBitmap().let { bitmap ->
+            saveBitmap(requireActivity(), bitmap)
+        } ?: run {
+            toast("Error occurred!")
+            return
+        }
+
+        val intent = ShareCompat.IntentBuilder(requireActivity())
+            .setType("image/jpeg")
+            .setStream(imageURI)
+            .intent
+
+        startActivity(Intent.createChooser(intent, null))
+    }
+
+    private fun isStoragePermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
+
+    @SuppressLint("StringFormatMatches")
+    private fun shareText() = with(binding) {
+        val shareMsg = getString(
+            R.string.share_message,
+            transactionDetails.title.text.toString(),
+            transactionDetails.amount.text.toString(),
+            transactionDetails.type.text.toString(),
+            transactionDetails.tag.text.toString(),
+            transactionDetails.date.text.toString(),
+            transactionDetails.note.text.toString(),
+            transactionDetails.createdAt.text.toString()
+        )
+
+        val intent = ShareCompat.IntentBuilder(requireActivity())
+            .setType("text/plain")
+            .setText(shareMsg)
+            .intent
+
+        startActivity(Intent.createChooser(intent, null))
     }
 
     override fun getViewBinding(
