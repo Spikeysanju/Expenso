@@ -13,7 +13,6 @@ import dev.spikeysanju.expensetracker.utils.ViewState
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -26,7 +25,7 @@ class TransactionViewModel @Inject constructor(
     AndroidViewModel(application) {
 
     private val _transactionFilter = MutableStateFlow("Overall")
-    val transactionFilter = _transactionFilter.asStateFlow()
+    val transactionFilter: StateFlow<String> = _transactionFilter
 
     private val _uiState = MutableStateFlow<ViewState>(ViewState.Loading)
     private val _detailState = MutableStateFlow<DetailState>(DetailState.Loading)
@@ -78,8 +77,10 @@ class TransactionViewModel @Inject constructor(
     // get transaction by id
     fun getByID(id: Int) = viewModelScope.launch {
         _detailState.value = DetailState.Loading
-        transactionRepo.getByID(id).collect { result ->
-            _detailState.value = DetailState.Success(result)
+        transactionRepo.getByID(id).collect { result: Transaction? ->
+            if (result != null) {
+                _detailState.value = DetailState.Success(result)
+            }
         }
     }
 
