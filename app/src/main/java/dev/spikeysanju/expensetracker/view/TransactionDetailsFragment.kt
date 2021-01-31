@@ -39,10 +39,10 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
         viewModelFactory { TransactionViewModel(requireActivity().application, transactionRepo) }
     }
 
+    // handle permission dialog
     private val requestLauncher =
         registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
             if (isGranted) shareImage() else showErrorDialog()
-
         }
 
     private fun showErrorDialog() =
@@ -52,7 +52,6 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
                 "You have to enable storage permission to share transaction as Image"
             )
         )
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

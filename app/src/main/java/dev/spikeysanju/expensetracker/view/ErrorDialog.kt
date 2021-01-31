@@ -44,5 +44,4 @@ class ErrorDialog : BottomSheetDialogFragment() {
         super.onDestroy()
         _binding = null
     }
-
 }
