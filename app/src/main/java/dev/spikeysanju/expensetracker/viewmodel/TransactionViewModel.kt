@@ -88,7 +88,6 @@ class TransactionViewModel @Inject constructor(
         transactionRepo.deleteByID(id)
     }
 
-
     fun allIncome() {
         _transactionFilter.value = "Income"
     }

@@ -36,5 +36,4 @@ class TransactionRepo @Inject constructor(private val db: AppDatabase) {
 
     // delete transaction by ID
     suspend fun deleteByID(id: Int) = db.getTransactionDao().deleteTransactionByID(id)
-
 }
