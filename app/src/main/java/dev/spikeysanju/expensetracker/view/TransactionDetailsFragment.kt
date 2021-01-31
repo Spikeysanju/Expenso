@@ -112,12 +112,8 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
             }
             R.id.action_share_text -> shareText()
             R.id.action_share_image -> shareImage()
-            R.id.action_share_pdf -> sharePDF()
         }
         return super.onOptionsItemSelected(item)
-    }
-
-    private fun sharePDF() {
     }
 
     private fun shareImage() {

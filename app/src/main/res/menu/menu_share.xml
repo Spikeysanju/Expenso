@@ -21,10 +21,6 @@
             <item
                 android:id="@+id/action_share_image"
                 android:title="@string/text_share_as_image" />
-
-            <item
-                android:id="@+id/action_share_pdf"
-                android:title="@string/text_share_as_pdf" />
         </menu>
     </item>
 
