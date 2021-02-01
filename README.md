@@ -65,7 +65,7 @@ A Simple Expense Tracker App 📱 built to demonstrate the use of modern android
 
 ## Contribute
 If you want to contribute to this library, you're always welcome!
-See [Contributing Guidelines](https://github.com/TheCodeMonks/Notzz-App/blob/master/CONTRIBUTION.md). 
+See [Contributing Guidelines](https://github.com/Spikeysanju/Expenso/blob/master/CONTRIBUTION.md). 
 
 ## Contact
 Have an project? DM us at 👇
