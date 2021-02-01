@@ -3,12 +3,13 @@
 # Expenso
 A Simple Expense Tracker App 📱 built to demonstrate the use of modern android architecture component with MVVM Architecture 🏗. *Made with love ❤️ by [Spikeysanju](https://github.com/Spikeysanju)*
 
+<br />
 
-***Try latest Notzz app apk from below 👇***
+***Try latest Expenso app apk from below 👇***
 
 [![Expenso](https://img.shields.io/badge/Expenso📊-APK-black.svg?style=for-the-badge&logo=android)](https://github.com/TheCodeMonks/Notzz-App/releases/download/v1.1/notzz.apk)
 
-
+<br />
 
 ## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
@@ -23,8 +24,9 @@ A Simple Expense Tracker App 📱 built to demonstrate the use of modern android
 - [Material Components for Android](https://github.com/material-components/material-components-android) - Modular and customizable Material Design UI components for Android.
 - [Figma](https://figma.com/) - Figma is a vector graphics editor and prototyping tool which is primarily web-based.
 
+<br />
 
-# Package Structure
+## Package Structure
     
     dev.spikeysanju.expenso # Root Package
     ├── di                  # Hilt DI Modules 
@@ -56,9 +58,12 @@ A Simple Expense Tracker App 📱 built to demonstrate the use of modern android
     |   |   |__ dialog      # Error Dialog 
     ├── utils               # All extension functions
 
- 
 
- This app uses [***MVVM (Model View View-Model)***](https://developer.android.com/jetpack/docs/guide#recommended-app-arch) architecture.
+<br />
+
+
+## Architecture 🗼
+This app uses [***MVVM (Model View View-Model)***](https://developer.android.com/jetpack/docs/guide#recommended-app-arch) architecture.
 
 ![](https://github.com/TheCodeMonks/Notes-App/blob/master/screenshots/ANDROID%20ROOM%20DB%20DIAGRAM.jpg)
 
