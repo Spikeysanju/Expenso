@@ -11,6 +11,13 @@ A Simple Expense Tracker App 📱 built to demonstrate the use of modern android
 
 <br />
 
+## UI Design
+
+Dashboard | All Income | All Expense | Transaction Details | Add Transaction 
+--- | --- | --- |--- |--- 
+![](URL) | ![](URL) | ![](URL) | ![](URL) | ![](URL) 
+
+
 ## Built With 🛠
 - [Kotlin](https://kotlinlang.org/) - First class and official programming language for Android development.
 - [Coroutines](https://kotlinlang.org/docs/reference/coroutines-overview.html) - For asynchronous and more..
