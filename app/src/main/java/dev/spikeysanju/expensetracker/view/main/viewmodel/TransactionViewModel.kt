@@ -1,11 +1,11 @@
-package dev.spikeysanju.expensetracker.viewmodel
+package dev.spikeysanju.expensetracker.view.main.viewmodel
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.spikeysanju.expensetracker.datastore.UIModeDataStore
+import dev.spikeysanju.expensetracker.data.local.datastore.UIModeDataStore
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
 import dev.spikeysanju.expensetracker.utils.DetailState

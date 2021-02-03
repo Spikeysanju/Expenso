@@ -5,8 +5,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ActivityComponent
-import dev.spikeysanju.expensetracker.datastore.UIModeDataStore
-import dev.spikeysanju.expensetracker.db.AppDatabase
+import dev.spikeysanju.expensetracker.data.local.AppDatabase
+import dev.spikeysanju.expensetracker.data.local.datastore.UIModeDataStore
 import javax.inject.Singleton
 
 @InstallIn(ActivityComponent::class)

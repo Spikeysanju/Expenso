@@ -1,4 +1,4 @@
-package dev.spikeysanju.expensetracker.view
+package dev.spikeysanju.expensetracker.view.add
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -13,7 +13,7 @@ import dev.spikeysanju.expensetracker.databinding.FragmentAddTransactionBinding
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.utils.Constants
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
-import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
+import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 import transformIntoDatePicker
 import java.util.*
 

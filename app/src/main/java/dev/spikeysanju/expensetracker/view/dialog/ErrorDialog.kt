@@ -1,4 +1,4 @@
-package dev.spikeysanju.expensetracker.view
+package dev.spikeysanju.expensetracker.view.dialog
 
 import android.os.Bundle
 import android.view.LayoutInflater

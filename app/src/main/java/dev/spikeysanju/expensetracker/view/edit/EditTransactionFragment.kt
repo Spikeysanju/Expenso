@@ -1,4 +1,4 @@
-package dev.spikeysanju.expensetracker.view
+package dev.spikeysanju.expensetracker.view.edit
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -14,7 +14,7 @@ import dev.spikeysanju.expensetracker.databinding.FragmentEditTransactionBinding
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.utils.Constants
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
-import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
+import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 import transformIntoDatePicker
 import java.util.*
 
@@ -25,7 +25,6 @@ class EditTransactionFragment : BaseFragment<FragmentEditTransactionBinding, Tra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // receiving bundles here
         val transaction = args.transaction
         initViews()
