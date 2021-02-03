@@ -38,5 +38,7 @@
     <!-- share transaction -->
     <string name="share_message">\%s \nAmount: %s, \nTransaction-Type: %s, \nTag: %s, \nDate: %s, \nNote: %s, \nCreatedAt: %s \n\nVisit: https://github.com/Spikeysanju/Expenso</string>
     <string name="text_ok">Ok</string>
+    <string name="text_transaction_empty_title">No Transaction Yet!</string>
+    <string name="text_transaction_empty_desc">After your first transaction you will be able to view it here</string>
 
 </resources>
