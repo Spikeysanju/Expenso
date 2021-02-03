@@ -109,6 +109,7 @@
         android:backgroundTint="@color/blue_500"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_baseline_add"
+        app:borderWidth="0dp"
         app:tint="@color/white"
         tools:ignore="UnusedAttribute" />
 
