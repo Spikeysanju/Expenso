@@ -75,12 +75,11 @@ class AddTransactionFragment :
                             this.etNote.error = "Note must note be empty"
                         }
                         else -> {
-                            viewModel.insertTransaction(getTransactionContent()).also {
-                                toast(getString(R.string.success_expense_saved)).also {
-                                    findNavController().navigate(
-                                        R.id.action_addTransactionFragment_to_dashboardFragment
-                                    )
-                                }
+                            viewModel.insertTransaction(getTransactionContent()).run {
+                                toast(getString(R.string.success_expense_saved))
+                                findNavController().navigate(
+                                    R.id.action_addTransactionFragment_to_dashboardFragment
+                                )
                             }
                         }
                     }
