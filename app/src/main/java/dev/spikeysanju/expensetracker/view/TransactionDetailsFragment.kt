@@ -10,7 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.drawToBitmap
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
@@ -18,12 +18,9 @@ import cleanTextContent
 import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentTransactionDetailsBinding
-import dev.spikeysanju.expensetracker.db.AppDatabase
 import dev.spikeysanju.expensetracker.model.Transaction
-import dev.spikeysanju.expensetracker.repo.TransactionRepo
 import dev.spikeysanju.expensetracker.utils.DetailState
 import dev.spikeysanju.expensetracker.utils.saveBitmap
-import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
 import indianRupee
@@ -32,12 +29,7 @@ import kotlinx.coroutines.flow.collect
 @AndroidEntryPoint
 class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBinding, TransactionViewModel>() {
     private val args: TransactionDetailsFragmentArgs by navArgs()
-    private val transactionRepo by lazy {
-        TransactionRepo(AppDatabase.invoke(applicationContext()))
-    }
-    override val viewModel: TransactionViewModel by viewModels {
-        viewModelFactory { TransactionViewModel(requireActivity().application, transactionRepo) }
-    }
+    override val viewModel: TransactionViewModel by activityViewModels()
 
     // handle permission dialog
     private val requestLauncher =

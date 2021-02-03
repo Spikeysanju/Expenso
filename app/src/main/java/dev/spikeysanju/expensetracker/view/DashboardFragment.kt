@@ -7,7 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.fragment.app.viewModels
+import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
@@ -17,11 +17,8 @@ import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentDashboardBinding
-import dev.spikeysanju.expensetracker.db.AppDatabase
 import dev.spikeysanju.expensetracker.model.Transaction
-import dev.spikeysanju.expensetracker.repo.TransactionRepo
 import dev.spikeysanju.expensetracker.utils.ViewState
-import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.adapter.TransactionAdapter
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
@@ -35,12 +32,7 @@ import show
 class DashboardFragment :
     BaseFragment<FragmentDashboardBinding, TransactionViewModel>() {
     private lateinit var transactionAdapter: TransactionAdapter
-    private val transactionRepo by lazy {
-        TransactionRepo(AppDatabase.invoke(applicationContext()))
-    }
-    override val viewModel: TransactionViewModel by viewModels {
-        viewModelFactory { TransactionViewModel(requireActivity().application, transactionRepo) }
-    }
+    override val viewModel: TransactionViewModel by activityViewModels()
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -161,10 +153,15 @@ class DashboardFragment :
                     toast("Error")
                 }
                 is ViewState.Empty -> {
-                    toast("Empty")
+                    hideAllViews()
                 }
             }
         }
+    }
+
+    private fun hideAllViews() = with(binding) {
+        dashboardGroup.hide()
+        emptyStateLayout.show()
     }
 
     private fun onTransactionLoaded(list: List<Transaction>) =

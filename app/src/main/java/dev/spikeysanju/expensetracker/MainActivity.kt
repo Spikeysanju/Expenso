@@ -1,6 +1,7 @@
 package dev.spikeysanju.expensetracker
 
 import android.os.Bundle
+import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
@@ -8,15 +9,31 @@ import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.databinding.ActivityMainBinding
+import dev.spikeysanju.expensetracker.db.AppDatabase
+import dev.spikeysanju.expensetracker.repo.TransactionRepo
+import dev.spikeysanju.expensetracker.utils.viewModelFactory
+import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
+    private val repo by lazy { TransactionRepo(AppDatabase(this)) }
+    private val viewModel: TransactionViewModel by viewModels {
+        viewModelFactory { TransactionViewModel(this.application, repo) }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        /**
+         * Just so the viewModel doesn't get removed by the compiler, as it isn't used
+         * anywhere here for now
+         */
+        viewModel
+
         initViews(binding)
         observeNavElements(binding, navHostFragment.navController)
     }
