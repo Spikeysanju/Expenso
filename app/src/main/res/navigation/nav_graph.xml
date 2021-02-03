@@ -46,7 +46,7 @@
     <fragment
         android:id="@+id/transactionDetailsFragment"
         android:name="dev.spikeysanju.expensetracker.view.details.TransactionDetailsFragment"
-        android:label="Transaction Details"
+        android:label="Details"
         tools:layout="@layout/fragment_transaction_details">
         <argument
             android:name="transaction"

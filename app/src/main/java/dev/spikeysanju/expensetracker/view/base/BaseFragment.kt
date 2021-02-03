@@ -36,8 +36,4 @@ abstract class BaseFragment<VB : ViewBinding, VM : ViewModel> : Fragment() {
         super.onDestroy()
         _binding = null
     }
-
-    companion object {
-        private const val TAG_ERROR_DIALOG = "error_dialog"
-    }
 }

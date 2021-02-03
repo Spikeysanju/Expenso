@@ -19,8 +19,8 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentTransactionDetailsBinding
 import dev.spikeysanju.expensetracker.model.Transaction
-import dev.spikeysanju.expensetracker.utils.DetailState
 import dev.spikeysanju.expensetracker.utils.saveBitmap
+import dev.spikeysanju.expensetracker.utils.viewState.DetailState
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 import indianRupee

@@ -26,6 +26,8 @@
                 layout="@layout/total_balance_view"
                 android:layout_width="match_parent"
                 android:layout_height="124dp"
+                android:layout_marginStart="@dimen/dimen_8"
+                android:layout_marginEnd="@dimen/dimen_8"
                 android:layout_marginTop="@dimen/dimen_8"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -109,6 +111,7 @@
         android:backgroundTint="@color/blue_500"
         android:contentDescription="@string/app_name"
         android:src="@drawable/ic_baseline_add"
+        app:borderWidth="0dp"
         app:tint="@color/white"
         tools:ignore="UnusedAttribute" />
 
