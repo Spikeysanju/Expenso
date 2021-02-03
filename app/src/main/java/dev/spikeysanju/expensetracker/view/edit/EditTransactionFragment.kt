@@ -25,7 +25,6 @@ class EditTransactionFragment : BaseFragment<FragmentEditTransactionBinding, Tra
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
         // receiving bundles here
         val transaction = args.transaction
         initViews()
