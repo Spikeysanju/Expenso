@@ -139,8 +139,8 @@ class DashboardFragment :
         val (totalIncome, totalExpense) = transaction.partition { it.transactionType == "Income" }
         val income = totalIncome.sumByDouble { it.amount }
         val expense = totalExpense.sumByDouble { it.amount }
-        incomeCardView.total.text = indianRupee(income)
-        expenseCardView.total.text = indianRupee(expense)
+        incomeCardView.total.text = "+ ".plus(indianRupee(income))
+        expenseCardView.total.text = "- ".plus(indianRupee(income))
         totalBalanceView.totalBalance.text = indianRupee(income - expense)
     }
 
