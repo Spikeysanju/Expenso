@@ -161,10 +161,15 @@ class DashboardFragment :
                     toast("Error")
                 }
                 is ViewState.Empty -> {
-                    toast("Empty")
+                    hideAllViews()
                 }
             }
         }
+    }
+
+    private fun hideAllViews() = with(binding) {
+        dashboardGroup.hide()
+        emptyStateLayout.show()
     }
 
     private fun onTransactionLoaded(list: List<Transaction>) =
