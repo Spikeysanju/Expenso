@@ -1,4 +1,4 @@
-package dev.spikeysanju.expensetracker.view
+package dev.spikeysanju.expensetracker.view.about
 
 import android.content.Intent
 import android.net.Uri
@@ -12,7 +12,6 @@ import dev.spikeysanju.expensetracker.BuildConfig
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentAboutBinding
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
-import dev.spikeysanju.expensetracker.viewmodel.AboutViewModel
 
 @AndroidEntryPoint
 class AboutFragment : BaseFragment<FragmentAboutBinding, AboutViewModel>() {

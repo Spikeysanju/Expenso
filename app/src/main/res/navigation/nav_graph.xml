@@ -7,7 +7,7 @@
 
     <fragment
         android:id="@+id/dashboardFragment"
-        android:name="dev.spikeysanju.expensetracker.view.DashboardFragment"
+        android:name="dev.spikeysanju.expensetracker.view.dashboard.DashboardFragment"
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard">
         <action
@@ -34,7 +34,7 @@
     </fragment>
     <fragment
         android:id="@+id/addTransactionFragment"
-        android:name="dev.spikeysanju.expensetracker.view.AddTransactionFragment"
+        android:name="dev.spikeysanju.expensetracker.view.add.AddTransactionFragment"
         android:label="fragment_add_transaction"
         tools:layout="@layout/fragment_add_transaction">
         <action
@@ -45,7 +45,7 @@
     </fragment>
     <fragment
         android:id="@+id/transactionDetailsFragment"
-        android:name="dev.spikeysanju.expensetracker.view.TransactionDetailsFragment"
+        android:name="dev.spikeysanju.expensetracker.view.details.TransactionDetailsFragment"
         android:label="Transaction Details"
         tools:layout="@layout/fragment_transaction_details">
         <argument
@@ -64,7 +64,7 @@
     </fragment>
     <fragment
         android:id="@+id/editTransactionFragment"
-        android:name="dev.spikeysanju.expensetracker.view.EditTransactionFragment"
+        android:name="dev.spikeysanju.expensetracker.view.edit.EditTransactionFragment"
         android:label="Edit Transaction"
         tools:layout="@layout/fragment_edit_transaction">
         <argument
@@ -76,12 +76,12 @@
     </fragment>
     <fragment
         android:id="@+id/aboutFragment"
-        android:name="dev.spikeysanju.expensetracker.view.AboutFragment"
+        android:name="dev.spikeysanju.expensetracker.view.about.AboutFragment"
         android:label="About"
         tools:layout="@layout/fragment_about" />
     <dialog
         android:id="@+id/errorDialog"
-        android:name="dev.spikeysanju.expensetracker.view.ErrorDialog"
+        android:name="dev.spikeysanju.expensetracker.view.dialog.ErrorDialog"
         android:label="ErrorDialog"
         tools:layout="@layout/error_dialog_layout">
         <argument

@@ -1,4 +1,4 @@
-package dev.spikeysanju.expensetracker.db
+package dev.spikeysanju.expensetracker.data.local
 
 import android.content.Context
 import androidx.room.Database

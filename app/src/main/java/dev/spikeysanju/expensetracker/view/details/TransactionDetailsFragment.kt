@@ -1,4 +1,4 @@
-package dev.spikeysanju.expensetracker.view
+package dev.spikeysanju.expensetracker.view.details
 
 import android.Manifest
 import android.annotation.SuppressLint
@@ -22,7 +22,7 @@ import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.utils.DetailState
 import dev.spikeysanju.expensetracker.utils.saveBitmap
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
-import dev.spikeysanju.expensetracker.viewmodel.TransactionViewModel
+import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 import indianRupee
 import kotlinx.coroutines.flow.collect
 

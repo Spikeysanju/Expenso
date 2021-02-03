@@ -1,6 +1,6 @@
 package dev.spikeysanju.expensetracker.repo
 
-import dev.spikeysanju.expensetracker.db.AppDatabase
+import dev.spikeysanju.expensetracker.data.local.AppDatabase
 import dev.spikeysanju.expensetracker.model.Transaction
 import javax.inject.Inject
 
