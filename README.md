@@ -22,7 +22,7 @@ A Simple Expense Tracker App 📱 built to demonstrate the use of modern android
 ## Day Mode 🌞
 Dashboard | All Income | All Expense | Transaction Details | Add Transaction 
 --- | --- | --- |--- |--- 
-![](https://github.com/Spikeysanju/Expenso/blob/master/art/DASHBOARD.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/INCOME.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/EXPENSE.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/TRANSACTION%20DETAIL.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/ADD_TRANSACTION_SCREEN.png) 
+![](https://github.com/Spikeysanju/Expenso/blob/master/art/Dashboard.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/Income.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/Expense.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/Transaction-Details.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/add-transaction.png) 
 
 <br />
 
