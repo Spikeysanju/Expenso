@@ -7,7 +7,7 @@ A Simple Expense Tracker App 📱 built to demonstrate the use of modern android
 
 ***Try latest Expenso app apk from below 👇***
 
-[![Expenso](https://img.shields.io/badge/Expenso-APK-black.svg?style=for-the-badge&logo=android)](https://github.com/TheCodeMonks/Notzz-App/releases/download/v1.1/notzz.apk)
+[![Expenso](https://img.shields.io/badge/Expenso-APK-black.svg?style=for-the-badge&logo=android)](https://github.com/Spikeysanju/Expenso/releases/download/v1.0.0-alpha01/Expenso.apk)
 
 <br />
 
@@ -22,7 +22,7 @@ A Simple Expense Tracker App 📱 built to demonstrate the use of modern android
 ## Day Mode 🌞
 Dashboard | All Income | All Expense | Transaction Details | Add Transaction 
 --- | --- | --- |--- |--- 
-![](https://github.com/Spikeysanju/Expenso/blob/master/art/DASHBOARD.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/INCOME.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/INCOME.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DETAILS.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/ADD-TRANSACTION.png) 
+![](https://github.com/Spikeysanju/Expenso/blob/master/art/DASHBOARD.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/INCOME.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/EXPENSE.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DETAILS.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/ADD-TRANSACTION.png) 
 
 <br />
 
