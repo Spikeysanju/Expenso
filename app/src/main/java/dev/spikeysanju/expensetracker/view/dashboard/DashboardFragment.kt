@@ -140,7 +140,7 @@ class DashboardFragment :
         val income = totalIncome.sumByDouble { it.amount }
         val expense = totalExpense.sumByDouble { it.amount }
         incomeCardView.total.text = "+ ".plus(indianRupee(income))
-        expenseCardView.total.text = "- ".plus(indianRupee(income))
+        expenseCardView.total.text = "- ".plus(indianRupee(expense))
         totalBalanceView.totalBalance.text = indianRupee(income - expense)
     }
 
@@ -167,6 +167,7 @@ class DashboardFragment :
     private fun showAllViews() = with(binding) {
         dashboardGroup.show()
         emptyStateLayout.hide()
+        transactionRv.show()
     }
 
     private fun hideAllViews() = with(binding) {
