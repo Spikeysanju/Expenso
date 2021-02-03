@@ -1,4 +1,4 @@
-package dev.spikeysanju.expensetracker.utils
+package dev.spikeysanju.expensetracker.utils.viewState
 
 import dev.spikeysanju.expensetracker.model.Transaction
 
