@@ -150,6 +150,7 @@ class DashboardFragment :
                 is ViewState.Loading -> {
                 }
                 is ViewState.Success -> {
+                    showAllViews()
                     onTransactionLoaded(uiState.transaction)
                     onTotalTransactionLoaded(uiState.transaction)
                 }
@@ -161,6 +162,11 @@ class DashboardFragment :
                 }
             }
         }
+    }
+
+    private fun showAllViews() = with(binding) {
+        dashboardGroup.show()
+        emptyStateLayout.hide()
     }
 
     private fun hideAllViews() = with(binding) {
