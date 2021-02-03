@@ -45,7 +45,6 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.TransactionVH
 
             transactionName.text = item.title
             transactionCategory.text = item.tag
-            transactionAmount.text = indianRupee(item.amount)
 
             when (item.transactionType) {
                 "Income" -> {
@@ -55,6 +54,8 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.TransactionVH
                             R.color.income
                         )
                     )
+
+                    transactionAmount.text = "+ ".plus(indianRupee(item.amount))
                 }
                 "Expense" -> {
                     transactionAmount.setTextColor(
@@ -63,6 +64,7 @@ class TransactionAdapter : RecyclerView.Adapter<TransactionAdapter.TransactionVH
                             R.color.expense
                         )
                     )
+                    transactionAmount.text = "- ".plus(indianRupee(item.amount))
                 }
             }
 
