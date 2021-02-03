@@ -46,7 +46,7 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, AboutViewModel>() {
         FragmentAboutBinding.inflate(inflater, container, false)
 
     companion object {
-        const val REPO_URL = "https://github.com/Spikeysanju/ExpenseTracker"
-        const val REPO_LICENSE = "https://github.com/TheCodeMonks/NYTimes-App/blob/master/LICENSE"
+        const val REPO_URL = "https://github.com/Spikeysanju/Expenso"
+        const val REPO_LICENSE = "https://github.com/Spikeysanju/Expenso/blob/master/LICENSE"
     }
 }
