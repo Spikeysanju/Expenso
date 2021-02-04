@@ -11,7 +11,7 @@ A Simple Expense Tracker App 📱 built to demonstrate the use of modern android
 
 <br />
 
-## UI Design
+## UI Design 🎨
 
 ***Click to View Expenso app Design from below 👇***
 
@@ -20,14 +20,14 @@ A Simple Expense Tracker App 📱 built to demonstrate the use of modern android
 <br />
 
 ## Day Mode 🌞
-Dashboard | All Income | All Expense | Transaction Details | Add Transaction 
+Dashboard | All Income | All Expense | Details | Add Transaction 
 --- | --- | --- |--- |--- 
 ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DASHBOARD.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/INCOME.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/EXPENSE.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DETAILS.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/ADD-TRANSACTION.png) 
 
 <br />
 
 ## We Support Dark Mode Too 🌚
-Dashboard | All Income | All Expense | Transaction Details | Add Transaction 
+Dashboard | All Income | All Expense | Details | Add Transaction 
 --- | --- | --- |--- |--- 
 ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-DASHBOARD.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-INCOME.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-EXPENSE.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-DETAILS.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-ADD-TRANSACTION.png) 
 
@@ -49,7 +49,7 @@ Dashboard | All Income | All Expense | Transaction Details | Add Transaction
 
 <br />
 
-## Package Structure
+## Package Structure 📦
     
     dev.spikeysanju.expenso # Root Package
     ├── di                  # Hilt DI Modules 
@@ -65,7 +65,7 @@ Dashboard | All Income | All Expense | Transaction Details | Add Transaction
     ├── view                # Activity/Fragment View layer
     │   ├── main            # Main root folder
     |   │   ├── main        # Main Activity for RecyclerView
-    |   │   └── viewmodel   # ViewHolder for RecyclerView 
+    |   │   └── viewmodel   # Transaction ViewModel
     |   │   ├── adapter     # Adapter for RecyclerView
     │   ├── Dashboard       # Dashboard root folder
     |   |   |__ dashboard   # Dashboard 
@@ -91,22 +91,22 @@ This app uses [***MVVM (Model View View-Model)***](https://developer.android.com
 ![](https://github.com/TheCodeMonks/Notes-App/blob/master/screenshots/ANDROID%20ROOM%20DB%20DIAGRAM.jpg)
 
 
-## Contribute
-If you want to contribute to this library, you're always welcome!
+## Contribute 🤝
+If you want to contribute to this app, you're always welcome!
 See [Contributing Guidelines](https://github.com/Spikeysanju/Expenso/blob/master/CONTRIBUTION.md). 
 
-## Contact
+## Contact 📩
 Have an project? DM us at 👇
 
 Drop a mail to:- spikeysanju98@gmail.com
 
-# Donation
+## Donation 💰
 If this project help you reduce time to develop, you can give me a cup of coffee :) 
 
-[![paypal](https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif)](https://www.paypal.com/paypalme2/spikeysanju)
+<a href="https://www.buymeacoffee.com/Li0hsl4" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
 
-## License
+## License 🔖
 ```
     Apache 2.0 License
 
