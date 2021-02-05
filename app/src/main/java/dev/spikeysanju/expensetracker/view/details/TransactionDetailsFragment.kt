@@ -147,16 +147,16 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
     ) == PackageManager.PERMISSION_GRANTED
 
     @SuppressLint("StringFormatMatches")
-    private fun shareText() = with(binding) {
+    private fun shareText() = with(binding.transactionDetails) {
         val shareMsg = getString(
             R.string.share_message,
-            transactionDetails.title.text.toString(),
-            transactionDetails.amount.text.toString(),
-            transactionDetails.type.text.toString(),
-            transactionDetails.tag.text.toString(),
-            transactionDetails.date.text.toString(),
-            transactionDetails.note.text.toString(),
-            transactionDetails.createdAt.text.toString()
+            title.text.toString(),
+            amount.text.toString(),
+            type.text.toString(),
+            tag.text.toString(),
+            date.text.toString(),
+            note.text.toString(),
+            createdAt.text.toString()
         )
 
         val intent = ShareCompat.IntentBuilder(requireActivity())

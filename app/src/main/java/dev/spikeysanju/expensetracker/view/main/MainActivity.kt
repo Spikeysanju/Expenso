@@ -47,14 +47,14 @@ class MainActivity : AppCompatActivity() {
             when (destination.id) {
 
                 R.id.dashboardFragment -> {
-                    supportActionBar!!.setDisplayShowTitleEnabled(false)
+                    supportActionBar?.setDisplayShowTitleEnabled(false)
                 }
                 R.id.addTransactionFragment -> {
-                    supportActionBar!!.setDisplayShowTitleEnabled(true)
+                    supportActionBar?.setDisplayShowTitleEnabled(true)
                     binding.toolbar.title = "Add Transaction"
                 }
                 else -> {
-                    supportActionBar!!.setDisplayShowTitleEnabled(true)
+                    supportActionBar?.setDisplayShowTitleEnabled(true)
                 }
             }
         }
@@ -62,7 +62,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun initViews(binding: ActivityMainBinding) {
         setSupportActionBar(binding.toolbar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+        supportActionBar?.setDisplayShowTitleEnabled(false)
 
         navHostFragment = supportFragmentManager
             .findFragmentById(R.id.nav_host_fragment) as NavHostFragment?

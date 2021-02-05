@@ -38,4 +38,12 @@
     <string name="text_transaction_empty_title">No Transaction Yet!</string>
     <string name="text_transaction_empty_desc">After your first transaction you will be able to view it here</string>
 
+    <!-- add/edit transaction -->
+    <string name="title_must_note_be_empty">Title must note be empty</string>
+    <string name="amount_must_note_be_empty">Amount must note be empty</string>
+    <string name="transaction_type_must_note_be_empty">Transaction type must note be empty</string>
+    <string name="tag_must_note_be_empty">Tag must note be empty</string>
+    <string name="date_must_note_be_empty">Date must note be empty</string>
+    <string name="note_must_note_be_empty">Note must note be empty</string>
+
 </resources>

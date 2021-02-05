@@ -13,6 +13,7 @@ class ErrorDialog : BottomSheetDialogFragment() {
     private var _binding: ErrorDialogLayoutBinding? = null
     private val binding get() = _binding!!
     private val args: ErrorDialogArgs by navArgs()
+
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
