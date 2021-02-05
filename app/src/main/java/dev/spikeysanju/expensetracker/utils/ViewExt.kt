@@ -72,7 +72,6 @@ val String.cleanTextContent: String
         return text.trim()
     }
 
-
 // parse string to double
 fun parseDouble(value: String?): Double {
     return if (value == null || value.isEmpty()) Double.NaN else value.toDouble()

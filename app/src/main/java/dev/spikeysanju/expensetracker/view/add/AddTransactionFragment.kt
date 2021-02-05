@@ -89,7 +89,6 @@ class AddTransactionFragment :
         }
     }
 
-
     private fun getTransactionContent(): Transaction = binding.addTransactionLayout.let {
         val title = it.etTitle.text.toString()
         val amount = parseDouble(it.etAmount.text.toString())
