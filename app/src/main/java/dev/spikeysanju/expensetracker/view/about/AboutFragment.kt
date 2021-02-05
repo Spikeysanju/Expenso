@@ -29,11 +29,15 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, AboutViewModel>() {
         )
 
         license.setOnClickListener {
-            launchBrowser(REPO_LICENSE)
+            viewModel.launchLicense().run {
+                launchBrowser(viewModel.url.value)
+            }
         }
 
         visitURL.setOnClickListener {
-            launchBrowser(REPO_URL)
+            viewModel.launchRepository().run {
+                launchBrowser(viewModel.url.value)
+            }
         }
     }
 
@@ -44,9 +48,4 @@ class AboutFragment : BaseFragment<FragmentAboutBinding, AboutViewModel>() {
 
     override fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?) =
         FragmentAboutBinding.inflate(inflater, container, false)
-
-    companion object {
-        const val REPO_URL = "https://github.com/Spikeysanju/Expenso"
-        const val REPO_LICENSE = "https://github.com/Spikeysanju/Expenso/blob/master/LICENSE"
-    }
 }
