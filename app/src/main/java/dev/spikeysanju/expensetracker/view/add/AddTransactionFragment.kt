@@ -14,6 +14,7 @@ import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.utils.Constants
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
+import parseDouble
 import transformIntoDatePicker
 import java.util.*
 
@@ -59,7 +60,7 @@ class AddTransactionFragment :
                         title.isEmpty() -> {
                             this.etTitle.error = "Title must note be empty"
                         }
-                        amount.toString().isEmpty() -> {
+                        amount.isNaN() -> {
                             this.etAmount.error = "Amount must note be empty"
                         }
                         transactionType.isEmpty() -> {
@@ -90,7 +91,7 @@ class AddTransactionFragment :
 
     private fun getTransactionContent(): Transaction = binding.addTransactionLayout.let {
         val title = it.etTitle.text.toString()
-        val amount = it.etAmount.text.toString().toDouble()
+        val amount = parseDouble(it.etAmount.text.toString())
         val transactionType = it.etTransactionType.text.toString()
         val tag = it.etTag.text.toString()
         val date = it.etWhen.text.toString()
