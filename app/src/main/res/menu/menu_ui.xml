@@ -13,7 +13,7 @@
         android:checkable="true"
         android:icon="@drawable/ic_day"
         android:title="@string/text_ui_mode"
-        app:showAsAction="ifRoom" />
+        app:showAsAction="always" />
 
     <item
         android:id="@+id/action_about"

@@ -50,7 +50,6 @@ fun TextInputEditText.transformIntoDatePicker(
 
 // indian rupee converter
 fun indianRupee(amount: Double): String {
-
     val format: NumberFormat = NumberFormat.getCurrencyInstance()
     format.maximumFractionDigits = 0
     format.currency = Currency.getInstance("INR")

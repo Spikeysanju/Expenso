@@ -19,6 +19,7 @@ import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
+
     private val repo by lazy { TransactionRepo(AppDatabase(this)) }
     private val viewModel: TransactionViewModel by viewModels {
         viewModelFactory { TransactionViewModel(this.application, repo) }
