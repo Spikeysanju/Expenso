@@ -91,12 +91,9 @@ This app uses [***MVVM (Model View View-Model)***](https://developer.android.com
 ![](https://github.com/TheCodeMonks/Notes-App/blob/master/screenshots/ANDROID%20ROOM%20DB%20DIAGRAM.jpg)
 
 ## Build-tool 🧰
-
-<img src="./beta_android.png" width="200" height="200" alt="Beta-studio"/>
-<br>
-
 You need to have [Android Studio Beta 3 or above](https://developer.android.com/studio/preview) to build this project.
-
+<img src="./beta_android.png" height="200" alt="Beta-studio"/>
+<br>
 
 ## Contribute 🤝
 If you want to contribute to this app, you're always welcome!
