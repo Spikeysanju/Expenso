@@ -18,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentDashboardBinding
 import dev.spikeysanju.expensetracker.model.Transaction
+import dev.spikeysanju.expensetracker.services.csv.ExportCSV
 import dev.spikeysanju.expensetracker.utils.viewState.ViewState
 import dev.spikeysanju.expensetracker.view.adapter.TransactionAdapter
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
@@ -27,11 +28,14 @@ import indianRupee
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import show
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class DashboardFragment :
     BaseFragment<FragmentDashboardBinding, TransactionViewModel>() {
+
     private lateinit var transactionAdapter: TransactionAdapter
+
     override val viewModel: TransactionViewModel by activityViewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -267,6 +271,39 @@ class DashboardFragment :
                 findNavController().navigate(R.id.action_dashboardFragment_to_aboutFragment)
                 true
             }
+
+            R.id.action_export -> {
+                viewModel.exportTransactionsToCsv()
+                lifecycleScope.launchWhenCreated {
+                    viewModel.exportCsvState.collect { state ->
+                        when (state) {
+                            ViewState.Empty -> {
+                                /*do nothing*/
+                            }
+                            is ViewState.Error -> {
+                                Snackbar.make(
+                                    binding.root,
+                                    getString(R.string.failed_transaction_export),
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                            ViewState.Loading -> {
+                                /*do nothing*/
+                            }
+                            is ViewState.Success -> {
+                                Snackbar.make(
+                                    binding.root,
+                                    getString(R.string.success_transaction_export),
+                                    Snackbar.LENGTH_LONG
+                                ).show()
+                            }
+                        }
+                    }
+                }
+                true
+            }
+
+
             else -> super.onOptionsItemSelected(item)
         }
     }

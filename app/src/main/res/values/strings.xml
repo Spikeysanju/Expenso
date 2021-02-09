@@ -16,6 +16,8 @@
     <string name="text_expense_rupees">₹</string>
     <string name="success_expense_saved">Transaction saved successfully</string>
     <string name="success_transaction_delete">Transaction deleted successfully!</string>
+    <string name="success_transaction_export">Transaction exported successfully!</string>
+    <string name="failed_transaction_export">Transaction exported failed ☹️</string>
     <string name="text_title">Title</string>
     <string name="text_about">About</string>
     <string name="text_export_csv">Export to CSV</string>

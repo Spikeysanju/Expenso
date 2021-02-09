@@ -8,24 +8,31 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.spikeysanju.expensetracker.data.local.datastore.UIModeDataStore
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
+import dev.spikeysanju.expensetracker.services.csv.ExportCSV
 import dev.spikeysanju.expensetracker.utils.viewState.DetailState
 import dev.spikeysanju.expensetracker.utils.viewState.ViewState
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TransactionViewModel @Inject constructor(
     application: Application,
-    private val transactionRepo: TransactionRepo
+    private val transactionRepo: TransactionRepo,
+    private val exportCSV: ExportCSV
 ) :
     AndroidViewModel(application) {
 
     private val _transactionFilter = MutableStateFlow("Overall")
     val transactionFilter: StateFlow<String> = _transactionFilter
+
+    private val _exportCsvState = MutableStateFlow<ViewState>(ViewState.Empty)
+    val exportCsvState: StateFlow<ViewState> = _exportCsvState
 
     private val _uiState = MutableStateFlow<ViewState>(ViewState.Loading)
     private val _detailState = MutableStateFlow<DetailState>(DetailState.Loading)
@@ -62,6 +69,7 @@ class TransactionViewModel @Inject constructor(
         transactionRepo.delete(transaction)
     }
 
+
     // get all transaction
     fun getAllTransaction(type: String) = viewModelScope.launch {
         transactionRepo.getAllSingleTransaction(type).collect { result ->
@@ -72,6 +80,19 @@ class TransactionViewModel @Inject constructor(
                 Log.i("Filter", "Transaction filter is ${transactionFilter.value}")
             }
         }
+    }
+
+    // export all Transactions to csv file
+    fun exportTransactionsToCsv() = viewModelScope.launch(IO) {
+        _exportCsvState.value = ViewState.Loading
+        transactionRepo.getAllTransactions()
+            .map {
+                exportCSV.writeTransactions(it)
+            }.catch { error ->
+                _exportCsvState.value = ViewState.Error(error)
+            }.collect { result ->
+                _exportCsvState.value = ViewState.Success(emptyList())
+            }
     }
 
     // get transaction by id

@@ -12,17 +12,19 @@ import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.data.local.AppDatabase
 import dev.spikeysanju.expensetracker.databinding.ActivityMainBinding
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
+import dev.spikeysanju.expensetracker.services.csv.ExportCSV
 import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
-
+    private val exportCsv: ExportCSV by lazy { ExportCSV(applicationContext) }
     private val repo by lazy { TransactionRepo(AppDatabase(this)) }
     private val viewModel: TransactionViewModel by viewModels {
-        viewModelFactory { TransactionViewModel(this.application, repo) }
+        viewModelFactory { TransactionViewModel(this.application, repo, exportCsv) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
