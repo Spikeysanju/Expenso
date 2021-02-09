@@ -8,7 +8,11 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.spikeysanju.expensetracker.data.local.datastore.UIModeDataStore
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
-import dev.spikeysanju.expensetracker.services.csv.ExportCSV
+import dev.spikeysanju.expensetracker.services.csv.CsvConfig
+import dev.spikeysanju.expensetracker.services.csv.ExportService
+import dev.spikeysanju.expensetracker.services.csv.Exports
+import dev.spikeysanju.expensetracker.services.csv.adapters.TransactionsCSV
+import dev.spikeysanju.expensetracker.services.csv.adapters.toCsv
 import dev.spikeysanju.expensetracker.utils.viewState.DetailState
 import dev.spikeysanju.expensetracker.utils.viewState.ViewState
 import kotlinx.coroutines.Dispatchers.IO
@@ -23,8 +27,7 @@ import javax.inject.Inject
 @HiltViewModel
 class TransactionViewModel @Inject constructor(
     application: Application,
-    private val transactionRepo: TransactionRepo,
-    private val exportCSV: ExportCSV
+    private val transactionRepo: TransactionRepo
 ) :
     AndroidViewModel(application) {
 
@@ -86,12 +89,14 @@ class TransactionViewModel @Inject constructor(
     fun exportTransactionsToCsv() = viewModelScope.launch(IO) {
         _exportCsvState.value = ViewState.Loading
         val transactions = transactionRepo.getAllTransactions().first()
-        exportCSV.writeTransactions(transactions)
-            .catch { error ->
-                _exportCsvState.value = ViewState.Error(error)
-            }.collect { result ->
-                _exportCsvState.value = ViewState.Success(emptyList())
-            }
+        ExportService.export<TransactionsCSV>(
+            type = Exports.CSV(CsvConfig()),
+            content = transactions.toCsv()
+        ).catch { error ->
+            _exportCsvState.value = ViewState.Error(error)
+        }.collect { result ->
+            _exportCsvState.value = ViewState.Success(emptyList())
+        }
     }
 
     // get transaction by id
