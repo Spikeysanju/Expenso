@@ -90,25 +90,43 @@ This app uses [***MVVM (Model View View-Model)***](https://developer.android.com
 
 ![](https://github.com/TheCodeMonks/Notes-App/blob/master/screenshots/ANDROID%20ROOM%20DB%20DIAGRAM.jpg)
 
+## Build-tool 🧰
+You need to have [Android Studio Beta 3 or above](https://developer.android.com/studio/preview) to build this project.
+<br>
+<img src="./beta_android.png" height="200" alt="Beta-studio"/>
+
+<br>
+
+## Ohh You want iOS App Too? 📱 
+Well, we've iOS version here, Checkout the iOS version of this app <a href="https://github.com/sameersyd/Expenso">Expenso</a>
+
+<br />
 
 ## Contribute 🤝
 If you want to contribute to this app, you're always welcome!
 See [Contributing Guidelines](https://github.com/Spikeysanju/Expenso/blob/master/CONTRIBUTION.md). 
+
+<br>
 
 ## Contact 📩
 Have an project? DM us at 👇
 
 Drop a mail to:- spikeysanju98@gmail.com
 
+<br>
+
 ## Donation 💰
 If this project help you reduce time to develop, you can give me a cup of coffee :) 
 
 <a href="https://www.buymeacoffee.com/Li0hsl4" target="_blank"><img src="https://www.buymeacoffee.com/assets/img/custom_images/yellow_img.png" alt="Buy Me A Coffee" style="height: 41px !important;width: 174px !important;box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;-webkit-box-shadow: 0px 3px 2px 0px rgba(190, 190, 190, 0.5) !important;" ></a>
 
+<br>
+
+
 ## Credits 🤗
 
 - 🤓 Icons are from [tablericons.com](https://tablericons.com) 
-- 📄 Thanks [NotyKT](https://github.com/PatilShreyas/NotyKT)
+- 📄 Thanks for [NotyKT](https://github.com/PatilShreyas/NotyKT)
 
 <br />
 
