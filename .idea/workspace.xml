@@ -4,12 +4,7 @@
     <option name="autoReloadType" value="NONE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5ec751d9-f887-43e6-9f96-d395b88a5f9b" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/docs/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/pages/add-architecture.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/pages/app-architecture.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/pages/design.md" beforeDir="false" afterPath="$PROJECT_DIR$/docs/pages/design.md" afterDir="false" />
-    </list>
+    <list default="true" id="5ec751d9-f887-43e6-9f96-d395b88a5f9b" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -22,7 +17,25 @@
     </projectState>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Sanju S &lt;spikeysanju98@gmail.com&gt;" />
+        <option value="Remove Documentation files" />
+      </list>
+    </option>
+    <option name="PUSH_TAGS">
+      <GitPushTagMode>
+        <option name="argument" value="--tags" />
+        <option name="title" value="All" />
+      </GitPushTagMode>
+    </option>
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
   <component name="ProjectId" id="1oFj7lG0g2xNuOP8FSNzCr1wqP1" />
   <component name="ProjectViewState">
@@ -30,6 +43,7 @@
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+    <property name="Git.Branch.Popup.ShowAllRemotes" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
   </component>
   <component name="RunManager">
@@ -108,6 +122,50 @@
       <option name="presentableId" value="Default" />
       <updated>1612889067870</updated>
     </task>
+    <task id="LOCAL-00001" summary="Remove Documentation files">
+      <created>1612892378100</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1612892378100</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
+  </component>
+  <component name="UpdateCopyrightCheckinHandler">
+    <option name="UPDATE_COPYRIGHT" value="true" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_CLEANUP_BEFORE_PROJECT_COMMIT" value="true" />
+    <MESSAGE value="Remove Documentation files" />
+    <option name="LAST_COMMIT_MESSAGE" value="Remove Documentation files" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REARRANGE_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="104" y="62" width="1071" height="702" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1612893182282">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="104" y="62" width="1071" height="702" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1280.800@0.0.1280.800" timestamp="1612893182282" />
+    <state x="134" y="0" key="CommitChangelistDialog2" timestamp="1612892377977">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="134" y="0" key="CommitChangelistDialog2/0.0.1280.800@0.0.1280.800" timestamp="1612892377977" />
+    <state x="240" y="140" key="Vcs.Push.Dialog.v2" timestamp="1612892385070">
+      <screen x="0" y="0" width="1280" height="800" />
+    </state>
+    <state x="240" y="140" key="Vcs.Push.Dialog.v2/0.0.1280.800@0.0.1280.800" timestamp="1612892385070" />
   </component>
 </project>
