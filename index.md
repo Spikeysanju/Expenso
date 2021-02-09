@@ -22,14 +22,14 @@ A Simple Expense Tracker App 📱 built to demonstrate the use of modern android
 ## Day Mode 🌞
 Dashboard | All Income | All Expense | Details | Add Transaction 
 --- | --- | --- |--- |--- 
-![](https://github.com/Spikeysanju/Expenso/blob/master/art/DASHBOARD.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/INCOME.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/EXPENSE.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DETAILS.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/ADD-TRANSACTION.png) 
+![](https://github.com/Spikeysanju/Expenso/blob/master/art/DASHBOARD.png?raw=true) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/INCOME.png?raw=true) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/EXPENSE.png?raw=true) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DETAILS.png?raw=true) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/ADD-TRANSACTION.png?raw=true) 
 
 <br />
 
 ## We Support Dark Mode Too 🌚
 Dashboard | All Income | All Expense | Details | Add Transaction 
 --- | --- | --- |--- |--- 
-![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-DASHBOARD.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-INCOME.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-EXPENSE.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-DETAILS.png) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-ADD-TRANSACTION.png) 
+![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-DASHBOARD.png?raw=true) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-INCOME.png?raw=true) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-EXPENSE.png?raw=true) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-DETAILS.png?raw=true) | ![](https://github.com/Spikeysanju/Expenso/blob/master/art/DARK-ADD-TRANSACTION.png?raw=true) 
 
 <br />
 
@@ -88,7 +88,7 @@ Dashboard | All Income | All Expense | Details | Add Transaction
 ## Architecture 🗼
 This app uses [***MVVM (Model View View-Model)***](https://developer.android.com/jetpack/docs/guide#recommended-app-arch) architecture.
 
-![](https://github.com/TheCodeMonks/Notes-App/blob/master/screenshots/ANDROID%20ROOM%20DB%20DIAGRAM.jpg)
+![](https://github.com/TheCodeMonks/Notes-App/blob/master/screenshots/ANDROID%20ROOM%20DB%20DIAGRAM.jpg?raw=true)
 
 ## Build-tool 🧰
 You need to have [Android Studio Beta 3 or above](https://developer.android.com/studio/preview) to build this project.
