@@ -1,4 +1,4 @@
-- [Expenso 📊]()
+- [Expenso]()
     - [Overview](/pages/overview)
     - [Setting up project](/pages/setup-project)
     - [Design / Wireframe](pages/design.md)
