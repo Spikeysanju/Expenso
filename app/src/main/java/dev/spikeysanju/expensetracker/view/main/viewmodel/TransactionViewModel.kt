@@ -16,7 +16,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -85,10 +85,9 @@ class TransactionViewModel @Inject constructor(
     // export all Transactions to csv file
     fun exportTransactionsToCsv() = viewModelScope.launch(IO) {
         _exportCsvState.value = ViewState.Loading
-        transactionRepo.getAllTransactions()
-            .map {
-                exportCSV.writeTransactions(it)
-            }.catch { error ->
+        val transactions = transactionRepo.getAllTransactions().first()
+        exportCSV.writeTransactions(transactions)
+            .catch { error ->
                 _exportCsvState.value = ViewState.Error(error)
             }.collect { result ->
                 _exportCsvState.value = ViewState.Success(emptyList())

@@ -1,7 +1,7 @@
 package dev.spikeysanju.expensetracker.services.csv
 
 import android.content.Context
-import android.os.Environment.DIRECTORY_DOCUMENTS
+import android.os.Environment
 import android.util.Log
 import androidx.annotation.WorkerThread
 import com.opencsv.CSVWriter
@@ -18,8 +18,6 @@ import java.text.DateFormat
 
 class ExportCSV (private val context: Context) {
 
-    private val TAG = "ExportCSV"
-
     private val currentDate = DateFormat
         .getDateTimeInstance()
         .format(System.currentTimeMillis())
@@ -27,36 +25,26 @@ class ExportCSV (private val context: Context) {
         .replace(" ", "_")
 
     private val hostPath
-        get() = context.applicationContext
-            .getExternalFilesDir(DIRECTORY_DOCUMENTS)?.path?.plus("/Expenso") ?: ""
+        get() = Environment.getExternalStorageDirectory()?.absolutePath?.plus("/Documents/Expenso") ?: ""
 
     private val CSV_FILE_NAME
-        get() = "Expenso_$currentDate.csv"
-
+        get() = "expenso_$currentDate.csv"
 
     @WorkerThread
     fun writeTransactions(transactions: List<Transaction>) = flow<Boolean> {
         hostPath.ifEmpty { throw IllegalStateException("Wrong Path") }
-
         val hostDirectory = File(hostPath)
         if (!hostDirectory.exists()) {
             hostDirectory.mkdir()
         }
-
         val expensoCSV = File("${hostDirectory.path}/${CSV_FILE_NAME}")
-        CSVWriter(FileWriter(expensoCSV))
-            .apply {
-                StatefulBeanToCsvBuilder<TransactionsCSV>(this)
-                    .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
-                    .build()
-                    .write(transactions.toCsv())
-                close()
-            }
-
+        val csvWriter = CSVWriter(FileWriter(expensoCSV))
+        StatefulBeanToCsvBuilder<TransactionsCSV>(csvWriter)
+            .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
+            .build()
+            .write(transactions.toCsv())
+        csvWriter.close()
         emit(true)
-    }.catch { error: Throwable ->
-        Log.e(TAG, "Failed Exporting", error)
-        emit(false)
     }
 
 }
