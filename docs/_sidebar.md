@@ -2,9 +2,9 @@
     - [Overview](/pages/overview)
     - [Setting up project](/pages/setup-project)
     - [Design / Wireframe](pages/design.md)
-    - [App Architecture](/pages/noty-android/app-architecture.md)
-- [End notes](/pages/endnote)
-- [Changelog](/pages/changelog)
+    - [App Architecture](/pages/app-architecture.md)
+    - [End notes](/pages/endnote)
+    - [Changelog](/pages/changelog)
 - **Links**
 - [![Github](https://icongr.am/simple/github.svg?color=808080&size=16)Github](https://github.com/Spikeysanju/Expenso)
 - [![Twitter](https://icongram.jgog.in/simple/twitter.svg?colored&size=16)@SpikeySanju](http://twitter.com/sanjay_spikey)
