@@ -1,5 +1,8 @@
 package dev.spikeysanju.expensetracker.view.dashboard
 
+import android.Manifest
+import android.content.pm.PackageManager
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -11,7 +14,9 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -26,6 +31,7 @@ import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.utils.viewState.ViewState
 import dev.spikeysanju.expensetracker.view.adapter.TransactionAdapter
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
+import dev.spikeysanju.expensetracker.view.details.TransactionDetailsFragmentDirections
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 import hide
 import indianRupee
@@ -45,6 +51,20 @@ class DashboardFragment :
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
     }
+
+    // handle permission dialog
+    private val requestLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
+            if (isGranted) exportCSV() else showErrorDialog()
+        }
+
+    private fun showErrorDialog() =
+        findNavController().navigate(
+            TransactionDetailsFragmentDirections.actionTransactionDetailsFragmentToErrorDialog(
+                getString(R.string.failed_transaction_export),
+                "You have to enable storage permission to Export the CSV"
+            )
+        )
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -276,32 +296,15 @@ class DashboardFragment :
             }
 
             R.id.action_export -> {
-                viewModel.exportTransactionsToCsv()
-                lifecycleScope.launchWhenCreated {
-                    viewModel.exportCsvState.collect { state ->
-                        when (state) {
-                            ViewState.Empty -> {
-                                /*do nothing*/
-                            }
-                            is ViewState.Error -> {
-                                Snackbar.make(
-                                    binding.root,
-                                    getString(R.string.failed_transaction_export),
-                                    Snackbar.LENGTH_LONG
-                                ).show()
-                            }
-                            ViewState.Loading -> {
-                                /*do nothing*/
-                            }
-                            is ViewState.Success -> {
-                                Snackbar.make(
-                                    binding.root,
-                                    getString(R.string.success_transaction_export),
-                                    Snackbar.LENGTH_LONG
-                                ).show()
-                            }
-                        }
+                val androidVersion = Build.VERSION.SDK_INT;
+                if (androidVersion <= 29/*android-10*/) {
+                    if (!isStoragePermissionGranted()) {
+                        requestLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        return true
                     }
+                    exportCSV()
+                } else {
+                    toast("Support for export on Android10+ is still in progress, kindly be patient and thanks for support!")
                 }
                 true
             }
@@ -310,6 +313,41 @@ class DashboardFragment :
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+    private fun exportCSV() {
+        viewModel.exportTransactionsToCsv()
+        lifecycleScope.launchWhenCreated {
+            viewModel.exportCsvState.collect { state ->
+                when (state) {
+                    ViewState.Empty -> {
+                        /*do nothing*/
+                    }
+                    is ViewState.Error -> {
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.failed_transaction_export),
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                    ViewState.Loading -> {
+                        /*do nothing*/
+                    }
+                    is ViewState.Success -> {
+                        Snackbar.make(
+                            binding.root,
+                            getString(R.string.success_transaction_export),
+                            Snackbar.LENGTH_LONG
+                        ).show()
+                    }
+                }
+            }
+        }
+    }
+
+    private fun isStoragePermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.WRITE_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
 
     private fun setUIMode(item: MenuItem, isChecked: Boolean) {
         if (isChecked) {
