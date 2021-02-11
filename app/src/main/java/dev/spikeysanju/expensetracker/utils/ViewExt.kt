@@ -1,6 +1,9 @@
 import android.app.DatePickerDialog
 import android.content.Context
 import android.view.View
+import androidx.annotation.ColorRes
+import androidx.core.content.ContextCompat
+import androidx.fragment.app.Fragment
 import com.google.android.material.textfield.TextInputEditText
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -73,4 +76,9 @@ val String.cleanTextContent: String
 // parse string to double
 fun parseDouble(value: String?): Double {
     return if (value == null || value.isEmpty()) Double.NaN else value.toDouble()
+}
+
+// color compact
+fun Fragment.color(@ColorRes colorId: Int): Int {
+    return ContextCompat.getColor(requireContext(), colorId)
 }

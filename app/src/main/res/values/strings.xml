@@ -18,6 +18,7 @@
     <string name="success_transaction_delete">Transaction deleted successfully!</string>
     <string name="success_transaction_export">Transaction exported successfully!</string>
     <string name="failed_transaction_export">Transaction exported failed ☹️</string>
+    <string name="support_pending">Support for export on Android10+ is still in progress, kindly be patient and thanks for support!</string>
     <string name="text_title">Title</string>
     <string name="text_about">About</string>
     <string name="text_export_csv">Export to CSV</string>

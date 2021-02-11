@@ -23,6 +23,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import color
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
@@ -251,15 +252,15 @@ class DashboardFragment :
                     when (position) {
                         0 -> {
                             viewModel.overall()
-                            (view as TextView).setTextColor(resources.getColor(R.color.black))
+                            (view as TextView).setTextColor(color(R.color.black))
                         }
                         1 -> {
                             viewModel.allIncome()
-                            (view as TextView).setTextColor(resources.getColor(R.color.black))
+                            (view as TextView).setTextColor(color(R.color.black))
                         }
                         2 -> {
                             viewModel.allExpense()
-                            (view as TextView).setTextColor(resources.getColor(R.color.black))
+                            (view as TextView).setTextColor(color(R.color.black))
                         }
                     }
                 }
@@ -296,7 +297,7 @@ class DashboardFragment :
             }
 
             R.id.action_export -> {
-                val androidVersion = Build.VERSION.SDK_INT;
+                val androidVersion = Build.VERSION.SDK_INT
                 if (androidVersion <= 29/*android-10*/) {
                     if (!isStoragePermissionGranted()) {
                         requestLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
@@ -304,11 +305,10 @@ class DashboardFragment :
                     }
                     exportCSV()
                 } else {
-                    toast("Support for export on Android10+ is still in progress, kindly be patient and thanks for support!")
+                    toast(getString(R.string.support_pending))
                 }
                 true
             }
-
 
             else -> super.onOptionsItemSelected(item)
         }

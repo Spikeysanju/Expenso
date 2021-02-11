@@ -72,7 +72,6 @@ class TransactionViewModel @Inject constructor(
         transactionRepo.delete(transaction)
     }
 
-
     // get all transaction
     fun getAllTransaction(type: String) = viewModelScope.launch {
         transactionRepo.getAllSingleTransaction(type).collect { result ->
@@ -94,7 +93,7 @@ class TransactionViewModel @Inject constructor(
             content = transactions.toCsv()
         ).catch { error ->
             _exportCsvState.value = ViewState.Error(error)
-        }.collect { result ->
+        }.collect { _ ->
             _exportCsvState.value = ViewState.Success(emptyList())
         }
     }

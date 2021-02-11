@@ -49,7 +49,7 @@ object ExportService {
             if (!hostDirectory.exists()) {
                 hostDirectory.mkdir()
             }
-            val csvFile = File("${hostDirectory.path}/${fileName}")
+            val csvFile = File("${hostDirectory.path}/$fileName")
             val csvWriter = CSVWriter(FileWriter(csvFile))
             StatefulBeanToCsvBuilder<T>(csvWriter)
                 .withSeparator(CSVWriter.DEFAULT_SEPARATOR)
@@ -59,5 +59,4 @@ object ExportService {
         }
         emit(true)
     }
-
 }
