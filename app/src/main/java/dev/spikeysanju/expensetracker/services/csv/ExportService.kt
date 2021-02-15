@@ -30,6 +30,7 @@ data class CsvConfig(
         .toString()
         .replace(" ", "_"),
     val fileName: String = "$prefix-$suffix.csv",
+    @Suppress("DEPRECATION")
     val hostPath: String = Environment
         .getExternalStorageDirectory()?.absolutePath?.plus("/Documents/Expenso") ?: ""
 )
