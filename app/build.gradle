@@ -99,6 +99,7 @@ dependencies {
 
     // OpenCsv
     implementation ("com.opencsv:opencsv:5.3") {
+        // fix conflicts with android commons-logging
         exclude group: "commons-logging"
     }
 }
