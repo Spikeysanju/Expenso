@@ -11,6 +11,14 @@
         android:label="fragment_dashboard"
         tools:layout="@layout/fragment_dashboard">
         <action
+            android:id="@+id/action_dashboardFragment_to_statisticsFragment"
+            app:destination="@id/statisticsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"></action>
+
+        <action
             android:id="@+id/action_dashboardFragment_to_addTransactionFragment"
             app:destination="@id/addTransactionFragment"
             app:enterAnim="@anim/slide_in_right"
@@ -32,6 +40,17 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
     </fragment>
+    <fragment
+        android:id="@+id/statisticsFragment"
+        android:name="dev.spikeysanju.expensetracker.view.statistics.StatisticsFragment"
+        android:label="fragment_statistics"
+        tools:layout="@layout/statistics_fragment">
+        <argument
+            android:name="filter"
+            app:argType="string" />
+
+    </fragment>
+
     <fragment
         android:id="@+id/addTransactionFragment"
         android:name="dev.spikeysanju.expensetracker.view.add.AddTransactionFragment"

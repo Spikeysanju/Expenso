@@ -14,6 +14,7 @@ import dev.spikeysanju.expensetracker.databinding.ActivityMainBinding
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
 import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
+import dev.spikeysanju.expensetracker.view.statistics.StatisticsViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -23,6 +24,7 @@ class MainActivity : AppCompatActivity() {
     private val repo by lazy { TransactionRepo(AppDatabase(this)) }
     private val viewModel: TransactionViewModel by viewModels {
         viewModelFactory { TransactionViewModel(this.application, repo) }
+
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,9 +49,14 @@ class MainActivity : AppCompatActivity() {
         navController.addOnDestinationChangedListener { _, destination, _ ->
             when (destination.id) {
 
+
                 R.id.dashboardFragment -> {
                     supportActionBar!!.setDisplayShowTitleEnabled(false)
                 }
+                R.id.statisticsFragment -> {
+                    supportActionBar!!.setDisplayShowTitleEnabled(false)
+                }
+
                 R.id.addTransactionFragment -> {
                     supportActionBar!!.setDisplayShowTitleEnabled(true)
                     binding.toolbar.title = "Add Transaction"
