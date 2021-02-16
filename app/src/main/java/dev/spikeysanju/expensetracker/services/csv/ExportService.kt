@@ -18,22 +18,7 @@ import java.text.DateFormat
  * Author : Ch8n
  * Created-on : 10-02-2021
  */
-sealed class Exports {
-    data class CSV(val csvConfig: CsvConfig) : Exports()
-}
 
-data class CsvConfig(
-    val prefix: String = "expenso",
-    val suffix: String = DateFormat
-        .getDateTimeInstance()
-        .format(System.currentTimeMillis())
-        .toString()
-        .replace(" ", "_"),
-    val fileName: String = "$prefix-$suffix.csv",
-    @Suppress("DEPRECATION")
-    val hostPath: String = Environment
-        .getExternalStorageDirectory()?.absolutePath?.plus("/Documents/Expenso") ?: ""
-)
 
 object ExportService {
 
