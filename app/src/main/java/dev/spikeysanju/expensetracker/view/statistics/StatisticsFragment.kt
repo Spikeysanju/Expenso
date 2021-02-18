@@ -38,18 +38,16 @@ import kotlinx.coroutines.flow.collect
 import kotlin.math.exp
 import com.github.mikephil.charting.formatter.PercentFormatter
 import kotlinx.coroutines.flow.first
+import kotlin.properties.Delegates
 
 
 @AndroidEntryPoint
 class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionViewModel>() {
 
-    companion object {
-        fun newInstance() = StatisticsFragment()
-    }
+
     private val args: StatisticsFragmentArgs by navArgs()
     override val viewModel: TransactionViewModel by activityViewModels()
     private lateinit var filter :String
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -178,8 +176,16 @@ class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionVi
 
         data.setValueFormatter(PercentFormatter())
         data.setValueTextSize(11f)
-        data.setValueTextColor(Color.BLACK)
-        //data.setValueTypeface(tfLight)
+
+        lifecycleScope.launchWhenStarted {
+            val isItNight = viewModel.getUIMode.first()
+            if(isItNight == true)
+                data.setValueTextColor(Color.WHITE)
+            else
+                data.setValueTextColor(Color.BLACK)
+        }
+
+
 
 
 
@@ -194,7 +200,7 @@ class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionVi
                 rotationAngle = 0.0f
                 isRotationEnabled = true
                 isHighlightPerTapEnabled = true
-
+                setEntryLabelColor(Color.BLACK)
                 description.text = "${filter?.capitalize()} ".toString()
                 this.setEntryLabelTextSize(12f)
                 this.centerText = centerText
@@ -270,7 +276,9 @@ class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionVi
 
         // Set the item state
         lifecycleScope.launchWhenStarted {
+
             val isChecked = viewModel.getUIMode.first()
+
             val uiMode = menu.findItem(R.id.action_night_mode)
             uiMode.isChecked = isChecked
             setUIMode(uiMode, isChecked)
@@ -296,6 +304,7 @@ class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionVi
 
     private fun setUIMode(item: MenuItem, isChecked: Boolean) {
         if (isChecked) {
+
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             viewModel.saveToDataStore(true)
             item.setIcon(R.drawable.ic_night)

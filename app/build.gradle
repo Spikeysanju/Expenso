@@ -99,6 +99,6 @@ dependencies {
 
 
 
-    //statistics library
+    //MP chart library
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 }
