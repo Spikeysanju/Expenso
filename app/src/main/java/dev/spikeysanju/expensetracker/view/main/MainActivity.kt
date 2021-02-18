@@ -14,7 +14,6 @@ import dev.spikeysanju.expensetracker.databinding.ActivityMainBinding
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
 import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
-import dev.spikeysanju.expensetracker.view.statistics.StatisticsViewModel
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
