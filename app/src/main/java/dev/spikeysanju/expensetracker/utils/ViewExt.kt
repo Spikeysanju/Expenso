@@ -1,9 +1,12 @@
 import android.app.DatePickerDialog
 import android.content.Context
 import android.view.View
+import android.widget.Toast
 import androidx.annotation.ColorRes
+import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.TextInputEditText
 import java.text.NumberFormat
 import java.text.SimpleDateFormat
@@ -16,6 +19,26 @@ fun View.show() {
 fun View.hide() {
     visibility = View.GONE
 }
+
+inline fun View.snack(
+    @StringRes string: Int,
+    length: Int = Snackbar.LENGTH_LONG,
+    action: Snackbar.() -> Unit
+) {
+    val snack = Snackbar.make(this, resources.getString(string), length)
+    action.invoke(snack)
+    snack.show()
+}
+
+fun Snackbar.action(
+    @StringRes text: Int,
+    color: Int? = null,
+    listener: (View) -> Unit
+) {
+    setAction(text, listener)
+    color?.let { setActionTextColor(ContextCompat.getColor(context, color)) }
+}
+
 
 fun TextInputEditText.transformIntoDatePicker(
     context: Context,

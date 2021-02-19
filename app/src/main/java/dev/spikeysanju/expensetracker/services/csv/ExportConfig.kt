@@ -3,6 +3,14 @@ package dev.spikeysanju.expensetracker.services.csv
 import android.os.Environment
 import java.text.DateFormat
 
+/****
+ * Author : Ch8n
+ * Created-on : 10-02-2021
+ */
+
+// marker interface for exportable entities
+interface Exportable
+
 sealed class Exports {
     data class CSV(val csvConfig: CsvConfig) : Exports()
 }

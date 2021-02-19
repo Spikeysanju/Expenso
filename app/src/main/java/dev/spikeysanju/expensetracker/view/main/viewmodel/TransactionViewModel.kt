@@ -2,6 +2,7 @@ package dev.spikeysanju.expensetracker.view.main.viewmodel
 
 import android.app.Application
 import android.util.Log
+import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -14,6 +15,7 @@ import dev.spikeysanju.expensetracker.services.csv.Exports
 import dev.spikeysanju.expensetracker.services.csv.adapters.TransactionsCSV
 import dev.spikeysanju.expensetracker.services.csv.adapters.toCsv
 import dev.spikeysanju.expensetracker.utils.viewState.DetailState
+import dev.spikeysanju.expensetracker.utils.viewState.ExportState
 import dev.spikeysanju.expensetracker.utils.viewState.ViewState
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -34,8 +36,9 @@ class TransactionViewModel @Inject constructor(
     private val _transactionFilter = MutableStateFlow("Overall")
     val transactionFilter: StateFlow<String> = _transactionFilter
 
-    private val _exportCsvState = MutableStateFlow<ViewState>(ViewState.Empty)
-    val exportCsvState: StateFlow<ViewState> = _exportCsvState
+    // state for export csv status
+    private val _exportCsvState = MutableStateFlow<ExportState>(ExportState.Empty)
+    val exportCsvState: StateFlow<ExportState> = _exportCsvState
 
     private val _uiState = MutableStateFlow<ViewState>(ViewState.Loading)
     private val _detailState = MutableStateFlow<DetailState>(DetailState.Loading)
@@ -86,15 +89,15 @@ class TransactionViewModel @Inject constructor(
 
     // export all Transactions to csv file
     fun exportTransactionsToCsv() = viewModelScope.launch(IO) {
-        _exportCsvState.value = ViewState.Loading
+        _exportCsvState.value = ExportState.Loading
         val transactions = transactionRepo.getAllTransactions().first()
         ExportService.export<TransactionsCSV>(
             type = Exports.CSV(CsvConfig()),
             content = transactions.toCsv()
         ).catch { error ->
-            _exportCsvState.value = ViewState.Error(error)
-        }.collect { _ ->
-            _exportCsvState.value = ViewState.Success(emptyList())
+            _exportCsvState.value = ExportState.Error(error)
+        }.collect { uriString ->
+            _exportCsvState.value = ExportState.Success(uriString)
         }
     }
 

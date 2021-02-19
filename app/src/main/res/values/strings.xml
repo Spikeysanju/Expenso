@@ -24,6 +24,7 @@
     <string name="text_export_csv">Export to CSV</string>
     <string name="text_filter">Filter</string>
     <string name="text_edit">Edit</string>
+    <string name="text_open">Open</string>
     <string name="text_createdAt">Created At</string>
 
     <!--  About -->

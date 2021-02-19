@@ -1,7 +1,11 @@
 package dev.spikeysanju.expensetracker.view.dashboard
 
+import action
 import android.Manifest
+import android.content.ActivityNotFoundException
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -29,6 +33,7 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentDashboardBinding
 import dev.spikeysanju.expensetracker.model.Transaction
+import dev.spikeysanju.expensetracker.utils.viewState.ExportState
 import dev.spikeysanju.expensetracker.utils.viewState.ViewState
 import dev.spikeysanju.expensetracker.view.adapter.TransactionAdapter
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
@@ -39,6 +44,9 @@ import indianRupee
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import show
+import snack
+import java.io.File
+import java.net.URI
 
 @AndroidEntryPoint
 class DashboardFragment :
@@ -53,10 +61,11 @@ class DashboardFragment :
         setHasOptionsMenu(true)
     }
 
-    // handle permission dialog
+    // handle multiple permission dialog
     private val requestLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestPermission()) { isGranted ->
-            if (isGranted) exportCSV() else showErrorDialog()
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val isAllPermissionGranted = permissions.filter { (_, value) -> value == false }.isEmpty()
+            if (isAllPermissionGranted) exportCSV() else showErrorDialog()
         }
 
     private fun showErrorDialog() =
@@ -300,7 +309,12 @@ class DashboardFragment :
                 val androidVersion = Build.VERSION.SDK_INT
                 if (androidVersion <= 29/*android-10*/) {
                     if (!isStoragePermissionGranted()) {
-                        requestLauncher.launch(Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                        requestLauncher.launch(
+                            arrayOf(
+                                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                                Manifest.permission.READ_EXTERNAL_STORAGE
+                            )
+                        )
                         return true
                     }
                     exportCSV()
@@ -319,35 +333,56 @@ class DashboardFragment :
         lifecycleScope.launchWhenCreated {
             viewModel.exportCsvState.collect { state ->
                 when (state) {
-                    ViewState.Empty -> {
+                    ExportState.Empty -> {
                         /*do nothing*/
                     }
-                    is ViewState.Error -> {
+                    is ExportState.Error -> {
                         Snackbar.make(
                             binding.root,
                             getString(R.string.failed_transaction_export),
                             Snackbar.LENGTH_LONG
                         ).show()
                     }
-                    ViewState.Loading -> {
+                    ExportState.Loading -> {
                         /*do nothing*/
                     }
-                    is ViewState.Success -> {
-                        Snackbar.make(
-                            binding.root,
-                            getString(R.string.success_transaction_export),
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                    is ExportState.Success -> {
+                        binding.root.snack(string = R.string.success_transaction_export) {
+                            action(text = R.string.text_open) {
+                                //open file
+                                val fileUri = Uri.parse(state.fileUri)
+                                val title = "CSV Preview"
+                                val csvPreviewIntent = Intent(Intent.ACTION_QUICK_VIEW, fileUri).apply {
+                                    type = "text/csv"
+                                }
+                                val chooser = Intent.createChooser(csvPreviewIntent, title)
+                                try {
+                                    startActivity(chooser)
+                                } catch (e: ActivityNotFoundException) {
+                                    // Define what your app should do if no activity can handle the intent.
+                                    toast("file not found")
+                                }
+                            }
+                        }
                     }
                 }
             }
         }
     }
 
-    private fun isStoragePermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
+    private fun isStoragePermissionGranted(): Boolean =
+        isStorageReadPermissionGranted() && isStorageWritePermissionGranted()
+
+    private fun isStorageWritePermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
         requireContext(),
         Manifest.permission.WRITE_EXTERNAL_STORAGE
     ) == PackageManager.PERMISSION_GRANTED
+
+    private fun isStorageReadPermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
+
 
     private fun setUIMode(item: MenuItem, isChecked: Boolean) {
         if (isChecked) {
