@@ -46,7 +46,6 @@ import kotlinx.coroutines.flow.first
 import show
 import snack
 import java.io.File
-import java.net.URI
 
 @AndroidEntryPoint
 class DashboardFragment :
@@ -337,11 +336,9 @@ class DashboardFragment :
                         /*do nothing*/
                     }
                     is ExportState.Error -> {
-                        Snackbar.make(
-                            binding.root,
-                            getString(R.string.failed_transaction_export),
-                            Snackbar.LENGTH_LONG
-                        ).show()
+                        binding.root.snack(
+                            string = R.string.failed_transaction_export
+                        )
                     }
                     ExportState.Loading -> {
                         /*do nothing*/
@@ -349,10 +346,12 @@ class DashboardFragment :
                     is ExportState.Success -> {
                         binding.root.snack(string = R.string.success_transaction_export) {
                             action(text = R.string.text_open) {
-                                //open file
-                                val fileUri = Uri.parse(state.fileUri)
-                                val title = "CSV Preview"
-                                val csvPreviewIntent = Intent(Intent.ACTION_QUICK_VIEW, fileUri).apply {
+                                // open file
+                                val file = File(state.fileUri)
+                                toast("clicked ${file.exists()}")
+                                val fileUri = Uri.fromFile(file)
+                                val title = "Open with"
+                                val csvPreviewIntent = Intent(Intent.ACTION_VIEW, fileUri).apply {
                                     type = "text/csv"
                                 }
                                 val chooser = Intent.createChooser(csvPreviewIntent, title)
@@ -382,7 +381,6 @@ class DashboardFragment :
         requireContext(),
         Manifest.permission.READ_EXTERNAL_STORAGE
     ) == PackageManager.PERMISSION_GRANTED
-
 
     private fun setUIMode(item: MenuItem, isChecked: Boolean) {
         if (isChecked) {

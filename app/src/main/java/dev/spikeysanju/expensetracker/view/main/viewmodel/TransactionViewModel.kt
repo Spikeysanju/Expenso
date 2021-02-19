@@ -2,7 +2,6 @@ package dev.spikeysanju.expensetracker.view.main.viewmodel
 
 import android.app.Application
 import android.util.Log
-import android.view.View
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel

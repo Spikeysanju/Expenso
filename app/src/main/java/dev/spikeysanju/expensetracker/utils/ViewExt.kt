@@ -1,7 +1,6 @@
 import android.app.DatePickerDialog
 import android.content.Context
 import android.view.View
-import android.widget.Toast
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
 import androidx.core.content.ContextCompat
@@ -23,7 +22,7 @@ fun View.hide() {
 inline fun View.snack(
     @StringRes string: Int,
     length: Int = Snackbar.LENGTH_LONG,
-    action: Snackbar.() -> Unit
+    action: Snackbar.() -> Unit = {}
 ) {
     val snack = Snackbar.make(this, resources.getString(string), length)
     action.invoke(snack)
@@ -38,7 +37,6 @@ fun Snackbar.action(
     setAction(text, listener)
     color?.let { setActionTextColor(ContextCompat.getColor(context, color)) }
 }
-
 
 fun TextInputEditText.transformIntoDatePicker(
     context: Context,
