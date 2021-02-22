@@ -41,6 +41,13 @@ android {
     }
 }
 
+configurations {
+    all {
+        exclude module: 'commons-logging'
+    }
+}
+
+
 dependencies {
 
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
@@ -99,6 +106,4 @@ dependencies {
 
     // OpenCsv
     implementation ("com.opencsv:opencsv:5.3")
-    //noinspection DuplicatePlatformClasses [fix for openCSV common logs]
-    implementation 'commons-logging:commons-logging:1.2'
 }

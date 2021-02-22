@@ -348,12 +348,12 @@ class DashboardFragment :
                             action(text = R.string.text_open) {
                                 // open file
                                 val file = File(state.fileUri)
-                                toast("clicked ${file.exists()}")
                                 val fileUri = Uri.fromFile(file)
                                 val title = "Open with"
-                                val csvPreviewIntent = Intent(Intent.ACTION_VIEW, fileUri).apply {
-                                    type = "text/csv"
-                                }
+                                val csvPreviewIntent = Intent(Intent.ACTION_VIEW, fileUri)
+                                    .apply {
+                                        type = "text/csv"
+                                    }
                                 val chooser = Intent.createChooser(csvPreviewIntent, title)
                                 try {
                                     startActivity(chooser)

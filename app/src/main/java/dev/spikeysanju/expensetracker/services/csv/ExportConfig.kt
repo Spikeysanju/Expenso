@@ -17,11 +17,7 @@ sealed class Exports {
 
 data class CsvConfig(
     private val prefix: String = "expenso",
-    private val suffix: String = DateFormat
-        .getDateTimeInstance()
-        .format(System.currentTimeMillis())
-        .toString()
-        .replace(" ", "_"),
+    private val suffix: String = System.currentTimeMillis().toString(),
     val fileName: String = "$prefix-$suffix.csv",
     @Suppress("DEPRECATION")
     val hostPath: String = Environment
