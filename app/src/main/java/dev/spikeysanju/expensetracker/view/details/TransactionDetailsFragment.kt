@@ -10,6 +10,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.drawToBitmap
+import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -23,8 +24,10 @@ import dev.spikeysanju.expensetracker.utils.saveBitmap
 import dev.spikeysanju.expensetracker.utils.viewState.DetailState
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
+import hide
 import indianRupee
 import kotlinx.coroutines.flow.collect
+import show
 
 @AndroidEntryPoint
 class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBinding, TransactionViewModel>() {
@@ -126,19 +129,27 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
             return
         }
 
-        val imageURI = binding.transactionDetails.detailView.drawToBitmap().let { bitmap ->
-            saveBitmap(requireActivity(), bitmap)
-        } ?: run {
-            toast("Error occurred!")
-            return
+        // unHide the app logo and name
+        binding.transactionDetails.appIconForShare.show().let {
+            binding.transactionDetails.appNameForShare.show().let {
+                val imageURI = binding.transactionDetails.detailView.drawToBitmap().let { bitmap ->
+                    binding.transactionDetails.appIconForShare.hide()
+                    binding.transactionDetails.appNameForShare.hide()
+                    saveBitmap(requireActivity(), bitmap)
+                } ?: run {
+                    toast("Error occurred!")
+                    return
+                }
+
+                val intent = ShareCompat.IntentBuilder(requireActivity())
+                    .setType("image/jpeg")
+                    .setStream(imageURI)
+                    .intent
+
+                startActivity(Intent.createChooser(intent, null))
+            }
         }
 
-        val intent = ShareCompat.IntentBuilder(requireActivity())
-            .setType("image/jpeg")
-            .setStream(imageURI)
-            .intent
-
-        startActivity(Intent.createChooser(intent, null))
     }
 
     private fun isStoragePermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
