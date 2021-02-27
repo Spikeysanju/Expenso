@@ -10,7 +10,6 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.drawToBitmap
-import androidx.core.view.isVisible
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -149,7 +148,6 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
                 startActivity(Intent.createChooser(intent, null))
             }
         }
-
     }
 
     private fun isStoragePermissionGranted(): Boolean = ContextCompat.checkSelfPermission(

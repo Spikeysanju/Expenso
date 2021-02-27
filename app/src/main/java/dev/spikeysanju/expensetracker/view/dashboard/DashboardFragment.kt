@@ -193,7 +193,9 @@ class DashboardFragment :
                         oY > sY -> btnAddTransaction.show()
                     }
                 }
-            })
+            }
+        )
+
         transactionAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
                 putSerializable("transaction", it)
