@@ -129,25 +129,31 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
         }
 
         // unHide the app logo and name
-        binding.transactionDetails.appIconForShare.show().let {
-            binding.transactionDetails.appNameForShare.show().let {
-                val imageURI = binding.transactionDetails.detailView.drawToBitmap().let { bitmap ->
-                    binding.transactionDetails.appIconForShare.hide()
-                    binding.transactionDetails.appNameForShare.hide()
-                    saveBitmap(requireActivity(), bitmap)
-                } ?: run {
-                    toast("Error occurred!")
-                    return
-                }
-
-                val intent = ShareCompat.IntentBuilder(requireActivity())
-                    .setType("image/jpeg")
-                    .setStream(imageURI)
-                    .intent
-
-                startActivity(Intent.createChooser(intent, null))
-            }
+        showAppNameAndLogo()
+        val imageURI = binding.transactionDetails.detailView.drawToBitmap().let { bitmap ->
+            hideAppNameAndLogo()
+            saveBitmap(requireActivity(), bitmap)
+        } ?: run {
+            toast("Error occurred!")
+            return
         }
+
+        val intent = ShareCompat.IntentBuilder(requireActivity())
+            .setType("image/jpeg")
+            .setStream(imageURI)
+            .intent
+
+        startActivity(Intent.createChooser(intent, null))
+    }
+
+    private fun showAppNameAndLogo() = with(binding.transactionDetails) {
+        appIconForShare.show()
+        appNameForShare.show()
+    }
+
+    private fun hideAppNameAndLogo() = with(binding.transactionDetails) {
+        appIconForShare.hide()
+        appNameForShare.hide()
     }
 
     private fun isStoragePermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
