@@ -23,8 +23,10 @@ import dev.spikeysanju.expensetracker.utils.saveBitmap
 import dev.spikeysanju.expensetracker.utils.viewState.DetailState
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
+import hide
 import indianRupee
 import kotlinx.coroutines.flow.collect
+import show
 
 @AndroidEntryPoint
 class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBinding, TransactionViewModel>() {
@@ -126,7 +128,10 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
             return
         }
 
+        // unHide the app logo and name
+        showAppNameAndLogo()
         val imageURI = binding.transactionDetails.detailView.drawToBitmap().let { bitmap ->
+            hideAppNameAndLogo()
             saveBitmap(requireActivity(), bitmap)
         } ?: run {
             toast("Error occurred!")
@@ -139,6 +144,16 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
             .intent
 
         startActivity(Intent.createChooser(intent, null))
+    }
+
+    private fun showAppNameAndLogo() = with(binding.transactionDetails) {
+        appIconForShare.show()
+        appNameForShare.show()
+    }
+
+    private fun hideAppNameAndLogo() = with(binding.transactionDetails) {
+        appIconForShare.hide()
+        appNameForShare.hide()
     }
 
     private fun isStoragePermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
