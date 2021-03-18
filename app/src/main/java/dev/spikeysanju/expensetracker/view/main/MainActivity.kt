@@ -1,8 +1,11 @@
 package dev.spikeysanju.expensetracker.view.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,11 +17,17 @@ import dev.spikeysanju.expensetracker.databinding.ActivityMainBinding
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
 import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
+import java.util.concurrent.Executor
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
+
+    private lateinit var executor: Executor
+    private lateinit var biometricPrompt: BiometricPrompt
+    private lateinit var promptInfo: BiometricPrompt.PromptInfo
 
     private val repo by lazy { TransactionRepo(AppDatabase(this)) }
     private val viewModel: TransactionViewModel by viewModels {
@@ -35,6 +44,8 @@ class MainActivity : AppCompatActivity() {
          * anywhere here for now
          */
         viewModel
+
+        authenticate()
 
         initViews(binding)
         observeNavElements(binding, navHostFragment.navController)
@@ -79,4 +90,38 @@ class MainActivity : AppCompatActivity() {
         navHostFragment.navController.navigateUp()
         return super.onSupportNavigateUp()
     }
+
+    private fun authenticate(){
+        executor = ContextCompat.getMainExecutor(this)
+        biometricPrompt = BiometricPrompt(this, executor,
+            object : BiometricPrompt.AuthenticationCallback() {
+                override fun onAuthenticationSucceeded(
+                    result: BiometricPrompt.AuthenticationResult) {
+                    super.onAuthenticationSucceeded(result)
+                    Toast.makeText(applicationContext,
+                        "Welcome to Expenso", Toast.LENGTH_LONG)
+                        .show()
+                }
+
+                override fun onAuthenticationFailed() {
+                    super.onAuthenticationFailed()
+                    //todo: show message wait for a second; static err code
+                    exitProcess(-1)
+                }
+
+                override fun onAuthenticationError(errorCode: Int,
+                                                   errString: CharSequence) {
+                    super.onAuthenticationError(errorCode, errString)
+                    //todo: show message wait for a second; static err code
+                    exitProcess(-2)
+                }
+            })
+
+        promptInfo = BiometricPrompt.PromptInfo.Builder()
+            .setTitle("Please complete bio-metric login to continue")
+            .setNegativeButtonText("Exit")
+            .build()
+        biometricPrompt.authenticate(promptInfo)
+    }
+
 }
