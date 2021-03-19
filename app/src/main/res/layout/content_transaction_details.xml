@@ -193,6 +193,30 @@
             app:layout_constraintTop_toBottomOf="@id/caption_createdAt"
             tools:text="Sunday, 18 Dec 2021" />
 
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/app_icon_for_share"
+            app:srcCompat="@drawable/ic_logo"
+            android:visibility="invisible"
+            app:layout_constraintEnd_toStartOf="@+id/app_name_for_share"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="@dimen/dimen_64"
+            android:layout_height="@dimen/dimen_64" />
+
+        <TextView
+            android:id="@+id/app_name_for_share"
+            android:padding="@dimen/dimen_16"
+            android:gravity="center"
+            android:visibility="invisible"
+            android:text="@string/app_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_marginStart="@dimen/dimen_16"
+            android:fontFamily="@font/open_sans_regular"
+            app:layout_constraintTop_toTopOf="@id/app_icon_for_share"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            app:layout_constraintBottom_toBottomOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </ScrollView>
