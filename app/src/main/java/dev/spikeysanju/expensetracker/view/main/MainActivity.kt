@@ -52,8 +52,6 @@ class MainActivity : AppCompatActivity() {
          */
         viewModel
 
-
-        // Set the item state
         lifecycleScope.launchWhenStarted {
             if(settingsViewModel.bioMetricPreference.first())
                 authenticate()

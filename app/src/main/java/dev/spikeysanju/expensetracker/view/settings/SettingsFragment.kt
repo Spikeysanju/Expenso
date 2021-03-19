@@ -15,9 +15,9 @@ import kotlinx.coroutines.flow.first
 @AndroidEntryPoint
 class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsViewModel>() {
     override val viewModel: SettingsViewModel by viewModels()
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
 
         // Set the item state
         lifecycleScope.launchWhenStarted {
@@ -31,7 +31,6 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsViewModel
         biometric.setOnCheckedChangeListener { _, biometricEnabled ->
             viewModel.setBioMetricLock(biometricEnabled)
         }
-
     }
 
     override fun getViewBinding(inflater: LayoutInflater, container: ViewGroup?) =
