@@ -28,8 +28,8 @@ class SettingsFragment : BaseFragment<FragmentSettingsBinding, SettingsViewModel
     }
 
     private fun initViews() = with(binding) {
-        biometric.setOnCheckedChangeListener { _, isChecked ->
-            viewModel.setBioMetricLock(isChecked)
+        biometric.setOnCheckedChangeListener { _, biometricEnabled ->
+            viewModel.setBioMetricLock(biometricEnabled)
         }
 
     }

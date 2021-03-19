@@ -6,6 +6,7 @@ import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.biometric.BiometricPrompt
 import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -17,6 +18,8 @@ import dev.spikeysanju.expensetracker.databinding.ActivityMainBinding
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
 import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
+import dev.spikeysanju.expensetracker.view.settings.SettingsViewModel
+import kotlinx.coroutines.flow.first
 import java.util.concurrent.Executor
 import kotlin.system.exitProcess
 
@@ -34,6 +37,10 @@ class MainActivity : AppCompatActivity() {
         viewModelFactory { TransactionViewModel(this.application, repo) }
     }
 
+    private val settingsViewModel: SettingsViewModel by viewModels{
+        viewModelFactory { SettingsViewModel(this.application) }
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         val binding = ActivityMainBinding.inflate(layoutInflater)
@@ -45,7 +52,12 @@ class MainActivity : AppCompatActivity() {
          */
         viewModel
 
-        authenticate()
+
+        // Set the item state
+        lifecycleScope.launchWhenStarted {
+            if(settingsViewModel.bioMetricPreference.first())
+                authenticate()
+        }
 
         initViews(binding)
         observeNavElements(binding, navHostFragment.navController)
