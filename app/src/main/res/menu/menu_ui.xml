@@ -20,5 +20,10 @@
         android:enabled="true"
         android:title="@string/text_about"
         app:showAsAction="never" />
+    <item
+        android:id="@+id/action_settings"
+        android:enabled="true"
+        android:title="@string/text_settings"
+        app:showAsAction="never" />
 
 </menu>

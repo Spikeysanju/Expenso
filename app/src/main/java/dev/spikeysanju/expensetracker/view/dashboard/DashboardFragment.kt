@@ -280,6 +280,10 @@ class DashboardFragment :
                 findNavController().navigate(R.id.action_dashboardFragment_to_aboutFragment)
                 true
             }
+            R.id.action_settings -> {
+                findNavController().navigate(R.id.action_dashboardFragment_to_settingsFragment)
+                true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
