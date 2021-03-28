@@ -28,17 +28,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private lateinit var executor: Executor
-    private lateinit var biometricPrompt: BiometricPrompt
-    private lateinit var promptInfo: BiometricPrompt.PromptInfo
-
     private val repo by lazy { TransactionRepo(AppDatabase(this)) }
     private val viewModel: TransactionViewModel by viewModels {
         viewModelFactory { TransactionViewModel(this.application, repo) }
-    }
-
-    private val settingsViewModel: SettingsViewModel by viewModels{
-        viewModelFactory { SettingsViewModel(this.application) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,11 +43,6 @@ class MainActivity : AppCompatActivity() {
          * anywhere here for now
          */
         viewModel
-
-        lifecycleScope.launchWhenStarted {
-            if(settingsViewModel.bioMetricPreference.first())
-                authenticate()
-        }
 
         initViews(binding)
         observeNavElements(binding, navHostFragment.navController)
@@ -99,39 +86,6 @@ class MainActivity : AppCompatActivity() {
     override fun onSupportNavigateUp(): Boolean {
         navHostFragment.navController.navigateUp()
         return super.onSupportNavigateUp()
-    }
-
-    private fun authenticate(){
-        executor = ContextCompat.getMainExecutor(this)
-        biometricPrompt = BiometricPrompt(this, executor,
-            object : BiometricPrompt.AuthenticationCallback() {
-                override fun onAuthenticationSucceeded(
-                    result: BiometricPrompt.AuthenticationResult) {
-                    super.onAuthenticationSucceeded(result)
-                    Toast.makeText(applicationContext,
-                        "Welcome to Expenso", Toast.LENGTH_LONG)
-                        .show()
-                }
-
-                override fun onAuthenticationFailed() {
-                    super.onAuthenticationFailed()
-                    //todo: show message wait for a second; static err code
-                    exitProcess(-1)
-                }
-
-                override fun onAuthenticationError(errorCode: Int,
-                                                   errString: CharSequence) {
-                    super.onAuthenticationError(errorCode, errString)
-                    //todo: show message wait for a second; static err code
-                    exitProcess(-2)
-                }
-            })
-
-        promptInfo = BiometricPrompt.PromptInfo.Builder()
-            .setTitle("Please complete bio-metric login to continue")
-            .setNegativeButtonText("Exit")
-            .build()
-        biometricPrompt.authenticate(promptInfo)
     }
 
 }
