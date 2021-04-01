@@ -45,7 +45,6 @@ import kotlin.properties.Delegates
 class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionViewModel>() {
 
 
-    private val args: StatisticsFragmentArgs by navArgs()
     override val viewModel: TransactionViewModel by activityViewModels()
     private lateinit var filter :String
 
