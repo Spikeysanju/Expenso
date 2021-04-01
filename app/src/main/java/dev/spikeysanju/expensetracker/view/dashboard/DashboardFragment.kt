@@ -7,6 +7,7 @@ import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
@@ -27,6 +28,7 @@ import indianRupee
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import show
+import kotlin.math.abs
 
 @AndroidEntryPoint
 class DashboardFragment :
@@ -182,6 +184,17 @@ class DashboardFragment :
         btnAddTransaction.setOnClickListener {
             findNavController().navigate(R.id.action_dashboardFragment_to_addTransactionFragment)
         }
+
+        mainDashboardScrollView.setOnScrollChangeListener(
+            NestedScrollView.OnScrollChangeListener { _, sX, sY, oX, oY ->
+                if (abs(sY - oY) > 10) {
+                    when {
+                        sY > oY -> btnAddTransaction.hide()
+                        oY > sY -> btnAddTransaction.show()
+                    }
+                }
+            }
+        )
 
         transactionAdapter.setOnItemClickListener {
             val bundle = Bundle().apply {
