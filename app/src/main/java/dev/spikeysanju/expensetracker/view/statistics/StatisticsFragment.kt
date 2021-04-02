@@ -37,6 +37,7 @@ import kotlinx.android.synthetic.main.statistics_fragment.*
 import kotlinx.coroutines.flow.collect
 import kotlin.math.exp
 import com.github.mikephil.charting.formatter.PercentFormatter
+import doPlusIfAlreadyThere
 import kotlinx.coroutines.flow.first
 import kotlin.properties.Delegates
 
@@ -95,9 +96,21 @@ class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionVi
 
 
 
+
+    private fun getTagsPercentage(transactions: List<Transaction>) : MutableMap<String,Double>{
+      val tagsPercentageMap = mutableMapOf<String,Double>()
+      transactions.forEach {
+        tagsPercentageMap.doPlusIfAlreadyThere(it.tag,it.amount)
+      }
+      return tagsPercentageMap
+    }
+
+
     private fun generateChartForFilter(transactions: List<Transaction>) {
         println("generateChart")
+        val tagsAmounts = getTagsPercentage(transactions)
         val (totalIncome, totalExpense) = transactions.partition { it.transactionType == "Income" }
+
         val income = totalIncome.sumByDouble { it.amount }
         val expense = totalExpense.sumByDouble { it.amount }
         val entriesForPieChart : ArrayList<PieEntry> = ArrayList()
@@ -117,17 +130,22 @@ class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionVi
                 centerText = "Overall Balance \n ${income - expense}"
             }
             "Income" -> {
-                totalIncome.forEach {
-                    val tempPercentage = (it.amount / income * 100).toFloat()
-                    entriesForPieChart.add(PieEntry(tempPercentage, it.title.capitalize()))
+
+                tagsAmounts.forEach {
+                    val tempPercentage = (it.value / income * 100).toFloat()
+                    entriesForPieChart.add(PieEntry(tempPercentage, it.key.capitalize()))
                 }
+
+
                 centerText = " Total Income: \n ${income}"
             }
             "Expense" -> {
-                totalExpense.forEach {
-                    val tempPercentage = (it.amount / expense * 100).toFloat()
-                    entriesForPieChart.add(PieEntry(tempPercentage, it.title.capitalize()))
+
+                tagsAmounts.forEach {
+                    val tempPercentage = (it.value / expense * 100).toFloat()
+                    entriesForPieChart.add(PieEntry(tempPercentage, it.key.capitalize()))
                 }
+
                 centerText = " Total Expense: \n ${expense}"
             }
         }
