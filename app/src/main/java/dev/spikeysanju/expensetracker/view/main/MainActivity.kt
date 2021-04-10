@@ -1,8 +1,12 @@
 package dev.spikeysanju.expensetracker.view.main
 
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.biometric.BiometricPrompt
+import androidx.core.content.ContextCompat
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
@@ -14,6 +18,10 @@ import dev.spikeysanju.expensetracker.databinding.ActivityMainBinding
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
 import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
+import dev.spikeysanju.expensetracker.view.settings.SettingsViewModel
+import kotlinx.coroutines.flow.first
+import java.util.concurrent.Executor
+import kotlin.system.exitProcess
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -79,4 +87,5 @@ class MainActivity : AppCompatActivity() {
         navHostFragment.navController.navigateUp()
         return super.onSupportNavigateUp()
     }
+
 }

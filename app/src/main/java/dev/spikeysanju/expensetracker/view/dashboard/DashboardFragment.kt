@@ -95,7 +95,7 @@ class DashboardFragment :
             override fun onMove(
                 recyclerView: RecyclerView,
                 viewHolder: RecyclerView.ViewHolder,
-                target: RecyclerView.ViewHolder,
+                target: RecyclerView.ViewHolder
             ): Boolean {
                 return true
             }
@@ -278,6 +278,10 @@ class DashboardFragment :
 
             R.id.action_about -> {
                 findNavController().navigate(R.id.action_dashboardFragment_to_aboutFragment)
+                true
+            }
+            R.id.action_settings -> {
+                findNavController().navigate(R.id.action_dashboardFragment_to_settingsFragment)
                 true
             }
             else -> super.onOptionsItemSelected(item)

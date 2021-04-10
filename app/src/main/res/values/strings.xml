@@ -37,5 +37,7 @@
     <string name="share_message">\%s \nAmount: %s, \nTransaction-Type: %s, \nTag: %s, \nDate: %s, \nNote: %s, \nCreatedAt: %s \n\nVisit: https://github.com/Spikeysanju/Expenso</string>
     <string name="text_transaction_empty_title">No Transaction Yet!</string>
     <string name="text_transaction_empty_desc">After your first transaction you will be able to view it here</string>
+    <string name="text_settings">Settings</string>
+    <string name="text_settings_biometric">Bio-metric Security</string>
 
 </resources>

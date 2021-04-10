@@ -26,7 +26,7 @@ data class Transaction(
         System.currentTimeMillis(),
     @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "id")
-    var id: Int = 0,
+    var id: Int = 0
 ) : Serializable {
     val createdAtDateFormat: String
         get() = DateFormat.getDateTimeInstance()
