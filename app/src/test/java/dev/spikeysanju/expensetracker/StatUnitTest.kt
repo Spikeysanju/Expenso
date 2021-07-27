@@ -1,6 +1,3 @@
 package dev.spikeysanju.expensetracker
 
-class StatUnitTest {
-
-
-}
+class StatUnitTest

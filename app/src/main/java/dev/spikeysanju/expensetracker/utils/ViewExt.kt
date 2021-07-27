@@ -76,7 +76,7 @@ fun parseDouble(value: String?): Double {
     return if (value == null || value.isEmpty()) Double.NaN else value.toDouble()
 }
 
-fun MutableMap<String,Double>.doPlusIfAlreadyThere(key : String, value : Double){
+fun MutableMap<String, Double>.doPlusIfAlreadyThere(key: String, value: Double) {
     if (key in this) this[key] =
         this[key]!! + value
     else this[key] = value

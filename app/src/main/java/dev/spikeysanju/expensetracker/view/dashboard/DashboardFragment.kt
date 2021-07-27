@@ -208,7 +208,7 @@ class DashboardFragment :
 
         totalBalanceView.root.setOnClickListener {
             val bundle = Bundle().apply {
-                putSerializable("filter","overall")
+                putSerializable("filter", "overall")
             }
             lifecycleScope.launchWhenStarted { viewModel.overall() }
 
@@ -218,21 +218,21 @@ class DashboardFragment :
             )
         }
 
-       incomeCardView.root.setOnClickListener {
-           val bundle = Bundle().apply {
-               putSerializable("filter","income")
-           }
-           lifecycleScope.launchWhenStarted { viewModel.allIncome() }
+        incomeCardView.root.setOnClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("filter", "income")
+            }
+            lifecycleScope.launchWhenStarted { viewModel.allIncome() }
 
-           findNavController().navigate(
-               R.id.action_dashboardFragment_to_statisticsFragment,
-               bundle
-           )
-       }
+            findNavController().navigate(
+                R.id.action_dashboardFragment_to_statisticsFragment,
+                bundle
+            )
+        }
 
         expenseCardView.root.setOnClickListener {
             val bundle = Bundle().apply {
-                putSerializable("filter","expense")
+                putSerializable("filter", "expense")
             }
             lifecycleScope.launchWhenStarted { viewModel.allExpense() }
 
