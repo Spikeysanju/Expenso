@@ -205,6 +205,44 @@ class DashboardFragment :
                 bundle
             )
         }
+
+        totalBalanceView.root.setOnClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("filter", "overall")
+            }
+            lifecycleScope.launchWhenStarted { viewModel.overall() }
+
+            findNavController().navigate(
+                R.id.action_dashboardFragment_to_statisticsFragment,
+                bundle
+            )
+        }
+
+        incomeCardView.root.setOnClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("filter", "income")
+            }
+            lifecycleScope.launchWhenStarted { viewModel.allIncome() }
+
+            findNavController().navigate(
+                R.id.action_dashboardFragment_to_statisticsFragment,
+                bundle
+            )
+        }
+
+        expenseCardView.root.setOnClickListener {
+            val bundle = Bundle().apply {
+                putSerializable("filter", "expense")
+            }
+            lifecycleScope.launchWhenStarted { viewModel.allExpense() }
+
+            findNavController().navigate(
+                R.id.action_dashboardFragment_to_statisticsFragment,
+                bundle
+            )
+        }
+
+
     }
 
     override fun getViewBinding(
