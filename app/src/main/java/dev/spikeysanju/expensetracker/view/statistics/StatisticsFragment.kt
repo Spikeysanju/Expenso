@@ -37,17 +37,19 @@ import kotlinx.android.synthetic.main.statistics_fragment.*
 import kotlinx.coroutines.flow.collect
 import kotlin.math.exp
 import com.github.mikephil.charting.formatter.PercentFormatter
-import doPlusIfAlreadyThere
 import kotlinx.coroutines.flow.first
-import kotlin.properties.Delegates
 
 
 @AndroidEntryPoint
 class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionViewModel>() {
 
-
+    companion object {
+        fun newInstance() = StatisticsFragment()
+    }
+    private val args: StatisticsFragmentArgs by navArgs()
     override val viewModel: TransactionViewModel by activityViewModels()
     private lateinit var filter :String
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -96,21 +98,9 @@ class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionVi
 
 
 
-
-    private fun getTagsPercentage(transactions: List<Transaction>) : MutableMap<String,Double>{
-      val tagsPercentageMap = mutableMapOf<String,Double>()
-      transactions.forEach {
-        tagsPercentageMap.doPlusIfAlreadyThere(it.tag,it.amount)
-      }
-      return tagsPercentageMap
-    }
-
-
     private fun generateChartForFilter(transactions: List<Transaction>) {
         println("generateChart")
-        val tagsAmounts = getTagsPercentage(transactions)
         val (totalIncome, totalExpense) = transactions.partition { it.transactionType == "Income" }
-
         val income = totalIncome.sumByDouble { it.amount }
         val expense = totalExpense.sumByDouble { it.amount }
         val entriesForPieChart : ArrayList<PieEntry> = ArrayList()
@@ -130,22 +120,17 @@ class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionVi
                 centerText = "Overall Balance \n ${income - expense}"
             }
             "Income" -> {
-
-                tagsAmounts.forEach {
-                    val tempPercentage = (it.value / income * 100).toFloat()
-                    entriesForPieChart.add(PieEntry(tempPercentage, it.key.capitalize()))
+                totalIncome.forEach {
+                    val tempPercentage = (it.amount / income * 100).toFloat()
+                    entriesForPieChart.add(PieEntry(tempPercentage, it.title.capitalize()))
                 }
-
-
                 centerText = " Total Income: \n ${income}"
             }
             "Expense" -> {
-
-                tagsAmounts.forEach {
-                    val tempPercentage = (it.value / expense * 100).toFloat()
-                    entriesForPieChart.add(PieEntry(tempPercentage, it.key.capitalize()))
+                totalExpense.forEach {
+                    val tempPercentage = (it.amount / expense * 100).toFloat()
+                    entriesForPieChart.add(PieEntry(tempPercentage, it.title.capitalize()))
                 }
-
                 centerText = " Total Expense: \n ${expense}"
             }
         }
@@ -193,16 +178,8 @@ class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionVi
 
         data.setValueFormatter(PercentFormatter())
         data.setValueTextSize(11f)
-
-        lifecycleScope.launchWhenStarted {
-            val isItNight = viewModel.getUIMode.first()
-            if(isItNight == true)
-                data.setValueTextColor(Color.WHITE)
-            else
-                data.setValueTextColor(Color.BLACK)
-        }
-
-
+        data.setValueTextColor(Color.BLACK)
+        //data.setValueTypeface(tfLight)
 
 
 
@@ -217,7 +194,7 @@ class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionVi
                 rotationAngle = 0.0f
                 isRotationEnabled = true
                 isHighlightPerTapEnabled = true
-                setEntryLabelColor(Color.BLACK)
+
                 description.text = "${filter?.capitalize()} ".toString()
                 this.setEntryLabelTextSize(12f)
                 this.centerText = centerText
@@ -293,9 +270,7 @@ class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionVi
 
         // Set the item state
         lifecycleScope.launchWhenStarted {
-
             val isChecked = viewModel.getUIMode.first()
-
             val uiMode = menu.findItem(R.id.action_night_mode)
             uiMode.isChecked = isChecked
             setUIMode(uiMode, isChecked)
@@ -321,7 +296,6 @@ class StatisticsFragment : BaseFragment<StatisticsFragmentBinding, TransactionVi
 
     private fun setUIMode(item: MenuItem, isChecked: Boolean) {
         if (isChecked) {
-
             AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
             viewModel.saveToDataStore(true)
             item.setIcon(R.drawable.ic_night)
