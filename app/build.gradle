@@ -78,7 +78,7 @@ dependencies {
     implementation "androidx.recyclerview:recyclerview:1.1.0"
 
     // Preference DataStore
-    implementation "androidx.datastore:datastore-preferences:1.0.0-alpha06"
+    implementation "androidx.datastore:datastore-preferences:1.0.0"
 
     // activity & fragment ktx
     implementation "androidx.fragment:fragment-ktx:1.2.5"
