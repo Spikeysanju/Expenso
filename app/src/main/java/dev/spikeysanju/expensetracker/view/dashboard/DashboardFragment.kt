@@ -1,12 +1,21 @@
 package dev.spikeysanju.expensetracker.view.dashboard
 
+import action
+import android.Manifest
+import android.content.ActivityNotFoundException
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.*
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,15 +28,19 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentDashboardBinding
 import dev.spikeysanju.expensetracker.model.Transaction
+import dev.spikeysanju.expensetracker.services.exportcsv.CreateCsvContract
+import dev.spikeysanju.expensetracker.utils.viewState.ExportState
 import dev.spikeysanju.expensetracker.utils.viewState.ViewState
 import dev.spikeysanju.expensetracker.view.adapter.TransactionAdapter
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
+import dev.spikeysanju.expensetracker.view.details.TransactionDetailsFragmentDirections
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 import hide
 import indianRupee
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import show
+import snack
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -35,6 +48,29 @@ class DashboardFragment :
     BaseFragment<FragmentDashboardBinding, TransactionViewModel>() {
     private lateinit var transactionAdapter: TransactionAdapter
     override val viewModel: TransactionViewModel by activityViewModels()
+
+    // handle multiple permission dialog
+    private val permissionRequestLauncher =
+        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
+            val isAllPermissionGranted = permissions.filter { (_, value) -> value == false }.isEmpty()
+            if (isAllPermissionGranted) {
+                val csvFileName = "expenso_${System.currentTimeMillis()}"
+                csvCreateRequestLauncher.launch(csvFileName)
+            } else {
+                binding.root.snack(
+                    string = R.string.failed_transaction_export,
+                )
+            }
+        }
+
+    private val csvCreateRequestLauncher =
+        registerForActivityResult(CreateCsvContract()) { uri: Uri? ->
+            if (uri != null) {
+                exportCSV(uri)
+            } else {
+                toast("Failed to Create CSV file!")
+            }
+        }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -280,9 +316,80 @@ class DashboardFragment :
                 findNavController().navigate(R.id.action_dashboardFragment_to_aboutFragment)
                 true
             }
+
+            R.id.action_export -> {
+                if (!isStoragePermissionGranted()) {
+                    permissionRequestLauncher.launch(
+                        arrayOf(
+                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                            Manifest.permission.READ_EXTERNAL_STORAGE
+                        )
+                    )
+                } else {
+                    val csvFileName = "expenso_${System.currentTimeMillis()}"
+                    csvCreateRequestLauncher.launch(csvFileName)
+                }
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
+    private fun exportCSV(csvFileUri: Uri) {
+        viewModel.exportTransactionsToCsv(csvFileUri)
+        lifecycleScope.launchWhenCreated {
+            viewModel.exportCsvState.collect { state ->
+                when (state) {
+                    ExportState.Empty -> {
+                        /*do nothing*/
+                    }
+                    is ExportState.Error -> {
+                        binding.root.snack(
+                            string = R.string.failed_transaction_export
+                        )
+                    }
+                    ExportState.Loading -> {
+                        /*do nothing*/
+                    }
+                    is ExportState.Success -> {
+                        binding.root.snack(string = R.string.success_transaction_export) {
+                            action(text = R.string.text_open) {
+                                // open file
+                                val fileUri = Uri.parse(state.fileUri)
+                                val title = "Open with"
+                                val csvPreviewIntent = Intent(Intent.ACTION_VIEW, fileUri)
+                                    .apply {
+                                        type = "application/csv"
+                                    }
+                                val chooser = Intent.createChooser(csvPreviewIntent, title)
+                                try {
+                                    startActivity(chooser)
+                                } catch (e: ActivityNotFoundException) {
+                                    // Define what your app should do if no activity can handle the intent.
+                                    toast("You have no application that could open csv file")
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun isStoragePermissionGranted(): Boolean =
+        isStorageReadPermissionGranted() && isStorageWritePermissionGranted()
+
+    private fun isStorageWritePermissionGranted(): Boolean = ContextCompat
+        .checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+
+    private fun isStorageReadPermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
 
     private fun setUIMode(item: MenuItem, isChecked: Boolean) {
         if (isChecked) {

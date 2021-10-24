@@ -21,4 +21,10 @@
         android:title="@string/text_about"
         app:showAsAction="never" />
 
+    <item
+        android:id="@+id/action_export"
+        android:enabled="true"
+        android:title="@string/text_export_csv"
+        app:showAsAction="never" />
+
 </menu>
