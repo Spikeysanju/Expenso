@@ -1,6 +1,7 @@
 package dev.spikeysanju.expensetracker.services.exportcsv
 
 import android.app.Activity
+import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -48,6 +49,22 @@ class CreateCsvContract : ActivityResultContract<String, Uri?>() {
 
 }
 
+class OpenCsvContract : ActivityResultContract<Uri, Unit>() {
+
+    override fun createIntent(context: Context, input: Uri): Intent {
+        val title = "Open with"
+        val csvPreviewIntent = Intent(Intent.ACTION_OPEN_DOCUMENT, input).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "*/*"
+        }
+        return Intent.createChooser(csvPreviewIntent, title)
+    }
+
+    override fun parseResult(resultCode: Int, intent: Intent?) {
+
+    }
+}
+
 data class TransactionsCSV(
     @CsvBindByName(column = "title")
     val title: String,
@@ -82,7 +99,7 @@ class ExportService(
 ) {
 
     @WorkerThread
-    fun <T> writeToCSV(csvFileUri: Uri, content: List<T>) = flow<String> {
+    fun <T> writeToCSV(csvFileUri: Uri, content: List<T>) = flow<Uri> {
         val fileDescriptor = appContext.contentResolver.openFileDescriptor(csvFileUri, "w")
         if (fileDescriptor != null) {
             fileDescriptor.use {
@@ -92,7 +109,7 @@ class ExportService(
                     .build()
                     .write(content)
                 csvWriter.close()
-                emit(csvFileUri.toString())
+                emit(csvFileUri)
             }
         } else {
             throw IllegalStateException("failed to read fileDescriptor")

@@ -29,6 +29,7 @@ import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentDashboardBinding
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.services.exportcsv.CreateCsvContract
+import dev.spikeysanju.expensetracker.services.exportcsv.OpenCsvContract
 import dev.spikeysanju.expensetracker.utils.viewState.ExportState
 import dev.spikeysanju.expensetracker.utils.viewState.ViewState
 import dev.spikeysanju.expensetracker.view.adapter.TransactionAdapter
@@ -71,6 +72,8 @@ class DashboardFragment :
                 toast("Failed to Create CSV file!")
             }
         }
+
+    private val previewCsvRequestLauncher = registerForActivityResult(OpenCsvContract()) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -355,20 +358,7 @@ class DashboardFragment :
                     is ExportState.Success -> {
                         binding.root.snack(string = R.string.success_transaction_export) {
                             action(text = R.string.text_open) {
-                                // open file
-                                val fileUri = Uri.parse(state.fileUri)
-                                val title = "Open with"
-                                val csvPreviewIntent = Intent(Intent.ACTION_VIEW, fileUri)
-                                    .apply {
-                                        type = "application/csv"
-                                    }
-                                val chooser = Intent.createChooser(csvPreviewIntent, title)
-                                try {
-                                    startActivity(chooser)
-                                } catch (e: ActivityNotFoundException) {
-                                    // Define what your app should do if no activity can handle the intent.
-                                    toast("You have no application that could open csv file")
-                                }
+                                previewCsvRequestLauncher.launch(state.fileUri)
                             }
                         }
                     }
