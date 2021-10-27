@@ -9,7 +9,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.spikeysanju.expensetracker.data.local.datastore.UIModeDataStore
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
-import dev.spikeysanju.expensetracker.services.exportcsv.ExportService
+import dev.spikeysanju.expensetracker.services.exportcsv.ExportCsvService
 import dev.spikeysanju.expensetracker.services.exportcsv.toCsv
 import dev.spikeysanju.expensetracker.utils.viewState.DetailState
 import dev.spikeysanju.expensetracker.utils.viewState.ExportState
@@ -35,7 +35,7 @@ import javax.inject.Inject
 class TransactionViewModel @Inject constructor(
     application: Application,
     private val transactionRepo: TransactionRepo,
-    private val exportService: ExportService
+    private val exportService: ExportCsvService
 ) : AndroidViewModel(application) {
 
     // state for export csv status
