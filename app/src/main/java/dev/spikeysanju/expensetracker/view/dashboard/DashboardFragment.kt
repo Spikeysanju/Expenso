@@ -50,26 +50,14 @@ class DashboardFragment :
     private lateinit var transactionAdapter: TransactionAdapter
     override val viewModel: TransactionViewModel by activityViewModels()
 
-    // handle multiple permission dialog
-    private val permissionRequestLauncher =
-        registerForActivityResult(ActivityResultContracts.RequestMultiplePermissions()) { permissions ->
-            val isAllPermissionGranted = permissions.filter { (_, value) -> value == false }.isEmpty()
-            if (isAllPermissionGranted) {
-                val csvFileName = "expenso_${System.currentTimeMillis()}"
-                csvCreateRequestLauncher.launch(csvFileName)
-            } else {
-                binding.root.snack(
-                    string = R.string.failed_transaction_export,
-                )
-            }
-        }
-
     private val csvCreateRequestLauncher =
         registerForActivityResult(CreateCsvContract()) { uri: Uri? ->
             if (uri != null) {
                 exportCSV(uri)
             } else {
-                toast("Failed to Create CSV file!")
+                binding.root.snack(
+                    string = R.string.failed_transaction_export
+                )
             }
         }
 
@@ -321,17 +309,8 @@ class DashboardFragment :
             }
 
             R.id.action_export -> {
-                if (!isStoragePermissionGranted()) {
-                    permissionRequestLauncher.launch(
-                        arrayOf(
-                            Manifest.permission.WRITE_EXTERNAL_STORAGE,
-                            Manifest.permission.READ_EXTERNAL_STORAGE
-                        )
-                    )
-                } else {
-                    val csvFileName = "expenso_${System.currentTimeMillis()}"
-                    csvCreateRequestLauncher.launch(csvFileName)
-                }
+                val csvFileName = "expenso_${System.currentTimeMillis()}"
+                csvCreateRequestLauncher.launch(csvFileName)
                 return true
             }
             else -> super.onOptionsItemSelected(item)
