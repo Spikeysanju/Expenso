@@ -19,9 +19,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
-            android:text="@string/text_title"
             android:layout_marginTop="@dimen/dimen_32"
             android:fontFamily="@font/open_sans_bold"
+            android:text="@string/text_title"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -32,9 +32,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_8"
-            android:textColor="@color/black"
             android:fontFamily="@font/open_sans_regular"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/caption_title"
             tools:text="Samsung level earphones" />
@@ -46,8 +46,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_24"
-            android:text="@string/text_expense_amount"
             android:fontFamily="@font/open_sans_bold"
+            android:text="@string/text_expense_amount"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title" />
@@ -58,9 +58,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_8"
-            android:textColor="@color/black"
             android:fontFamily="@font/open_sans_regular"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/caption_amount"
             tools:text="Amount" />
@@ -72,8 +72,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_24"
-            android:text="@string/text_expense_transaction_type"
             android:fontFamily="@font/open_sans_bold"
+            android:text="@string/text_expense_transaction_type"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/amount" />
@@ -84,9 +84,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_8"
-            android:textColor="@color/black"
             android:fontFamily="@font/open_sans_regular"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/caption_type"
             tools:text="Income" />
@@ -98,8 +98,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_24"
-            android:text="@string/text_expense_tag"
             android:fontFamily="@font/open_sans_bold"
+            android:text="@string/text_expense_tag"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/type" />
@@ -110,9 +110,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_8"
-            android:textColor="@color/black"
             android:fontFamily="@font/open_sans_regular"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/caption_tag"
             tools:text="Personal Spendings" />
@@ -124,8 +124,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_24"
-            android:text="@string/text_expense_when"
             android:fontFamily="@font/open_sans_bold"
+            android:text="@string/text_expense_when"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tag" />
@@ -136,9 +136,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_8"
-            android:textColor="@color/black"
             android:fontFamily="@font/open_sans_regular"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/caption_when"
             tools:text="Sunday, 18 Dec 2021" />
@@ -149,8 +149,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_24"
-            android:text="@string/text_expense_note"
             android:fontFamily="@font/open_sans_bold"
+            android:text="@string/text_expense_note"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/date" />
@@ -161,9 +161,9 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_8"
-            android:textColor="@color/black"
             android:fontFamily="@font/open_sans_regular"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/caption_note"
             tools:text="Note" />
@@ -174,8 +174,8 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_24"
-            android:text="@string/text_createdAt"
             android:fontFamily="@font/open_sans_bold"
+            android:text="@string/text_createdAt"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Caption"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/note" />
@@ -186,36 +186,36 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:layout_marginTop="@dimen/dimen_8"
-            android:textColor="@color/black"
             android:fontFamily="@font/open_sans_regular"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:textColor="@color/black"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/caption_createdAt"
             tools:text="Sunday, 18 Dec 2021" />
 
         <com.google.android.material.imageview.ShapeableImageView
             android:id="@+id/app_icon_for_share"
-            app:srcCompat="@drawable/ic_logo"
-            android:visibility="invisible"
-            app:layout_constraintEnd_toStartOf="@+id/app_name_for_share"
-            app:layout_constraintBottom_toBottomOf="parent"
             android:layout_width="@dimen/dimen_64"
-            android:layout_height="@dimen/dimen_64" />
+            android:layout_height="@dimen/dimen_64"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/app_name_for_share"
+            app:srcCompat="@drawable/ic_logo" />
 
         <TextView
             android:id="@+id/app_name_for_share"
-            android:padding="@dimen/dimen_16"
-            android:gravity="center"
-            android:visibility="invisible"
-            android:text="@string/app_name"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/dimen_16"
             android:fontFamily="@font/open_sans_regular"
-            app:layout_constraintTop_toTopOf="@id/app_icon_for_share"
+            android:gravity="center"
+            android:padding="@dimen/dimen_16"
+            android:text="@string/app_name"
             android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
+            android:visibility="invisible"
             app:layout_constraintBottom_toBottomOf="parent"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/app_icon_for_share" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

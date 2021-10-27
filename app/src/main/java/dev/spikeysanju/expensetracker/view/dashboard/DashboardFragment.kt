@@ -2,18 +2,20 @@ package dev.spikeysanju.expensetracker.view.dashboard
 
 import action
 import android.Manifest
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
@@ -34,7 +36,6 @@ import dev.spikeysanju.expensetracker.utils.viewState.ExportState
 import dev.spikeysanju.expensetracker.utils.viewState.ViewState
 import dev.spikeysanju.expensetracker.view.adapter.TransactionAdapter
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
-import dev.spikeysanju.expensetracker.view.details.TransactionDetailsFragmentDirections
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 import hide
 import indianRupee
