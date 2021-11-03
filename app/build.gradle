@@ -68,7 +68,7 @@ dependencies {
     // Coroutine Lifecycle Scopes
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.2.0"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
+    implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.4.0"
 
     // Navigation Components
     implementation "androidx.navigation:navigation-fragment-ktx:2.3.3"
@@ -96,4 +96,7 @@ dependencies {
     //implementation "com.google.dagger:hilt-android-testing:$hilt_ver"
     implementation "androidx.hilt:hilt-common:1.0.0-alpha03"
     implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
+
+    // OpenCsv
+    implementation "com.opencsv:opencsv:5.3"
 }
