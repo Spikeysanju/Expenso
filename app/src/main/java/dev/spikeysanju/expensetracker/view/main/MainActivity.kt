@@ -12,6 +12,7 @@ import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.data.local.AppDatabase
 import dev.spikeysanju.expensetracker.databinding.ActivityMainBinding
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
+import dev.spikeysanju.expensetracker.services.exportcsv.ExportCsvService
 import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 
@@ -21,8 +22,9 @@ class MainActivity : AppCompatActivity() {
     private lateinit var appBarConfiguration: AppBarConfiguration
 
     private val repo by lazy { TransactionRepo(AppDatabase(this)) }
+    private val exportService by lazy { ExportCsvService(this.applicationContext) }
     private val viewModel: TransactionViewModel by viewModels {
-        viewModelFactory { TransactionViewModel(this.application, repo) }
+        viewModelFactory { TransactionViewModel(this.application, repo, exportService) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {

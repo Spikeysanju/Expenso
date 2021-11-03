@@ -1,6 +1,7 @@
 package dev.spikeysanju.expensetracker.view.main.viewmodel
 
 import android.app.Application
+import android.net.Uri
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.viewModelScope
@@ -8,21 +9,33 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import dev.spikeysanju.expensetracker.data.local.datastore.UIModeDataStore
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
+import dev.spikeysanju.expensetracker.services.exportcsv.ExportCsvService
+import dev.spikeysanju.expensetracker.services.exportcsv.toCsv
 import dev.spikeysanju.expensetracker.utils.viewState.DetailState
+import dev.spikeysanju.expensetracker.utils.viewState.ExportState
 import dev.spikeysanju.expensetracker.utils.viewState.ViewState
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.flatMapMerge
+import kotlinx.coroutines.flow.flowOn
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class TransactionViewModel @Inject constructor(
     application: Application,
-    private val transactionRepo: TransactionRepo
-) :
-    AndroidViewModel(application) {
+    private val transactionRepo: TransactionRepo,
+    private val exportService: ExportCsvService
+) : AndroidViewModel(application) {
+
+    // state for export csv status
+    private val _exportCsvState = MutableStateFlow<ExportState>(ExportState.Empty)
+    val exportCsvState: StateFlow<ExportState> = _exportCsvState
 
     private val _transactionFilter = MutableStateFlow("Overall")
     val transactionFilter: StateFlow<String> = _transactionFilter
@@ -45,6 +58,21 @@ class TransactionViewModel @Inject constructor(
         viewModelScope.launch(IO) {
             uiModeDataStore.saveToDataStore(isNightMode)
         }
+    }
+
+    // export all Transactions to csv file
+    fun exportTransactionsToCsv(csvFileUri: Uri) = viewModelScope.launch {
+        _exportCsvState.value = ExportState.Loading
+        transactionRepo
+            .getAllTransactions()
+            .flowOn(Dispatchers.IO)
+            .map { it.toCsv() }
+            .flatMapMerge { exportService.writeToCSV(csvFileUri, it) }
+            .catch { error ->
+                _exportCsvState.value = ExportState.Error(error)
+            }.collect { uriString ->
+                _exportCsvState.value = ExportState.Success(uriString)
+            }
     }
 
     // insert transaction

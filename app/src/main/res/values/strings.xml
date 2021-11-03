@@ -22,6 +22,12 @@
     <string name="text_edit">Edit</string>
     <string name="text_createdAt">Created At</string>
 
+    <!--  Share -->
+    <string name="success_transaction_export">Transaction exported successfully!</string>
+    <string name="failed_transaction_export">Transaction exported failed ☹️</string>
+    <string name="support_pending">Support for export on Android10+ is still in progress, kindly be patient and thanks for support!</string>
+    <string name="text_open">Open</string>
+
     <!--  About -->
     <string name="text_about_license_title"><![CDATA[Attributions & License]]></string>
     <string name="text_about_license">Licensed Under Apache 2.0 License</string>
@@ -37,5 +43,6 @@
     <string name="share_message">\%s \nAmount: %s, \nTransaction-Type: %s, \nTag: %s, \nDate: %s, \nNote: %s, \nCreatedAt: %s \n\nVisit: https://github.com/Spikeysanju/Expenso</string>
     <string name="text_transaction_empty_title">No Transaction Yet!</string>
     <string name="text_transaction_empty_desc">After your first transaction you will be able to view it here</string>
+    <string name="text_export_csv">Export to CSV</string>
 
 </resources>

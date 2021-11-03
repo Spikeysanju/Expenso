@@ -1,12 +1,23 @@
 package dev.spikeysanju.expensetracker.view.dashboard
 
+import action
+import android.Manifest
+import android.content.pm.PackageManager
+import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
@@ -19,6 +30,9 @@ import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentDashboardBinding
 import dev.spikeysanju.expensetracker.model.Transaction
+import dev.spikeysanju.expensetracker.services.exportcsv.CreateCsvContract
+import dev.spikeysanju.expensetracker.services.exportcsv.OpenCsvContract
+import dev.spikeysanju.expensetracker.utils.viewState.ExportState
 import dev.spikeysanju.expensetracker.utils.viewState.ViewState
 import dev.spikeysanju.expensetracker.view.adapter.TransactionAdapter
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
@@ -28,6 +42,7 @@ import indianRupee
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import show
+import snack
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -35,6 +50,19 @@ class DashboardFragment :
     BaseFragment<FragmentDashboardBinding, TransactionViewModel>() {
     private lateinit var transactionAdapter: TransactionAdapter
     override val viewModel: TransactionViewModel by activityViewModels()
+
+    private val csvCreateRequestLauncher =
+        registerForActivityResult(CreateCsvContract()) { uri: Uri? ->
+            if (uri != null) {
+                exportCSV(uri)
+            } else {
+                binding.root.snack(
+                    string = R.string.failed_transaction_export
+                )
+            }
+        }
+
+    private val previewCsvRequestLauncher = registerForActivityResult(OpenCsvContract()) {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -280,9 +308,58 @@ class DashboardFragment :
                 findNavController().navigate(R.id.action_dashboardFragment_to_aboutFragment)
                 true
             }
+
+            R.id.action_export -> {
+                val csvFileName = "expenso_${System.currentTimeMillis()}"
+                csvCreateRequestLauncher.launch(csvFileName)
+                return true
+            }
             else -> super.onOptionsItemSelected(item)
         }
     }
+
+
+    private fun exportCSV(csvFileUri: Uri) {
+        viewModel.exportTransactionsToCsv(csvFileUri)
+        lifecycleScope.launchWhenCreated {
+            viewModel.exportCsvState.collect { state ->
+                when (state) {
+                    ExportState.Empty -> {
+                        /*do nothing*/
+                    }
+                    is ExportState.Error -> {
+                        binding.root.snack(
+                            string = R.string.failed_transaction_export
+                        )
+                    }
+                    ExportState.Loading -> {
+                        /*do nothing*/
+                    }
+                    is ExportState.Success -> {
+                        binding.root.snack(string = R.string.success_transaction_export) {
+                            action(text = R.string.text_open) {
+                                previewCsvRequestLauncher.launch(state.fileUri)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    private fun isStoragePermissionGranted(): Boolean =
+        isStorageReadPermissionGranted() && isStorageWritePermissionGranted()
+
+    private fun isStorageWritePermissionGranted(): Boolean = ContextCompat
+        .checkSelfPermission(
+            requireContext(),
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+        ) == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
+
+    private fun isStorageReadPermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
+        requireContext(),
+        Manifest.permission.READ_EXTERNAL_STORAGE
+    ) == PackageManager.PERMISSION_GRANTED
 
     private fun setUIMode(item: MenuItem, isChecked: Boolean) {
         if (isChecked) {

@@ -54,8 +54,8 @@
             android:id="@+id/et_transactionType"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="none"
             android:fontFamily="@font/open_sans_regular"
+            android:inputType="none"
             android:labelFor="@id/et_transactionType" />
 
     </com.google.android.material.textfield.TextInputLayout>
