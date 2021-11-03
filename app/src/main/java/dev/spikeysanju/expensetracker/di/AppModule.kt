@@ -1,6 +1,7 @@
 package dev.spikeysanju.expensetracker.di
 
 import android.content.Context
+import androidx.room.Room
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -24,7 +25,8 @@ object AppModule {
     @Singleton
     @Provides
     fun provideNoteDatabase(@ApplicationContext context: Context): AppDatabase {
-        return AppDatabase.invoke(context)
+        return Room.databaseBuilder(context, AppDatabase::class.java, "transaction.db")
+            .fallbackToDestructiveMigration().build()
     }
 
     @Singleton
