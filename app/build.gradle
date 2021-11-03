@@ -75,7 +75,7 @@ dependencies {
     implementation "androidx.navigation:navigation-ui-ktx:2.3.3"
 
     // RecyclerView
-    implementation "androidx.recyclerview:recyclerview:1.1.0"
+    implementation "androidx.recyclerview:recyclerview:1.2.1"
 
     // Preference DataStore
     implementation "androidx.datastore:datastore-preferences:1.0.0-alpha06"
