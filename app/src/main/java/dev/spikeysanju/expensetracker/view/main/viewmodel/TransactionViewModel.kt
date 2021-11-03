@@ -54,7 +54,7 @@ class TransactionViewModel @Inject constructor(
     val getUIMode = uiModeDataStore.uiMode
 
     // save ui mode
-    fun saveToDataStore(isNightMode: Boolean) {
+    fun setDarkMode(isNightMode: Boolean) {
         viewModelScope.launch(IO) {
             uiModeDataStore.saveToDataStore(isNightMode)
         }

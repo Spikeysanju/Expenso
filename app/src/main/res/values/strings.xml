@@ -25,6 +25,7 @@
     <!--  Share -->
     <string name="success_transaction_export">Transaction exported successfully!</string>
     <string name="failed_transaction_export">Transaction exported failed ☹️</string>
+    <string name="text_error">Transaction exported failed ☹️</string>
     <string name="support_pending">Support for export on Android10+ is still in progress, kindly be patient and thanks for support!</string>
     <string name="text_open">Open</string>
 
@@ -44,5 +45,8 @@
     <string name="text_transaction_empty_title">No Transaction Yet!</string>
     <string name="text_transaction_empty_desc">After your first transaction you will be able to view it here</string>
     <string name="text_export_csv">Export to CSV</string>
+    <string name="text_add_transaction">Add Transaction</string>
+    <string name="text_undo">Undo</string>
+    <string name="text_error_occurred">Error occurred!</string>
 
 </resources>
