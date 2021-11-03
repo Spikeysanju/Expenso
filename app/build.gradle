@@ -90,7 +90,7 @@ dependencies {
 
     // Hilt
     implementation "com.google.dagger:hilt-android:2.31-alpha"
-    kapt "com.google.dagger:hilt-android-compiler:2.30.1-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.40"
     annotationProcessor 'androidx.hilt:hilt-compiler:1.0.0-alpha03'
 
     //implementation "com.google.dagger:hilt-android-testing:$hilt_ver"
