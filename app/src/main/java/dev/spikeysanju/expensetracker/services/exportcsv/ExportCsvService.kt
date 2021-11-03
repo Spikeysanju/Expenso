@@ -7,9 +7,10 @@ import com.opencsv.CSVWriter
 import com.opencsv.bean.StatefulBeanToCsvBuilder
 import kotlinx.coroutines.flow.flow
 import java.io.FileWriter
+import javax.inject.Inject
 
 
-class ExportCsvService(
+class ExportCsvService @Inject constructor(
     private val appContext: Context
 ) {
 
