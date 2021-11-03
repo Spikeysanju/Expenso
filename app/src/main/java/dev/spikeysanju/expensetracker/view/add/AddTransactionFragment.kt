@@ -58,22 +58,22 @@ class AddTransactionFragment :
                     // validate if transaction content is empty or not
                     when {
                         title.isEmpty() -> {
-                            this.etTitle.error = "Title must note be empty"
+                            this.etTitle.error = "Title must not be empty"
                         }
                         amount.isNaN() -> {
-                            this.etAmount.error = "Amount must note be empty"
+                            this.etAmount.error = "Amount must not be empty"
                         }
                         transactionType.isEmpty() -> {
-                            this.etTransactionType.error = "Transaction type must note be empty"
+                            this.etTransactionType.error = "Transaction type must not be empty"
                         }
                         tag.isEmpty() -> {
-                            this.etTag.error = "Tag must note be empty"
+                            this.etTag.error = "Tag must not be empty"
                         }
                         date.isEmpty() -> {
-                            this.etWhen.error = "Date must note be empty"
+                            this.etWhen.error = "Date must not be empty"
                         }
                         note.isEmpty() -> {
-                            this.etNote.error = "Note must note be empty"
+                            this.etNote.error = "Note must not be empty"
                         }
                         else -> {
                             viewModel.insertTransaction(getTransactionContent()).run {
