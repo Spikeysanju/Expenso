@@ -324,7 +324,6 @@ class DashboardFragment :
         }
     }
 
-
     private fun exportCSV(csvFileUri: Uri) {
         viewModel.exportTransactionsToCsv(csvFileUri)
         lifecycleScope.launchWhenCreated {

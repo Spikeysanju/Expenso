@@ -22,7 +22,6 @@ class CreateCsvContract : ActivityResultContract<String, Uri?>() {
         }
         return intent?.data
     }
-
 }
 
 class OpenCsvContract : ActivityResultContract<Uri, Unit>() {
@@ -37,7 +36,5 @@ class OpenCsvContract : ActivityResultContract<Uri, Unit>() {
     }
 
     override fun parseResult(resultCode: Int, intent: Intent?) {
-
     }
 }
-
