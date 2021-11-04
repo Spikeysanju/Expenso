@@ -104,7 +104,7 @@ dependencies {
     // Hilt
     implementation("com.google.dagger:hilt-android:2.39.1")
     kapt("com.google.dagger:hilt-android-compiler:2.39.1")
-    annotationProcessor("androidx.hilt:hilt-compiler:1.0.0")
+    kapt("androidx.hilt:hilt-compiler:1.0.0")
 
     //implementation "com.google.dagger:hilt-android-testing:$hilt_ver"
     implementation("androidx.hilt:hilt-common:1.0.0")
