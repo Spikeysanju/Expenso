@@ -32,12 +32,12 @@ allprojects {
 
     spotless {
 
-//        format("misc") {
-//            target("**/*.gradle', '**/*.md', '**/.gitignore")
-//            indentWithSpaces()
-//            trimTrailingWhitespace()
-//            endWithNewline()
-//        }
+        format("misc") {
+            target("**/*.gradle', '**/*.md', '**/.gitignore")
+            indentWithSpaces()
+            trimTrailingWhitespace()
+            endWithNewline()
+        }
 
         kotlin {
             target("**/*.kt")
