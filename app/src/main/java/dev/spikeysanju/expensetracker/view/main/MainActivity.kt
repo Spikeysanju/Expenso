@@ -3,28 +3,36 @@ package dev.spikeysanju.expensetracker.view.main
 import android.os.Bundle
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
 import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
-import dev.spikeysanju.expensetracker.data.local.AppDatabase
+import dev.spikeysanju.expensetracker.data.local.datastore.UIModeImpl
 import dev.spikeysanju.expensetracker.databinding.ActivityMainBinding
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
 import dev.spikeysanju.expensetracker.services.exportcsv.ExportCsvService
 import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
+import kotlinx.coroutines.flow.collect
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
 
-    private val repo by lazy { TransactionRepo(AppDatabase(this)) }
-    private val exportService by lazy { ExportCsvService(this.applicationContext) }
+    @Inject
+    lateinit var repo: TransactionRepo
+    @Inject
+    lateinit var exportCsvService: ExportCsvService
+    @Inject
+    lateinit var themeManager: UIModeImpl
     private val viewModel: TransactionViewModel by viewModels {
-        viewModelFactory { TransactionViewModel(this.application, repo, exportService) }
+        viewModelFactory { TransactionViewModel(this.application, repo, exportCsvService) }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -39,7 +47,20 @@ class MainActivity : AppCompatActivity() {
         viewModel
 
         initViews(binding)
+        observeThemeMode()
         observeNavElements(binding, navHostFragment.navController)
+    }
+
+    private fun observeThemeMode() {
+        lifecycleScope.launchWhenStarted {
+            viewModel.getUIMode.collect {
+                val mode = when (it) {
+                    true -> AppCompatDelegate.MODE_NIGHT_YES
+                    false -> AppCompatDelegate.MODE_NIGHT_NO
+                }
+                AppCompatDelegate.setDefaultNightMode(mode)
+            }
+        }
     }
 
     private fun observeNavElements(
@@ -54,7 +75,7 @@ class MainActivity : AppCompatActivity() {
                 }
                 R.id.addTransactionFragment -> {
                     supportActionBar!!.setDisplayShowTitleEnabled(true)
-                    binding.toolbar.title = "Add Transaction"
+                    binding.toolbar.title = getString(R.string.text_add_transaction)
                 }
                 else -> {
                     supportActionBar!!.setDisplayShowTitleEnabled(true)

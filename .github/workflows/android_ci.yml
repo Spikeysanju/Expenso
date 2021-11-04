@@ -15,16 +15,26 @@ jobs:
     steps:
       - uses: actions/checkout@v1
 
-      - name: Set Up JDK
+      - name: 🧱 Set Up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 1.8
+          java-version: 11
 
-      - name: Run Tests 🧪
+      - name: 🧪 Run Tests
         run: ./gradlew test
 
-      - name: Build Project 🛠
-        run: ./gradlew assemble
+      - name: 🛠 Build Project with Spotless Check
+        run: ./gradlew spotlessCheck assemble lintDebug --stacktrace
 
-      - name: Build with Gradle ⏳
+      - name: ⏳ Build with Gradle
         run: ./gradlew build
+
+      - name: 🏗 Build APK
+        run: bash ./gradlew assembleDebug --stacktrace
+
+      - name: 🚀 Upload APK 📱
+        uses: actions/upload-artifact@v2
+        with:
+          name: app
+          path: app/build/outputs/apk/debug/app-debug.apk
+          retention-days: 3

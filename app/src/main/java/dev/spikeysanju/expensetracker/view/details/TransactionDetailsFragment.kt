@@ -32,6 +32,7 @@ import hide
 import indianRupee
 import kotlinx.coroutines.flow.collect
 import show
+import snack
 
 @AndroidEntryPoint
 class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBinding, TransactionViewModel>() {
@@ -79,7 +80,9 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
                     onDetailsLoaded(detailState.transaction)
                 }
                 is DetailState.Error -> {
-                    toast("Error forever")
+                    binding.root.snack(
+                        string = R.string.text_error
+                    )
                 }
                 DetailState.Empty -> {
                     findNavController().navigateUp()
@@ -139,7 +142,9 @@ class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBindin
             hideAppNameAndLogo()
             saveBitmap(requireActivity(), bitmap)
         } ?: run {
-            toast("Error occurred!")
+            binding.root.snack(
+                string = R.string.text_error_occurred
+            )
             return
         }
 

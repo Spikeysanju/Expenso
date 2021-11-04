@@ -16,7 +16,6 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
 import androidx.fragment.app.activityViewModels
@@ -28,6 +27,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
 import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
+import dev.spikeysanju.expensetracker.data.local.datastore.UIModeImpl
 import dev.spikeysanju.expensetracker.databinding.FragmentDashboardBinding
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.services.exportcsv.CreateCsvContract
@@ -43,6 +43,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
 import show
 import snack
+import javax.inject.Inject
 import kotlin.math.abs
 
 @AndroidEntryPoint
@@ -50,6 +51,9 @@ class DashboardFragment :
     BaseFragment<FragmentDashboardBinding, TransactionViewModel>() {
     private lateinit var transactionAdapter: TransactionAdapter
     override val viewModel: TransactionViewModel by activityViewModels()
+
+    @Inject
+    lateinit var themeManager: UIModeImpl
 
     private val csvCreateRequestLauncher =
         registerForActivityResult(CreateCsvContract()) { uri: Uri? ->
@@ -149,7 +153,7 @@ class DashboardFragment :
                     Snackbar.LENGTH_LONG
                 )
                     .apply {
-                        setAction("Undo") {
+                        setAction(getString(R.string.text_undo)) {
                             viewModel.insertTransaction(
                                 transactionItem
                             )
@@ -167,8 +171,8 @@ class DashboardFragment :
 
     private fun onTotalTransactionLoaded(transaction: List<Transaction>) = with(binding) {
         val (totalIncome, totalExpense) = transaction.partition { it.transactionType == "Income" }
-        val income = totalIncome.sumByDouble { it.amount }
-        val expense = totalExpense.sumByDouble { it.amount }
+        val income = totalIncome.sumOf { it.amount }
+        val expense = totalExpense.sumOf { it.amount }
         incomeCardView.total.text = "+ ".plus(indianRupee(income))
         expenseCardView.total.text = "- ".plus(indianRupee(expense))
         totalBalanceView.totalBalance.text = indianRupee(income - expense)
@@ -185,7 +189,9 @@ class DashboardFragment :
                     onTotalTransactionLoaded(uiState.transaction)
                 }
                 is ViewState.Error -> {
-                    toast("Error")
+                    binding.root.snack(
+                        string = R.string.text_error
+                    )
                 }
                 is ViewState.Empty -> {
                     hideAllViews()
@@ -318,7 +324,6 @@ class DashboardFragment :
         }
     }
 
-
     private fun exportCSV(csvFileUri: Uri) {
         viewModel.exportTransactionsToCsv(csvFileUri)
         lifecycleScope.launchWhenCreated {
@@ -363,12 +368,10 @@ class DashboardFragment :
 
     private fun setUIMode(item: MenuItem, isChecked: Boolean) {
         if (isChecked) {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            viewModel.saveToDataStore(true)
+            viewModel.setDarkMode(true)
             item.setIcon(R.drawable.ic_night)
         } else {
-            AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            viewModel.saveToDataStore(false)
+            viewModel.setDarkMode(false)
             item.setIcon(R.drawable.ic_day)
         }
     }

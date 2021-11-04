@@ -15,6 +15,7 @@ import dev.spikeysanju.expensetracker.utils.Constants
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 import parseDouble
+import snack
 import transformIntoDatePicker
 import java.util.*
 
@@ -77,7 +78,9 @@ class AddTransactionFragment :
                         }
                         else -> {
                             viewModel.insertTransaction(getTransactionContent()).run {
-                                toast(getString(R.string.success_expense_saved))
+                                binding.root.snack(
+                                    string = R.string.success_expense_saved
+                                )
                                 findNavController().navigate(
                                     R.id.action_addTransactionFragment_to_dashboardFragment
                                 )
