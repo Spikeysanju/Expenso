@@ -1,10 +1,7 @@
 package dev.spikeysanju.expensetracker.view.dashboard
 
 import action
-import android.Manifest
-import android.content.pm.PackageManager
 import android.net.Uri
-import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.Menu
@@ -16,18 +13,14 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Spinner
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.core.widget.NestedScrollView
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.ItemTouchHelper
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.snackbar.Snackbar
-import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
-import dev.spikeysanju.expensetracker.data.local.datastore.UIModeImpl
 import dev.spikeysanju.expensetracker.databinding.FragmentDashboardBinding
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.services.exportcsv.CreateCsvContract
@@ -41,19 +34,15 @@ import hide
 import indianRupee
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.first
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import show
 import snack
-import javax.inject.Inject
 import kotlin.math.abs
 
-@AndroidEntryPoint
 class DashboardFragment :
     BaseFragment<FragmentDashboardBinding, TransactionViewModel>() {
     private lateinit var transactionAdapter: TransactionAdapter
-    override val viewModel: TransactionViewModel by activityViewModels()
-
-    @Inject
-    lateinit var themeManager: UIModeImpl
+    override val viewModel: TransactionViewModel by sharedViewModel()
 
     private val csvCreateRequestLauncher =
         registerForActivityResult(CreateCsvContract()) { uri: Uri? ->
@@ -351,20 +340,6 @@ class DashboardFragment :
             }
         }
     }
-
-    private fun isStoragePermissionGranted(): Boolean =
-        isStorageReadPermissionGranted() && isStorageWritePermissionGranted()
-
-    private fun isStorageWritePermissionGranted(): Boolean = ContextCompat
-        .checkSelfPermission(
-            requireContext(),
-            Manifest.permission.WRITE_EXTERNAL_STORAGE
-        ) == PackageManager.PERMISSION_GRANTED || Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q
-
-    private fun isStorageReadPermissionGranted(): Boolean = ContextCompat.checkSelfPermission(
-        requireContext(),
-        Manifest.permission.READ_EXTERNAL_STORAGE
-    ) == PackageManager.PERMISSION_GRANTED
 
     private fun setUIMode(item: MenuItem, isChecked: Boolean) {
         if (isChecked) {

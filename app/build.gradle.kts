@@ -3,7 +3,6 @@ plugins {
     id("kotlin-android")
     id("kotlin-kapt")
     id("androidx.navigation.safeargs.kotlin")
-    id("dagger.hilt.android.plugin")
 }
 
 android {
@@ -56,6 +55,9 @@ android {
 
 dependencies {
 
+    // KMM Migration 1 - move to Koin
+    implementation("io.insert-koin:koin-android:3.1.2")
+
     implementation("org.jetbrains.kotlin:kotlin-stdlib:1.5.31")
     implementation("androidx.core:core-ktx:1.7.0")
     implementation("androidx.appcompat:appcompat:1.3.1")
@@ -100,15 +102,6 @@ dependencies {
 
     // Lottie Animation Library
     implementation("com.airbnb.android:lottie:4.2.0")
-
-    // Hilt
-    implementation("com.google.dagger:hilt-android:2.39.1")
-    kapt("com.google.dagger:hilt-android-compiler:2.39.1")
-    kapt("androidx.hilt:hilt-compiler:1.0.0")
-
-    //implementation "com.google.dagger:hilt-android-testing:$hilt_ver"
-    implementation("androidx.hilt:hilt-common:1.0.0")
-    implementation("androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03")
 
     // OpenCsv
     implementation("com.opencsv:opencsv:5.3")

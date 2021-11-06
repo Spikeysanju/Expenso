@@ -15,12 +15,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.app.ShareCompat
 import androidx.core.content.ContextCompat
 import androidx.core.view.drawToBitmap
-import androidx.fragment.app.activityViewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import cleanTextContent
-import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentTransactionDetailsBinding
 import dev.spikeysanju.expensetracker.model.Transaction
@@ -31,13 +29,13 @@ import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 import hide
 import indianRupee
 import kotlinx.coroutines.flow.collect
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import show
 import snack
 
-@AndroidEntryPoint
 class TransactionDetailsFragment : BaseFragment<FragmentTransactionDetailsBinding, TransactionViewModel>() {
     private val args: TransactionDetailsFragmentArgs by navArgs()
-    override val viewModel: TransactionViewModel by activityViewModels()
+    override val viewModel: TransactionViewModel by sharedViewModel()
 
     // handle permission dialog
     private val requestLauncher =

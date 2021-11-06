@@ -5,24 +5,22 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import androidx.fragment.app.activityViewModels
 import androidx.navigation.fragment.findNavController
-import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
 import dev.spikeysanju.expensetracker.databinding.FragmentAddTransactionBinding
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.utils.Constants
 import dev.spikeysanju.expensetracker.view.base.BaseFragment
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
+import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import parseDouble
 import snack
 import transformIntoDatePicker
 import java.util.*
 
-@AndroidEntryPoint
 class AddTransactionFragment :
     BaseFragment<FragmentAddTransactionBinding, TransactionViewModel>() {
-    override val viewModel: TransactionViewModel by activityViewModels()
+    override val viewModel: TransactionViewModel by sharedViewModel()
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         initViews()

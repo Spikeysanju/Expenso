@@ -1,7 +1,6 @@
 package dev.spikeysanju.expensetracker.view.main
 
 import android.os.Bundle
-import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.lifecycle.lifecycleScope
@@ -9,31 +8,16 @@ import androidx.navigation.NavController
 import androidx.navigation.fragment.NavHostFragment
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.setupActionBarWithNavController
-import dagger.hilt.android.AndroidEntryPoint
 import dev.spikeysanju.expensetracker.R
-import dev.spikeysanju.expensetracker.data.local.datastore.UIModeImpl
 import dev.spikeysanju.expensetracker.databinding.ActivityMainBinding
-import dev.spikeysanju.expensetracker.repo.TransactionRepo
-import dev.spikeysanju.expensetracker.services.exportcsv.ExportCsvService
-import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 import kotlinx.coroutines.flow.collect
-import javax.inject.Inject
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
-@AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     private lateinit var navHostFragment: NavHostFragment
     private lateinit var appBarConfiguration: AppBarConfiguration
-
-    @Inject
-    lateinit var repo: TransactionRepo
-    @Inject
-    lateinit var exportCsvService: ExportCsvService
-    @Inject
-    lateinit var themeManager: UIModeImpl
-    private val viewModel: TransactionViewModel by viewModels {
-        viewModelFactory { TransactionViewModel(this.application, repo, exportCsvService) }
-    }
+    val viewModel: TransactionViewModel by viewModel()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

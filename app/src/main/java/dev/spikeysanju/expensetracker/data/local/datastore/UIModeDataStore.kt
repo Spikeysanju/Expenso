@@ -6,7 +6,6 @@ import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
-import javax.inject.Singleton
 
 val Context.themePrefDataStore by preferencesDataStore("ui_mode_pref")
 
@@ -33,7 +32,6 @@ class UIModeDataStore(context: Context) : UIModeImpl {
     }
 }
 
-@Singleton
 interface UIModeImpl {
     val uiMode: Flow<Boolean>
     suspend fun saveToDataStore(isNightMode: Boolean)
