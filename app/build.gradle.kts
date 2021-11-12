@@ -99,7 +99,7 @@ dependencies {
     implementation("androidx.appcompat:appcompat:1.4.0-rc01")
 
     // Lottie Animation Library
-    implementation("com.airbnb.android:lottie:4.2.0")
+    implementation("com.airbnb.android:lottie:4.2.1")
 
     // Hilt
     implementation("com.google.dagger:hilt-android:2.39.1")
