@@ -102,7 +102,7 @@ dependencies {
     implementation("com.airbnb.android:lottie:4.2.0")
 
     // Hilt
-    implementation("com.google.dagger:hilt-android:2.39.1")
+    implementation("com.google.dagger:hilt-android:2.40.5")
     kapt("com.google.dagger:hilt-android-compiler:2.39.1")
     kapt("androidx.hilt:hilt-compiler:1.0.0")
 
