@@ -15,7 +15,6 @@ import dev.spikeysanju.expensetracker.data.local.datastore.UIModeImpl
 import dev.spikeysanju.expensetracker.databinding.ActivityMainBinding
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
 import dev.spikeysanju.expensetracker.services.exportcsv.ExportCsvService
-import dev.spikeysanju.expensetracker.utils.viewModelFactory
 import dev.spikeysanju.expensetracker.view.main.viewmodel.TransactionViewModel
 import kotlinx.coroutines.flow.collect
 import javax.inject.Inject
@@ -31,9 +30,7 @@ class MainActivity : AppCompatActivity() {
     lateinit var exportCsvService: ExportCsvService
     @Inject
     lateinit var themeManager: UIModeImpl
-    private val viewModel: TransactionViewModel by viewModels {
-        viewModelFactory { TransactionViewModel(this.application, repo, exportCsvService) }
-    }
+    private val viewModel: TransactionViewModel by viewModels()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

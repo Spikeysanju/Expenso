@@ -1,12 +1,11 @@
 package dev.spikeysanju.expensetracker.view.main.viewmodel
 
-import android.app.Application
 import android.net.Uri
 import android.util.Log
-import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import dagger.hilt.android.lifecycle.HiltViewModel
-import dev.spikeysanju.expensetracker.data.local.datastore.UIModeDataStore
+import dev.spikeysanju.expensetracker.data.local.datastore.UIModeImpl
 import dev.spikeysanju.expensetracker.model.Transaction
 import dev.spikeysanju.expensetracker.repo.TransactionRepo
 import dev.spikeysanju.expensetracker.services.exportcsv.ExportCsvService
@@ -28,10 +27,10 @@ import javax.inject.Inject
 
 @HiltViewModel
 class TransactionViewModel @Inject constructor(
-    application: Application,
     private val transactionRepo: TransactionRepo,
-    private val exportService: ExportCsvService
-) : AndroidViewModel(application) {
+    private val exportService: ExportCsvService,
+    private val uiModeDataStore: UIModeImpl
+) : ViewModel() {
 
     // state for export csv status
     private val _exportCsvState = MutableStateFlow<ExportState>(ExportState.Empty)
@@ -46,9 +45,6 @@ class TransactionViewModel @Inject constructor(
     // UI collect from this stateFlow to get the state updates
     val uiState: StateFlow<ViewState> = _uiState
     val detailState: StateFlow<DetailState> = _detailState
-
-    // init datastore
-    private val uiModeDataStore = UIModeDataStore(application)
 
     // get ui mode
     val getUIMode = uiModeDataStore.uiMode
