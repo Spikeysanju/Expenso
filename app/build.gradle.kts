@@ -75,7 +75,7 @@ dependencies {
     implementation("androidx.room:room-ktx:2.3.0")
 
     // Coroutines
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.6.4")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2-native-mt")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-play-services:1.5.2-native-mt")
 
